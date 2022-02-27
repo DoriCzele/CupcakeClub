@@ -6697,6 +6697,22 @@ html {
   }
 }
 
+
+.btn-social {
+  border-radius: 100%;
+  display: inline-flex;
+  width: 3.25rem;
+  height: 3.25rem;
+  font-size: 1.25rem;
+  justify-content: center;
+  align-items: center;
+  color: var(--bs-gray-500);
+}
+
+.btn-social:hover {
+  color:white;
+}
+
 .footer {
   padding-top: 1rem;
   padding-bottom: 1rem;
