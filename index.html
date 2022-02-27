@@ -338,42 +338,14 @@
         </div>
       </div>
     </section>
-    <!-- About Section-->
-    <section class="page-section bg-primary text-white mb-0" id="about">
+    
+
+
+    
+    <!-- New Recipe Section-->
+    <section class="page-section" id="newrecipe">
       <div class="container">
-        <!-- About Section Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-white">
-          About
-        </h2>
-        <!-- Icon Divider-->
-        <div class="divider-custom divider-light">
-          <div class="divider-custom-line"></div>
-          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-          <div class="divider-custom-line"></div>
-        </div>
-        <!-- About Section Content-->
-        <div class="row">
-          <div class="col-lg-4 ms-auto">
-            <p class="lead">
-              What is a cupcake? <br>
-              "When a muffin is consumed by magic. When a muffin and a unicorn fall in love they have cupcake."
-              by Sarah D.
-            </p>
-          </div>
-          <div class="col-lg-4 me-auto">
-            <p class="lead">
-              Write your favourite cupcake recipes to share them with other Cupcake Club members. 
-              Browse and find various cupcake recipes. 
-            </p>
-          </div>
-        </div>
-        </div>
-      </div>
-    </section>
-    <!-- Contact Section-->
-    <section class="page-section" id="contact">
-      <div class="container">
-        <!-- Contact Section Heading-->
+        <!-- New Recipe Section Heading-->
         <h2
           class="
             page-section-heading
@@ -381,100 +353,131 @@
             mb-0
           "
         >
-          Contact Me
+          Share your recipe here!
         </h2>
-        <!-- Icon Divider-->
-        <div class="divider-custom">
-          <div class="divider-custom-line"></div>
-          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-          <div class="divider-custom-line"></div>
-        </div>
-        <!-- Contact Section Form-->
-        <div class="row justify-content-center">
-          <div class="col-lg-8 col-xl-7">
-            <!-- * * * * * * * * * * * * * * *-->
-            <!-- * * SB Forms Contact Form * *-->
-            <!-- * * * * * * * * * * * * * * *-->
-            <!-- This form is pre-integrated with SB Forms.-->
-            <!-- To make this form functional, sign up at-->
-            <!-- https://startbootstrap.com/solution/contact-forms-->
-            <!-- to get an API token!-->
-            <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-              <!-- Name input-->
-              <div class="form-floating mb-3">
+        <br>
+
+  <!-- New recipe form -->
+
+  <div class="row card-panel form-style" id="recipe-upload-form">
+    <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
+      <div class="row">
+        <div class="input-field col s12">
                 <input
-                  class="form-control"
-                  id="name"
+            id="cupcake-name"
+            name="cupcake-name"
                   type="text"
-                  placeholder="Enter your name..."
-                  data-sb-validations="required"
                 />
-                <label for="name">Full name</label>
-                <div class="invalid-feedback" data-sb-feedback="name:required">
-                  A name is required.
+          <label for="cupcake-name">Cupcake name</label>
                 </div>
               </div>
-              <!-- Email address input-->
-              <div class="form-floating mb-3">
+      <div class="row"></div>
+      <div class="row">
+        <div class="input-field col s12" id="ingredient-section">
                 <input
-                  class="form-control"
-                  id="email"
-                  type="email"
-                  placeholder="name@example.com"
-                  data-sb-validations="required,email"
+            id="ingredients"
+            name="ingredients"
+            type="text"
                 />
-                <label for="email">Email address</label>
-                <div class="invalid-feedback" data-sb-feedback="email:required">
-                  An email is required.
+          <label for="ingredients">Ingredients</label>
+          <!--New ingredients are added here-->
+          <div id="ingredient-insert"></div>
                 </div>
-                <div class="invalid-feedback" data-sb-feedback="email:email">
-                  Email is not valid.
+        <div>
+          <div class="row">
+            <span class="button-div">
+              <button
+                type="button"
+                id="next-ingredient-button"
+                class="btn-large positive-button-style"
+              >
+                Add ingredient
+              </button>
+            </span>
+            <span class="button-div">
+              <button
+                type="button"
+                id="delete-ingredient-button"
+                class="btn-large negative-button-style"
+              >
+                Delete ingredient
+              </button>
+            </span>
+              </div>
                 </div>
               </div>
-              <!-- Phone number input-->
-              <div class="form-floating mb-3">
-                <input
-                  class="form-control"
-                  id="phone"
-                  type="tel"
-                  placeholder="(123) 456-7890"
-                  data-sb-validations="required"
-                />
-                <label for="phone">Phone number</label>
-                <div class="invalid-feedback" data-sb-feedback="phone:required">
-                  A phone number is required.
-                </div>
-              </div>
-              <!-- Message input-->
-              <div class="form-floating mb-3">
+      <!--Steps and instructions -->
+      <div class="row">
+        <div class="input-field col s12" id="cooking-steps-section">
+          <label for="cooking_steps">Cooking instructions</label> <br>
                 <textarea
-                  class="form-control"
-                  id="message"
+            id="cooking_steps"
+            name="cooking_steps"
                   type="text"
-                  placeholder="Enter your message here..."
-                  style="height: 10rem"
-                  data-sb-validations="required"
+            minlength="5"
+            maxlength="5000"
                 ></textarea>
-                <label for="message">Message</label>
-                <div
-                  class="invalid-feedback"
-                  data-sb-feedback="message:required"
+          
+          
+        </div>
+        <div>
+          <div class="row step-buttons-div">
+            <span class="button-div">
+              <button
+                type="button"
+                id="next-step-button"
                 >
-                  A message is required.
+                Add step
+              </button>
+            </span>
+            <span class="button-div">
+              <button
+                type="button"
+                id="delete-step-button"
+               
+              >
+                Delete step
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!--Image URL-->
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+            id="image_url"
+            name="image_url"
+            type="text"
+          />
+          <label for="image_url">Image URL</label>
+        </div>
+      </div>
+  
+      <!--Submit button-->
+      <div class="row">
+      <div class="col s12 center-align">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Submit
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Recipe submitted</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <p>Thank you for sharing your recipe!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Close</button>
                 </div>
               </div>
-              <!-- Submit success message-->
-              <!---->
-              <!-- This is what your users will see when the form-->
-              <!-- has successfully submitted-->
-              <div class="d-none" id="submitSuccessMessage">
-                <div class="text-center mb-3">
-                  <div class="fw-bolder">Form submission successful!</div>
-                  To activate this form, sign up at
-                  <br />
-                  <a href="https://startbootstrap.com/solution/contact-forms"
-                    >https://startbootstrap.com/solution/contact-forms</a
-                  >
                 </div>
               </div>
               <!-- Submit error message-->
