@@ -74,17 +74,12 @@
                 >Share a recipe</a
               >
             </li>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about"
-                >About</a
-              >
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact"
-                >Contact</a
-              >
-            </li>
+          </li>
+          <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about"
+              >About</a
+            >
+          </li>
           </ul>
         </div>
       </div>
@@ -140,10 +135,10 @@
     </div>
   </div>
 </section>
-    <!-- Portfolio Section-->
-    <section class="page-section portfolio" id="portfolio">
+    <!-- Recipes Section-->
+    <section class="page-section portfolio" id="recipes">
       <div class="container">
-        <!-- Portfolio Section Heading-->
+        <!-- Recipes Section Heading-->
         <h2
           class="
             page-section-heading
@@ -151,7 +146,7 @@
             mb-0
           "
         >
-          Portfolio
+          Recipes
         </h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
@@ -361,6 +356,12 @@
         >
           Share your recipe here!
         </h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
         <br>
 
   <!-- New recipe form -->
@@ -369,33 +370,32 @@
     <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
       <div class="row">
         <div class="input-field col s12">
-                <input
+          <input
             id="cupcake-name"
             name="cupcake-name"
-                  type="text"
-                />
+            type="text"
+          />
           <label for="cupcake-name">Cupcake name</label>
-                </div>
-              </div>
+        </div>
+      </div>
       <div class="row"></div>
       <div class="row">
         <div class="input-field col s12" id="ingredient-section">
-                <input
+          <input
             id="ingredients"
             name="ingredients"
             type="text"
-                />
+          />
           <label for="ingredients">Ingredients</label>
           <!--New ingredients are added here-->
           <div id="ingredient-insert"></div>
-                </div>
+        </div>
         <div>
           <div class="row">
             <span class="button-div">
               <button
                 type="button"
                 id="next-ingredient-button"
-                class="btn-large positive-button-style"
               >
                 Add ingredient
               </button>
@@ -404,27 +404,23 @@
               <button
                 type="button"
                 id="delete-ingredient-button"
-                class="btn-large negative-button-style"
               >
                 Delete ingredient
               </button>
             </span>
-              </div>
-                </div>
-              </div>
+          </div>
+        </div>
+      </div>
       <!--Steps and instructions -->
       <div class="row">
         <div class="input-field col s12" id="cooking-steps-section">
           <label for="cooking_steps">Cooking instructions</label> <br>
-                <textarea
+          <textarea
             id="cooking_steps"
             name="cooking_steps"
-                  type="text"
-            minlength="5"
+            type="text"
             maxlength="5000"
-                ></textarea>
-          
-          
+          ></textarea>
         </div>
         <div>
           <div class="row step-buttons-div">
@@ -432,7 +428,7 @@
               <button
                 type="button"
                 id="next-step-button"
-                >
+              >
                 Add step
               </button>
             </span>
@@ -482,13 +478,13 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">Close</button>
-                </div>
-              </div>
-                </div>
-              </div>
-                </div>
-              </div>
-            </form>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+  </form>
   
 <!-- About Section-->
 <section class="page-section bg-primary text-white mb-0" id="about">
@@ -518,10 +514,10 @@
           Browse and find various cupcake recipes. 
         </p>
       </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
+    </div>
+  </div>
+</section>
 
 
     <!-- Footer-->
