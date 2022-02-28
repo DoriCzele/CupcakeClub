@@ -339,12 +339,7 @@
         </div>
       </div>
     </section>
-    
-
-
-    
     <!-- New Recipe Section-->
-    <section class="page-section" id="newrecipe">
       <div class="container">
         <!-- New Recipe Section Heading-->
         <h2
@@ -362,50 +357,48 @@
           <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
           <div class="divider-custom-line"></div>
         </div>
-        <br>
-
   <!-- New recipe form -->
-
+<section class="new-recipe">
   <div class="row card-panel form-style" id="recipe-upload-form">
     <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
       <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s12" id="cupcake-name">
+          <label for="cupcake-name">Cupcake name</label><br>
           <input
+          class="w3-input w3-border w3-round"
             id="cupcake-name"
             name="cupcake-name"
             type="text"
-          />
-          <label for="cupcake-name">Cupcake name</label>
+            placeholder="Cupcake name"
+          /><br>
         </div>
       </div>
-      <div class="row"></div>
       <div class="row">
         <div class="input-field col s12" id="ingredient-section">
+          <label for="ingredients">Ingredients</label> <br>
           <input
             id="ingredients"
             name="ingredients"
             type="text"
+            placeholder="Ingredient"
           />
-          <label for="ingredients">Ingredients</label>
           <!--New ingredients are added here-->
           <div id="ingredient-insert"></div>
         </div>
         <div>
           <div class="row">
             <span class="button-div">
-              <button
+              <button class="btn btn-primary"
                 type="button"
-                id="next-ingredient-button"
-              >
-                Add ingredient
+                >
+                +
               </button>
             </span>
             <span class="button-div">
-              <button
+              <button class="btn btn-primary"
                 type="button"
-                id="delete-ingredient-button"
               >
-                Delete ingredient
+                -
               </button>
             </span>
           </div>
@@ -416,29 +409,28 @@
         <div class="input-field col s12" id="cooking-steps-section">
           <label for="cooking_steps">Cooking instructions</label> <br>
           <textarea
-            id="cooking_steps"
             name="cooking_steps"
             type="text"
             maxlength="5000"
+            placeholder="Instructions"
           ></textarea>
         </div>
         <div>
           <div class="row step-buttons-div">
             <span class="button-div">
-              <button
+              <button class="btn btn-primary"
                 type="button"
-                id="next-step-button"
               >
-                Add step
+                +
               </button>
             </span>
             <span class="button-div">
-              <button
+              <button class="btn btn-primary"
                 type="button"
-                id="delete-step-button"
+                
                
               >
-                Delete step
+                -
               </button>
             </span>
           </div>
@@ -447,12 +439,12 @@
       <!--Image URL-->
       <div class="row">
         <div class="input-field col s12">
+          <label for="image_url">Image URL</label>
           <input
             id="image_url"
             name="image_url"
             type="text"
           />
-          <label for="image_url">Image URL</label>
         </div>
       </div>
   
@@ -485,6 +477,7 @@
         </div>
       </div>
   </form>
+</section>
   
 <!-- About Section-->
 <section class="page-section bg-primary text-white mb-0" id="about">

@@ -6697,6 +6697,16 @@ html {
   }
 }
 
+.new-recipe {
+  --bs-body-font-family: var(--bs-font-sans-serif);
+  font-size: 1.5rem;
+  --bs-body-font-weight: 400;
+  justify-content: center;
+  display: flex;
+  position: relative;
+  margin-left: 0.8rem;
+  margin-right: 0.8rem;
+}
 
 .btn-social {
   border-radius: 100%;
