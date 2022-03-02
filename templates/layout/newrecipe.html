@@ -1,0 +1,72 @@
+{% extends "layout/base.html" %}
+{% block content %}
+<section class="recipe-form">
+  <form>
+    <div class="container card p-3 bg-light">
+      <br>
+      <h2>Add your cupcake recipe here!</h2><br>
+      <div class="form-group">
+        <label for="recipeName" class="form-label">Recipe name</label>
+        <input type="name" class="form-control form-control-lg" id="recipeName" aria-describedby="recipeName"
+          placeholder="Name"><br>
+      </div>
+      <div class="form-group">
+        <label for="recipeName" class="form-label">Add ingredients</label>
+
+        <input type="name" class="form-control form-control-lg" id="ingredient" placeholder="Ingredient"><br>
+      </div>
+      <div class="form-group">
+        <label for="recipeName" class="form-label">Add instructions</label>
+        <input type="name" class="form-control form-control-lg" id="instruction" placeholder="Instruction"><br>
+      </div>
+
+      <p>Customise your recipe avatar!</p>
+
+      <!-- The original colour picker is made by Sjoerd de Boer and available at https://codepen.io/sjoerddeboer/pen/xxZqBQW -->
+      <label for="colourPicker" class="form-label">Colour picker</label>
+
+
+      <!--  You can add as much color-options as you want! No need to add css The JS will take care of styling the option -->
+      <!-- Value can be rgb, hex or html colors like 'red' -->
+      <div id="example" class="color-picker">
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#0d709a">
+          <span class="checkmark"></span>
+        </label>
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#1c9ebc">
+          <span class="checkmark"></span>
+        </label>
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#d71c4c">
+          <span class="checkmark"></span>
+        </label>
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#f69227">
+          <span class="checkmark"></span>
+        </label>
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#f7ce2b">
+          <span class="checkmark"></span>
+        </label>
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#ffff">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+
+      <script>
+        const colorSelects = document.getElementsByClassName("color-picker-option");
+        for (let colorSelect of colorSelects) {
+          const colorValue = colorSelect.children[0].value;
+          colorSelect.children[1].style.backgroundColor = colorValue;
+        };
+      </script>
+
+
+      <button type="submit" class="btn btn-primary">Submit</button><br>
+      <!-- onsubmit get color value of checked selection -->
+    </div>
+  </form>
+</section>
+{% endblock %}

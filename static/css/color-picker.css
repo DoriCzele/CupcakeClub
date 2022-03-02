@@ -1,0 +1,53 @@
+/* The original colour picker is made by Sjoerd de Boer and available at https://codepen.io/sjoerddeboer/pen/xxZqBQW */
+/* Colour picker */
+/* The container of each option */
+.color-picker-option {
+    display: inline;
+    position: relative;
+    margin: 5px 15px 5px 15px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* The container of all options */
+  .color-picker {
+    margin: 10px 0px 10px 0px;
+  }
+  
+  /* Hide the browser's default radio button */
+  .color-picker-option input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  /* Create a custom radio button */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 1px solid #e6e3e3;
+  }
+  
+  /* Style the indicator (dot/circle) when checked */
+  .color-picker-option input:checked ~ .checkmark {
+    margin-right: 5px;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 3px 0px 3px 3px;
+    border: 1px solid rgba(81, 203, 238, 1);
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .color-picker-option .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }

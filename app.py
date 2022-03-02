@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for
 
 app = Flask(__name__)
 
@@ -11,29 +11,66 @@ def temp_base_test():
     return render_template("layout/base.html")
 
 
-@app.route("/recipe")
-def temp_recipe_test():
-    return render_template("components/recipe.html")
+@app.errorhandler(404)
+def page_not_found(error):
+    return (
+        render_template(
+            "pages/error.html", status_code=404, error_prompt="Are you lost?"
+        ),
+        404,
+    )
 
 
-@app.route("/recipes")
-def temp_recipes_test():
-    recipes = [
-        {
-            id: 1,
-            "image_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Ice_cream_with_whipped_cream%2C_chocolate_syrup%2C_and_a_wafer_%28cropped%29.jpg/1200px-Ice_cream_with_whipped_cream%2C_chocolate_syrup%2C_and_a_wafer_%28cropped%29.jpg",
-        },
-        {
-            id: 2,
-            "image_src": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhUQEhIVFRUVGBcWFxUWFh0VFxUZFxUWFxoWFRUZHSggGBolGxgXITUhJSkrLi4uHR8zODMtNygtLisBCgoKDg0OGxAQGi0lHyYyLS4tLystLS0tLS0tLS0vLS8tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAQsAvQMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABAUBAwYCBwj/xABAEAABBAADBAcGAwYEBwAAAAABAAIDEQQSIQUxQVEGE2FxgZGhIiNSscHRMmLwFEJTcuHxJDOSsgcVFjRzgqL/xAAbAQEAAwEBAQEAAAAAAAAAAAAAAgMEAQUHBv/EADMRAAICAQIEBAUDAwUBAAAAAAABAhEhAzEEEkFRImFx8BOBkaHBMrHhBdHxIyRCgpIU/9oADAMBAAIRAxEAPwD7EiIvCLAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCpekUhjOGeCQDiYmOA3Fr8w1/XLkrpc30/cW4MyjfHJHIP/AFcPuuq+hp4NXrwj3df+sfk6MLKwH3qOOqyuGVbBERDoREQBERAEREAREQBERAEREAREQBERAERYQGVUdLIs2DxAP8Nx/wBPtfRUPTLpo/CP6uOIE0DmfZBu9GtDhu538iqDG/8AEXrcO+J0bc8jDHoCALFOqye1ScGsPc9fhP6XxUvh68Y+G091te9b/nyPofR+fPhcO87zDHffkF+tqxXyzo10/GHwsMEkDnPaCGkPAzDMSOFCgQF1+wOljcTTXNETj+6ZM/gTlau8km8Iq4n+m8Rp80+Tw2842vtdnSIiKB5oREQBERAEREAREQBERAEREAREQBERAFF2jPkjc/kLvkOJ8l7ZimFzmNe0uZ+IAjM3vHBUXT+cxYWwaBJaeRzRyaX+tyu0tOT8SWFk08LoPV14aTVW19zgekkRxQOIaaYw5BnNF2psgHQVoPA2uIeuj2piWTa25rQw0xrQXOdms5taF6G7PcquPYmJkJywPNVdsLavQb6U3L4jtLPWs38uh+8038LT5ZOktk8Uu19e/lZXg8Fc7LxhY4GyveC6I4iRzmuDYsrOsGc5LbmygNq7N+XGlTNxFGsqrjJc7jeVuu17F+jr6cuZJp7bZ32P0NsDG9dh45TqSNe8GifRWK4LoD0ga3DRscx3tPcARruym68T5Lu2usWNxTVg076PY+fcboPR15Rqlbr0s9IiKoyBERAEREAREQBERAEREARFrnmaxpe40BqSjdHUm3SMveBvIB1oE1dclRydKYc74wTma292+61Buv0Fp224SEUakIyMs227uxzNfVcR05mczE5YyG5nZK5tacosjXcCvSXDLSjGU1nz89vpsz0/6bwmlxOrLTldxSynGk+qxbtKrtLdVZ0UGP6+ao2059CSUgFwZms2aArQDtUnZm1QySTOQ2J5NX+HN2k7yQtmM2S7DYRkkLDIYwXvbxlLmgZzxIa3NQ7tDuNJshjMYw1YG+gdR5ilt0otUpUnnC8v8/M1/wC11eaSj4Y+G6yuZ5q+/KnXRJLodENn4U0+OKIa3maxoquN1pSgdJNswtibFE8OObM4jsHE81F2/HFFho4oiWiyKqpC4fF3b/EUuLlYDoH0e36qMpV4Yr39irT+HqSfibcXtX0vz60tsdzvOvinhjaQS8fgI3gu3geK57H7PiMpZPG0yN0zWRY3i6Ovirvov1UTGuc/M+t/Lu5LdtlsE9vc056oOaadoPXuUpwvNKzsNR6cqjzVnKu89vLe/qUWAmZEaiAa0EigSdONAnTwXR7BMz8WHGSTqmxuI/hvzHd/OLujy8Vx8EcgcCwtLWh2lWbGuoHErfJjpnRujjc5mY6Gy0tIPDisaktaLhHC6NZTfXreHuV8RpfEbum8ZfTt9PeaPrSL5LszpnjoPZlikkaZGszSB1ZW232DV2dDmNjTiSvoPRfarsTBnka1sgc5r2NumkE1v7KWDU0nDdr373PLlpyjv76e78u5coiKsgEREAREQBERAEREAWqa9MrQ63NBB4C9Stqi417QA1zg0PLRqau/3RfEq3Rg5zSXujsVJvwq32/wUjsMJn+9jcDG/wBk2Wg66acdVz/TTZ7Yp/2i/ZlLTTvaAJdZy8QbF2FZHa8rS977kYLoV7QObg7gAL0O/sV7tXZrZ4Ku6p7Xje01vH9F7WrL40fNbX09P4Pa0Jw4Xibqk3UuVPNqL3ay9rq+y2IGA2g+SMRskzF2ofXst45brXQjvWnFdHnQu63BgBx9p8bj7LrNuLNdDv03KkhEmEiMWYkxlz2k6WbGh5jS1uwfSIHFg9ZmbMwGm3lY7Q0fMi+NLz9KctHUhp6jlKU7dt7NLZLZL79XbKo6MtKTjpJ8kVVtWp+Td3dU3fe023azjdvYd7Sye2U7KbHtNI0N8uSiz4OKENlY5ga0hxL2583LW+dcCpHS/o9HifesAbONbboJNNzr0vkf0Obwxe2IQStzXdscczgGnj3aL0NXUg6jJZeL7vtjbHmT4fSlTm5eFP8ASllRrfNp5voqVFiYpHSPmEkbw8VlG4ciCoX/ACyf+MA3kWl2v82bctbJ2s0aMvYtT9pubZB5V639Fn0+F0dLMVWEt3VLbF0TjqTT8P7FkNmuI9qXN2EkD0UTCbPfHL1rp9RoA1m5o/dDidy8N208gcDxut/YsjaznaaHsoFX80Va7+/bVPzKtfR+LSmrSafla2LXacPXBobJVOzW4WCKNjTdpeq6ro7tqKmwHKw0ALItztG1Y/ETzXHQGR2hDQDzAr0C3YeHD4MnFvDn04O6tuozWNRmNjhyGip4jT+JDEVfd9vX9t/Qy6sF7fr029dvtR9RRRNl41s8Mc7QQ2RocAd4sbipa8hmFNNWgiIuHQiIgCIiAIiIAqx0bcQ/K+N7DE+2OOgdTgQ5p4js7FZqu2njwwxxagyuyh3wk6A+dLVwb/1M9i/h1NyqC8XR21Xd/S78tsnLdIoZYpOpbfVyFxLwLIAugL48OO9ToZJ58K1sUXVgHqwHO9toZQz8LtdC/DtljAcc2mjuPeqg4tsQBYTJqWuy65a+LlpW/mvYlHm03G6zv28vR1+9UXzlHiJKE8tquV3yum3zYpqVYbtbRsl47CxuZ1chDntZq4jR2le0e21wW1CIT1bYgyQbwKcDetse0AEeAPYul6x7+t694dE4W1rRkcKvQkLRgWwS++ay9C12fXca1B04Kjmm5uEqXat663axnan65NnBuUdLm1Iv0dYfybXfGelMrZMY2ERiQyDNVO3i6Gl/ZSMTA14zCia37iR2nisdIcCMQwN60sy1Qq2mhQ48lQNjxMJa2usZRt7TZHLS731wRyceZyVrpSz6UuxZBfESyk82m8eVN0rroMVhJC8gAVpvNcdd2/RaHbJ1vLd/n0HhxWxmPlJ9qM94+y0z4sjmkYQfjV57/wBnsRnKUfDjHb+CW3ZDMucjQcL9a5LMWDhJGUEnlf2VLLtJw3E2tku1CCCxxdpqXVxAJA41fyUZKST5avpaf3rLM8tZqSi7zfesd90vK6voXmG2hC0uaXMblBJze1RFWCOam7M22JmDq2auAoAbydCAB2ri88d5zG2+JBLbJ4kA0TqVP2e9hdH1TXsyE5RG7RxPEggknxU4yneyGpp6cldyv5Vs9+uT630fwT4ogJHkudRLTuYfhCtFSdGcfI9roZYJonQZWZpBYkFaOa/c46a1zHcrtePq8zm3LfyPLtPKCIirAREQBERAEREAXgx26yvaEUtfBOtSyUXTOX2w18ZIbI5jC4P9mrIBzZQSNLrgpuyMXh5WuELQ3M45mgAOzaAlwHGq9FY43CNkbTuHHiFxrY+okkbHAWufueTYAu9DwvTctmvrT0n4IuVrZd1XXZPsn0TZ6kFpcRp1L9cdnj523Xl9C+x+zw32mGgPTv7FXzE9U9rav4gN2/TT9blPwL5BE0SEOeB7RHHttU20cHE9xcwmKTfmYcoJ/MBv71qc2lle/wBjsafhm7rrv+UynmEjBvJNEb95rRUOLx2LiIaGF5oFxIy68hXLd2q8xODkb+J2YDc7eP7qNiIuOqnz3Bx5V69SGroXqrUU3jov0vfdfPy2XZFb/wBQyNPvoHDTU1Y81sb0gw7t9t722PMLE+Jy6cON8e9U+K6pxJcweHs+dUs7bj1LPC+n0L4RRSe00scOwg+fJbX7GYY+tABabOh1ABqyFyAhhBsOcw8wb9RRV5s+LrG9W3EFzTvbm89DqilfQrnCsxl9bPWKwsdANLRX4q1PCgvWw8Q+DEGdrxQYWsa5mZrXkaPIvh2aqwj2G1o1s+K3bEhZHPmMbJG6WHi67R58VHVwtrOPU8LXQ+kbCnc+CN75GyOIsvY0hpNnc06it3grBaMJK1zAWAAchpXZQW9ePP8AUzzW7dhERROBERAEREAREQBm9epAvC1Sy5Rfd3rfwrXI/UJZNeJFgiz4FQWYYakXW6jrfaLU18gvL4rxI7RaMt3ZaptYKbaEDurcxri0niN446KorIynuzUK13neugxKiTRjxSMnGTlWWXx12lRzn7QKJ1bp213clWyYmQk3CS34h7J8jofRdPK0KPNHojnJ7YLP/ofY52aIO14ng4Uq2fDhp3C+zVdRK0KBJG1d+IyPxTl8RgnO0a2u0j5BRW9G3E3ZBveD9V2AIC8daAqpZ3I/FkR9mwTsABmc4Dg6nepFq8wMeXXj81WjE0pAx4ATmK5SbOy6P4v3mT4gfMC78rXRrjOhjS+V0h3Naa73EAegcuzWPiP1+/exRLcIiKg4EREAREQBERAYWnEtsLetU25X8PKpV3OrcrJSc18xp2EfoqBPiCI3VvBPru+vkrLEDfz/ABBVkzQXVwePUa/ceK0t599f5L4r36EGTGu6oPNXr5g1r4UtEu0HGFstDUHTtBIIWWstsjORDvMUfkFChbcD2/C813EA/MFRTf2LuVduv2E2NJhE1UCLruJaQPEKPtDFERiajRZfLQ/1WgknBkfC54+TvqteNk/wMY7CPVdT630sOKT2/wCVfI843ElsYl1ykXfjXzVfPjC1gkN5TuPO+C9bXk/wcbebgPr9FB2qfcwM5kny0+ql/Y4ltfd/RG3E47K1rjftbu1R5MWQQNbcL8Fr2iLfEz4W3/qP9As2DKTwaK8hr62lZIdDdHO45vy3rv13fNTcPDz1JABPaT9lX4X8Iv8Aedr8/nStsNqfE+mgXLQaPpPQ3D5YM/xuJ8BoPW1fKNs+Dq4mR/C0A99a+tqSsU5c0mzKERFABERAEREAREQBeXBelhdTp2CsxDK17fQ/oqpxLi0A/C70u/uugxTNCqjFx2HXxAP681t1I1sadOV7lOdJXDm1w8tfooWE3TDuPzVlK33jHcx820okMOsv8v1UE8/UudV9P3Kh3/bP/wDIf9rVD2gawcY5m/VTy33Eg/OfVrfsoe2I/cRj8rV1bfIsxzfP8Fdtce4hb4+dqNtNtyQs5N+Z/orLbkOkI/l+Sh4lt4nuH3Vn8FeKX/ZkNxvEOPAUPIBR4DbXu53/APR/qt0H4pX8s3pa8RMqMDmR9/ouPuRdbehJw4/D2An9eS6Lothc88TO0E9wtx9AqKNu/wAB+vVdr0Bgudz/AIGnzJDflag3SbITeD6AsrFpaxmUyiIgCIiAIiIAiIgCIiA0zhVWIb6gjy/srabcq/GtotPafXT6r0YLmgmTg6KXED/KdyI9HLXCypJG/lK34keyOxx+4WC33jz+U/JdjCvfkXylj6/uc/IPczdj/mB9lC2rrFD2tapzx7uXtc3w0KjY5lNhvUU2lBRx77lt5+f4I+22e3A3u+irRriJHch9ArXamuJjHIX5BVLHe1M7vUmskF+n5fkroDUTzz+pXtrfwN7z8gvLR7quZC3bnDsb9yo0HuboNaPNxPl/ddp0TxIiY48XEeQH3JXFwDcOz5q8wrqACjJYKdV4O8j2qDxW9m0AuNw8hVnA8qhxRQdIMYFsGKCoo3KQ1yhQLcYhehOqtrlsBXOUFwiIonQiIgCIiA8PVbj3at8FaqPNhWu13HmPstOjxHIuWWwTKPHVlOn7y0Yp1ZnflVhjdmyHdlcLvTQ+RVRtPDzUR1bhfHfp4LUtWD2Zamika33L3c3D9Base3/JHYFKxLXCIMyuu7PsnT07VE2jLb2kAkNHIpgvTIWIkzTl3wtP2VWdI3niSVKhjkJeTG+yKHsn7KNLs3EOblZC868q+ZXMHHJLqRH6MaF5dLRd3AfIK1j6M4p9e7y1zP2U7D9CXkkyO38AouUV1K3qIpYH2aG/Sgr3DNIAB30rbC9GgwUB48VNj2IeSqlqJlMpcxW4dWcAUuLZBClx7OpVuSIkaMLe0KS3BLaMIoWCM0LaAt7cMtgw65YJqIigdMLKIgCIiAIiIAiIgMFo5LWYG/CPJbUQGj9nbyHks/s4W5EBo/Zws/s4W5EBq6gJ1IW1F2weOrCzkXpFwHnKs0sogMUlLKIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiID/9k=",
-        },
-    ]
-    return render_template("layout/recipes.html", recipe_list=recipes)
+@app.errorhandler(403)
+def page_not_authorized(error):
+    return (
+        render_template(
+            "pages/error.html",
+            status_code=403,
+            error_prompt="You cannot access this page.",
+        ),
+        403,
+    )
 
 
-@app.route("/test")
-def temp_page_test():
-    return render_template("pages/test_page.html")
+@app.errorhandler(500)
+def page_server_error(error):
+    return (
+        render_template(
+            "pages/error.html",
+            status_code=500,
+            error_prompt="There has been an error somewhere!",
+        ),
+        500,
+    )
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        print("A form has been submitted")
+        pass
+    # "http://localhost:8000/login"
+    return render_template(
+        "pages/authentication.html",
+        auth_mode="Login",
+        alternative_auth_mode="Register",
+        alternative_auth_prompt="Create an account",
+        alternative_auth_link=url_for("register")
+    )
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        pass
+    return render_template(
+        "pages/authentication.html",
+        auth_mode="Register",
+        alternative_auth_mode="Login",
+        alternative_auth_prompt="Already a member?",
+        alternative_auth_link=url_for("login")
+    )
 
 
 if __name__ == "__main__":
