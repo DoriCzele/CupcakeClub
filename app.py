@@ -16,5 +16,10 @@ def temp_403_test():
     return render_template("layout/403.html")
 
 
+@app.route("/404")
+def temp_404_test():
+    return render_template("layout/404.html")    
+
+
 if __name__ == "__main__":
     app.run(host="localhost", port="8000", debug=True)
