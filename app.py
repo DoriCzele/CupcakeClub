@@ -21,5 +21,9 @@ def temp_404_test():
     return render_template("layout/404.html")    
 
 
+@app.route("/500")
+def temp_500_test():
+    return render_template("layout/500.html")
+
 if __name__ == "__main__":
     app.run(host="localhost", port="8000", debug=True)
