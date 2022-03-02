@@ -25,5 +25,11 @@ def temp_404_test():
 def temp_500_test():
     return render_template("layout/500.html")
 
+
+@app.route("/authentication")
+def temp_form_test():
+    return render_template("layout/authentication.html", new_user=True)
+
+
 if __name__ == "__main__":
     app.run(host="localhost", port="8000", debug=True)
