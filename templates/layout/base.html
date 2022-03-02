@@ -8,12 +8,15 @@
 	<meta name="author" content="" />
 	<title>The Cupcake Club</title>
 	<!-- Favicon-->
-	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="{{url_for('static', filename='img/favicon.ico')}}" />
 	<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
 	<!-- Google fonts-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Lato:400,700,400italic,700italic"
 		rel="stylesheet" type="text/css" />
 	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" />
+	<link href="{{url_for('static', filename='css/freelancer-styles.css')}}" rel="stylesheet" />
+	<link href="{{url_for('static', filename='css/color-picker.css')}}" rel="stylesheet" />
 	<link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
 </head>
 

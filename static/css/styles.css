@@ -34,6 +34,7 @@ h2{
     text-align: center;
 }
 
+/*Error pages*/
 .error-card{
     display: block;
     float: none;
@@ -44,3 +45,34 @@ h2{
     margin-right: 20%;
     text-align: center;
 }
+
+/*Recipe form */
+.recipe-form {
+    padding-top: 4rem;
+    display: block;
+    margin: 5%;
+    position: center;
+}
+
+@media (min-width: 768px){
+.recipe-form {
+    padding: 4rem;
+    display: block;
+    float: none;
+    position: center;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}}
+
+@media only screen and (min-width: 1024px) {
+    .recipe-form {
+        padding: 4rem;
+        display: block;
+        float: none;
+        position: center;
+        width: 40%;
+        margin-left: 30%;
+        margin-right: 30%;
+    } 
+} 
