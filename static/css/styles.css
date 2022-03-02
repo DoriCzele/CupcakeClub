@@ -1,6 +1,7 @@
 /* Registration/Log in form */
 
 .reg-form {
+    padding-top: 4rem;
     display: block;
     margin: 5%;
     position: center;
@@ -8,22 +9,24 @@
 
 @media (min-width: 768px){
 .reg-form {
+    padding: 4rem;
     display: block;
     float: none;
     position: center;
-    width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
 }}
 
 @media only screen and (min-width: 1024px) {
     .reg-form {
+        padding: 4rem;
         display: block;
         float: none;
         position: center;
-        width: 30%;
-        margin-left: 35%;
-        margin-right: 35%;
+        width: 40%;
+        margin-left: 30%;
+        margin-right: 30%;
     } 
 } 
 
