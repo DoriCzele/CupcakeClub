@@ -5,9 +5,9 @@
         <div class="row">
             <div>
                 <h2>Something's gone wrong!</h2><br>
-                <img src="/assets/img/sad-cupcake.png" alt="sad cupcake"><br>
-                <h2>Error 500</h2><br>
-                <p>There has been an error somewhere!</p> <br>
+                <img src="{{url_for('static', filename='img/sad-cupcake.png')}}" alt="sad cupcake"><br>
+                <h2>Error {{ status_code }}</h2><br>
+                <p>{{ custom_prompt }}</p> <br>
                 <p>Use either of the navigation bar links above, or the button provided to make your way back to your cupcakes.</p><br>
                 <button type="submit" class="btn btn-primary">Go back</button><br>
             </div>

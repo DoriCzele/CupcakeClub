@@ -11,19 +11,19 @@ def temp_base_test():
     return render_template("layout/base.html")
 
 
-@app.route("/403")
-def temp_403_test():
-    return render_template("layout/403.html")
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("pages/error.html", status_code=404, error_prompt="Are you lost?"), 404
 
 
-@app.route("/404")
-def temp_404_test():
-    return render_template("layout/404.html")    
+@app.errorhandler(403)
+def page_not_authorized(error):
+    return render_template("pages/error.html", status_code=403, error_prompt="You cannot access this page."), 403
 
 
-@app.route("/500")
-def temp_500_test():
-    return render_template("layout/500.html")
+@app.errorhandler(500)
+def page_server_error(error):
+    return render_template("pages/error.html", status_code=500, error_prompt="There has been an error somewhere!"), 500
 
 
 @app.route("/authentication")
