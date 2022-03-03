@@ -1,13 +1,15 @@
 import os
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, flash
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash
+
 if os.path.exists("env.py"):
     import env
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DB")
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 pymongo = PyMongo(app)
 
 
@@ -62,7 +64,7 @@ def login():
         current_auth_link=url_for("login"),
         alternative_auth_mode="Register",
         alternative_auth_prompt="Create an account",
-        alternative_auth_link=url_for("register")
+        alternative_auth_link=url_for("register"),
     )
 
 
@@ -72,20 +74,28 @@ def register():
         # check if both provided
         try:
             username = request.form.get("username").lower()
-            hashed_password = generate_password_hash(
-                request.form.get("password").lower())
-            user = {"username": username, "password": hashed_password}
+            password = request.form.get("password")
+            if username != "" and password != "":
+                hashed_password = generate_password_hash(password)
+                user = {"username": username, "password": hashed_password}
+                username_already_exists = pymongo.db.users.find_one(
+                    {"username": username}
+                )
+                if not username_already_exists:
+                    pymongo.db.users.insert_one(user)
+                    # redirect to homepage
+                    # return redirect(url_for("home"))
+                else:
+                    flash("That username is taken, please try another.")
         except Exception as exception:
-            print(exception)
-
-        pymongo.db.users.insert_one(user)
+            flash("There has been an error, please try again later.")
     return render_template(
         "pages/authentication.html",
         auth_mode="Register",
         current_auth_link=url_for("register"),
         alternative_auth_mode="Login",
         alternative_auth_prompt="Already a member?",
-        alternative_auth_link=url_for("login")
+        alternative_auth_link=url_for("login"),
     )
 
 
