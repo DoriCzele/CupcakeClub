@@ -52,6 +52,11 @@ def page_server_error(error):
     )
 
 
+@app.route("/")
+def home():
+    return render_template("pages/home.html")
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -97,6 +102,11 @@ def register():
         alternative_auth_prompt="Already a member?",
         alternative_auth_link=url_for("login"),
     )
+
+
+@app.route("/new-recipe")
+def new_recipe():
+    return render_template("pages/newrecipe.html")
 
 
 if __name__ == "__main__":
