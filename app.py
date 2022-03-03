@@ -1,9 +1,14 @@
 import os
 from flask import Flask, render_template, request, url_for
+from flask_pymongo import PyMongo
+from werkzeug.security import generate_password_hash
+if os.path.exists("env.py"):
+    import env
 
 app = Flask(__name__)
-
-# http://localhost:8000/base
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DB")
+pymongo = PyMongo(app)
 
 
 @app.route("/base")
@@ -54,6 +59,7 @@ def login():
     return render_template(
         "pages/authentication.html",
         auth_mode="Login",
+        current_auth_link=url_for("login"),
         alternative_auth_mode="Register",
         alternative_auth_prompt="Create an account",
         alternative_auth_link=url_for("register")
@@ -63,10 +69,20 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        pass
+        # check if both provided
+        try:
+            username = request.form.get("username").lower()
+            hashed_password = generate_password_hash(
+                request.form.get("password").lower())
+            user = {"username": username, "password": hashed_password}
+        except Exception as exception:
+            print(exception)
+
+        pymongo.db.users.insert_one(user)
     return render_template(
         "pages/authentication.html",
         auth_mode="Register",
+        current_auth_link=url_for("register"),
         alternative_auth_mode="Login",
         alternative_auth_prompt="Already a member?",
         alternative_auth_link=url_for("login")

@@ -1,19 +1,19 @@
 {% extends "layout/base.html" %}
 {% block content %}
 <section class="reg-form">
-  <form>
+  <form action="{{ current_auth_link }}" method="POST">
     <div class="container card p-3 bg-light">
       <br>
       <h2>{{ auth_mode }}</h2><br>
       <div class="form-group">
-        <input type="name" class="form-control form-control-lg" id="name" aria-describedby="emailHelp"
-          placeholder="Enter name"><br>
+        <input name="username" type="username" class="form-control form-control-lg" id="username" placeholder="Enter username"><br>
       </div>
       <div class="form-group">
-        <input type="password" class="form-control form-control-lg" id="password" placeholder="Enter password"><br>
+        <input name="password" type="password" class="form-control form-control-lg" id="password" placeholder="Enter password"><br>
       </div>
       <button type="submit" class="btn btn-primary">{{ auth_mode }}</button><br>
-      <p>{{ alternative_auth_prompt }}<a href="{{ alternative_auth_link }}" class="link-info">{{ alternative_auth_mode }}</a></p>
+      <p>{{ alternative_auth_prompt }}<a href="{{ alternative_auth_link }}"
+          class="link-info">{{ alternative_auth_mode }}</a></p>
     </div>
   </form>
 </section>
