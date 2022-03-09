@@ -1,3 +1,4 @@
 *env
 env.py
 .DS_STORE
+__pycache__/

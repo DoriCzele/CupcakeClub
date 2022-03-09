@@ -1,7 +1,8 @@
 import os
-from flask import Flask, render_template, request, url_for, flash
+from flask import Flask, render_template, request, url_for, flash, redirect, session
 from flask_pymongo import PyMongo
-from werkzeug.security import generate_password_hash
+from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 
 if os.path.exists("env.py"):
     import env
@@ -12,6 +13,8 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DB")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 pymongo = PyMongo(app)
 
+
+GENERIC_ERROR_MESSAGE = "There has been an error, please try again later."
 
 @app.route("/base")
 def temp_base_test():
@@ -46,7 +49,7 @@ def page_server_error(error):
         render_template(
             "pages/error.html",
             status_code=500,
-            error_prompt="There has been an error somewhere!",
+            error_prompt=GENERIC_ERROR_MESSAGE,
         ),
         500,
     )
@@ -60,9 +63,20 @@ def home():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        print("A form has been submitted")
-        pass
-    # "http://localhost:8000/login"
+        try:
+            username = request.form.get("username").lower()
+            password = request.form.get("password")
+            db_user = pymongo.db.users.find_one({"username": username})
+            if db_user is None:
+                flash("This user does not exist. Please check your details and try again.")
+                return redirect(url_for("login"))
+            if check_password_hash(db_user["password"], password):
+                session["user"] = str(db_user["_id"])
+                flash(f"Welcome back {username}!")
+                return redirect(url_for("home"))
+            flash("Incorrect credentials. Please check your details and try again.")
+        except Exception as exception:
+            flash(GENERIC_ERROR_MESSAGE)
     return render_template(
         "pages/authentication.html",
         auth_mode="Login",
@@ -82,18 +96,18 @@ def register():
             password = request.form.get("password")
             if username != "" and password != "":
                 hashed_password = generate_password_hash(password)
-                user = {"username": username, "password": hashed_password}
+                user = {"username": username, "password": hashed_password, "is_admin":False}
                 username_already_exists = pymongo.db.users.find_one(
                     {"username": username}
                 )
                 if not username_already_exists:
                     pymongo.db.users.insert_one(user)
-                    # redirect to homepage
-                    # return redirect(url_for("home"))
+                    flash("Welcome to The Cupcake Club!")
+                    return redirect(url_for("home"))
                 else:
                     flash("That username is taken, please try another.")
         except Exception as exception:
-            flash("There has been an error, please try again later.")
+            flash(GENERIC_ERROR_MESSAGE)
     return render_template(
         "pages/authentication.html",
         auth_mode="Register",
