@@ -131,6 +131,27 @@ def logout():
 
 @app.route("/create-recipe")
 def new_recipe():
+    if not bool("user" in session):
+        return redirect(url_for("login"))
+    if request.method == "POST":
+        try:
+            recipe_name = request.form.get("name").lower()
+            # Need to write lists to database
+            # ingredients =
+            # instructions =
+            color = request.form.get("radio")
+
+            recipe = {
+                "name": recipe_name,
+                # "ingredients": ingredients,
+                # "instructions": instructions,
+                "color": color,
+                "author": session["user"]
+            }
+            pymongo.db.recipes.insert_one(recipe)
+            # After successful create recipe, redirect to recipe detail
+        except Exception as exception:
+            flash(GENERIC_ERROR_MESSAGE)
     return render_template("pages/edit-recipe.html")
 
 
