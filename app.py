@@ -129,9 +129,9 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/new-recipe")
+@app.route("/create-recipe")
 def new_recipe():
-    return render_template("pages/newrecipe.html")
+    return render_template("pages/edit-recipe.html")
 
 
 if __name__ == "__main__":

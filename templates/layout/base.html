@@ -16,7 +16,9 @@
 	<!-- Core theme CSS (includes Bootstrap)-->
 	<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" />
 	<link href="{{url_for('static', filename='css/freelancer-styles.css')}}" rel="stylesheet" />
-	<link href="{{url_for('static', filename='css/color-picker.css')}}" rel="stylesheet" />
+	<!-- Conditionally required CSS for a specific page -->
+	{% block css %}
+	{% endblock %}
 	<link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
 </head>
 
