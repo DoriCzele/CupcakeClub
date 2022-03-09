@@ -40,10 +40,16 @@ h2{
     float: none;
     position: center;        
     width: 60%;
-    padding-top: 15%;
+    padding-top: 10%;
     margin-left: 20%;
     margin-right: 20%;
     text-align: center;
+}
+
+
+#sad-cupcake{
+    width: 30%;
+    margin-bottom: 5%;
 }
 
 /*Recipe form */
