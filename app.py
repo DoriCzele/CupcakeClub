@@ -129,21 +129,23 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/create-recipe")
+@app.route("/create-recipe", methods=["GET", "POST"])
 def new_recipe():
     if not bool("user" in session):
         return redirect(url_for("login"))
     if request.method == "POST":
         try:
             recipe_name = request.form.get("name").lower()
-            # Need to write lists to database
-            # ingredients =
+            ingredients = []
+            for key, value in request.form.items():
+                if key.startswith("ingredient"):
+                    ingredients.append(value)
             # instructions =
             color = request.form.get("radio")
 
             recipe = {
                 "name": recipe_name,
-                # "ingredients": ingredients,
+                "ingredients": ingredients,
                 # "instructions": instructions,
                 "color": color,
                 "author": session["user"]

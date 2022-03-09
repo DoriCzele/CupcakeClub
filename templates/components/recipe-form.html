@@ -5,7 +5,7 @@
       <h2>Add your cupcake recipe here!</h2><br>
       <div class="form-group">
         <label for="recipeName" class="form-label">Recipe name</label>
-        <input type="name" class="form-control form-control-lg" id="recipeName" aria-describedby="recipeName"
+        <input name="name" type="name" class="form-control form-control-lg" id="recipeName" aria-describedby="recipeName"
           placeholder="Name"><br>
       </div>
       <div class="form-group" id="ingredients-input">
@@ -14,7 +14,7 @@
 				<!-- Dynamically add to ingredients list in recipe-form.js -->
 				<template id="ingredient-template">
 					<div class="input-group">
-						<input name="ingredient" class="form-control form-control-lg" readonly required />
+						<input class="form-control form-control-lg" readonly required />
 						<button type="button" class="btn btn-outline-warning">Edit</button>
 						<button type="button" class="btn btn-outline-danger">Delete</button>
 					</div>
