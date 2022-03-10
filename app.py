@@ -1,7 +1,6 @@
 import os
 from flask import Flask, render_template, request, url_for, flash, redirect, session
 from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 
 if os.path.exists("env.py"):
@@ -15,10 +14,6 @@ pymongo = PyMongo(app)
 
 
 GENERIC_ERROR_MESSAGE = "There has been an error, please try again later."
-
-@app.route("/base")
-def temp_base_test():
-    return render_template("layout/base.html")
 
 
 @app.errorhandler(404)
@@ -129,9 +124,34 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/new-recipe")
+@app.route("/create-recipe", methods=["GET", "POST"])
 def new_recipe():
-    return render_template("pages/newrecipe.html")
+    if not bool("user" in session):
+        return redirect(url_for("login"))
+    if request.method == "POST":
+        try:
+            recipe_name = request.form.get("name").lower()
+            ingredients = []
+            instructions = []
+            for key, value in request.form.items():
+                if key.startswith("ingredient"):
+                    ingredients.append(value.lower())
+                if key.startswith("instruction"):
+                    instructions.append(value.lower())
+            color = request.form.get("radio").replace("#","")
+
+            recipe = {
+                "name": recipe_name,
+                "ingredients": ingredients,
+                "instructions": instructions,
+                "color": color,
+                "author": session["user"]
+            }
+            pymongo.db.recipes.insert_one(recipe)
+            # After successful create recipe, redirect to recipe detail
+        except Exception as exception:
+            flash(GENERIC_ERROR_MESSAGE)
+    return render_template("pages/edit-recipe.html")
 
 
 if __name__ == "__main__":

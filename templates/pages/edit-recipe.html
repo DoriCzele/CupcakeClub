@@ -1,0 +1,11 @@
+{% extends "layout/base.html" %}
+{% block css %}
+<link href="{{url_for('static', filename='css/color-picker.css')}}" rel="stylesheet" />
+{% endblock %}
+{% block content %}
+{% include "components/recipe-form.html" %}
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for ('static', filename='js/recipe-form.js')}}"></script>
+<script src="{{ url_for ('static', filename='js/form-colorpicker.js')}}"></script>
+{% endblock %}

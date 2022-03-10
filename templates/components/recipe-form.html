@@ -1,0 +1,76 @@
+<section class="recipe-form">
+  <form method="POST">
+    <div class="container card p-3 bg-light">
+      <br>
+      <h2>Add your cupcake recipe here!</h2><br>
+      <div class="form-group">
+        <label for="recipeName" class="form-label">Recipe name</label>
+        <input name="name" type="name" class="form-control form-control-lg" id="recipeName" aria-describedby="recipeName"
+          placeholder="Name"><br>
+      </div>
+      <div class="form-group" id="ingredients-input">
+        <label for="Ingredients" class="form-label">Ingredients</label>
+        <input type="name" class="form-control form-control-lg" id="ingredient-field" placeholder="Ingredient"><br>
+				<!-- Dynamically add to ingredients list in recipe-form.js -->
+				<template id="ingredient-template">
+					<div class="input-group">
+						<input class="form-control form-control-lg" readonly required />
+						<button type="button" class="btn btn-outline-warning">Edit</button>
+						<button type="button" class="btn btn-outline-danger">Delete</button>
+					</div>
+				</template>
+      </div>
+			<button id="add-ingredient" type="button" class="btn btn-primary mt-1">Add Ingredient</button><br>
+      
+      <div class="form-group" id="instructions-input">
+        <label for="Instructions" class="form-label">Instructions</label>
+        <input type="name" class="form-control form-control-lg" id="instruction-field" placeholder="Instruction"><br>
+        <!-- Dynamically add to instruction list in recipe-form.js -->
+				<template id="instruction-template">
+          <div class="input-group">
+            <input class="form-control form-control-lg" readonly required />
+						<button type="button" class="btn btn-outline-warning">Edit</button>
+						<button type="button" class="btn btn-outline-danger">Delete</button>
+					</div>
+				</template>
+      </div>
+      <button id="add-instruction" type="button" class="btn btn-primary mt-1">Add Instruction</button><br>
+
+      <p>Customise your recipe avatar!</p>
+
+      <!-- The original colour picker is made by Sjoerd de Boer and available at https://codepen.io/sjoerddeboer/pen/xxZqBQW -->
+      <label for="colourPicker" class="form-label">Colour picker</label>
+
+
+      <!--  You can add as much color-options as you want! No need to add css The JS will take care of styling the option -->
+      <!-- Value can be rgb, hex or html colors like 'red' -->
+      <div id="color-picker" class="color-picker">
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#0d709a">
+          <span class="checkmark"></span>
+        </label>
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#1c9ebc">
+          <span class="checkmark"></span>
+        </label>
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#d71c4c">
+          <span class="checkmark"></span>
+        </label>
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#f69227">
+          <span class="checkmark"></span>
+        </label>
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#f7ce2b">
+          <span class="checkmark"></span>
+        </label>
+        <label class="color-picker-option">
+          <input class="color-radio" type="radio" checked="checked" name="radio" value="#ffff">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary">Save Recipe</button><br>
+    </div>
+  </form>
+</section>
