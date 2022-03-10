@@ -135,4 +135,4 @@ def new_recipe():
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port="8000", debug=True)
+    app.run(host=os.environ.get("HOST"), port=os.environ.get("PORT"), debug=os.environ.get("DEBUG"))
