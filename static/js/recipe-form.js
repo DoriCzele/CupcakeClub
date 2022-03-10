@@ -5,14 +5,29 @@ window.addEventListener("DOMContentLoaded", event => {
 		if (event.key == "Enter"){
 			event.preventDefault()
 			if (ingredientInputField.value !== ""){
-			addIngredientToList(ingredientInputField.value);
+				addIngredientToList(ingredientInputField.value);
 			}
 		}
 	})
 	const addIngredientButton = document.getElementById("add-ingredient")
 	addIngredientButton.addEventListener("click", function(){
 		if (ingredientInputField.value !== ""){
-		addIngredientToList(ingredientInputField.value)}
+			addIngredientToList(ingredientInputField.value)}
+		})
+	const instructionInputField = document.getElementById("instruction-field")
+	const addInstructionButton = document.getElementById("add-instruction")
+	instructionInputField.addEventListener("keypress", event => {
+		if (event.key == "Enter"){
+			event.preventDefault()
+			if (instructionInputField.value !== ""){
+			addInstructionToList(instructionInputField.value);
+			}
+		}
+	})
+	addIngredientButton.addEventListener("click", function(){
+		if (instructionInputField.value !== ""){
+			addInstructionToList(instructionInputField.value)
+		}
 	})
 })
 
@@ -42,11 +57,11 @@ function addIngredientToList(newIngredientName){
 	ingredientsInputSection.appendChild(ingredientTemplateClone);
 
 	// Add event listeners for the new edit/delete buttons
-	addDeleteEventListener(newInputGroupIncrement);
-	addEditEventListener(newInputGroupIncrement);
+	addDeleteIngredientEventListener(newInputGroupIncrement);
+	addEditIngredientEventListener(newInputGroupIncrement);
 }
 
-function addDeleteEventListener(incrementNumber){
+function addDeleteIngredientEventListener(incrementNumber){
 	const deleteIngredientButton = document.getElementById(`delete-ingredient-button-${incrementNumber}`)
 	deleteIngredientButton.addEventListener("click", function(event){removeItemFromList(event)})
 }
@@ -56,7 +71,7 @@ function removeItemFromList(event){
 	event.target.parentElement.remove()
 }
 
-function addEditEventListener(incrementNumber){
+function addEditIngredientEventListener(incrementNumber){
 	const editIngredientButton = document.getElementById(`edit-ingredient-button-${incrementNumber}`)
 	editIngredientButton.addEventListener("click", function(event){makeInputFieldWritable(event)})
 }
@@ -64,4 +79,44 @@ function addEditEventListener(incrementNumber){
 function makeInputFieldWritable(event){
 	// Remove the readonly attribute from related input field
 	event.target.parentElement.querySelector("input").readOnly = false;
+}
+
+function addInstructionToList(newInstructionName){
+	// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
+	const instructionsInputSection = document.getElementById("instructions-input");
+	const inputGroups = instructionsInputSection.querySelectorAll(".input-group");
+	const lastInputGroup = inputGroups[inputGroups.length-1];
+	// Increment the last instruction ID value if it exists
+	let newInputGroupIncrement = 0;
+	if (lastInputGroup){
+		newInputGroupIncrement = parseInt(lastInputGroup.querySelector("input").dataset.increment) + 1;
+	}
+
+	// Get input-group template and clone it
+	const instructionTemplate = document.getElementById("instruction-template");
+	const instructionTemplateClone = instructionTemplate.content.cloneNode(true);
+	const instructionTemplateCloneInput = instructionTemplateClone.querySelector("input");
+	instructionTemplateCloneInput.name = `instruction${newInputGroupIncrement}`;
+	instructionTemplateCloneInput.dataset.increment = newInputGroupIncrement;
+	instructionTemplateCloneInput.value = newInstructionName;
+	const instructionTemplateCloneButtons = instructionTemplateClone.querySelectorAll("button");
+	instructionTemplateCloneButtons[0].id = `edit-instruction-button-${newInputGroupIncrement}`
+	instructionTemplateCloneButtons[1].id = `delete-instruction-button-${newInputGroupIncrement}`
+
+	// Add input-group to instructions section in DOM
+	instructionsInputSection.appendChild(instructionTemplateClone);
+
+	// Add event listeners for the new edit/delete buttons
+	addDeleteInstructionEventListener(newInputGroupIncrement);
+	addEditInstructionEventListener(newInputGroupIncrement);
+}
+
+function addDeleteInstructionEventListener(incrementNumber){
+	const deleteInstructionButton = document.getElementById(`delete-instruction-button-${incrementNumber}`)
+	deleteInstructionButton.addEventListener("click", function(event){removeItemFromList(event)})
+}
+
+function addEditInstructionEventListener(incrementNumber){
+	const editInstructionButton = document.getElementById(`edit-instruction-button-${incrementNumber}`)
+	editInstructionButton.addEventListener("click", function(event){makeInputFieldWritable(event)})
 }

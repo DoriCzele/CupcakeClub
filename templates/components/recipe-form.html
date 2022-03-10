@@ -9,7 +9,7 @@
           placeholder="Name"><br>
       </div>
       <div class="form-group" id="ingredients-input">
-        <label for="recipeName" class="form-label">Ingredients</label>
+        <label for="Ingredients" class="form-label">Ingredients</label>
         <input type="name" class="form-control form-control-lg" id="ingredient-field" placeholder="Ingredient"><br>
 				<!-- Dynamically add to ingredients list in recipe-form.js -->
 				<template id="ingredient-template">
@@ -21,11 +21,20 @@
 				</template>
       </div>
 			<button id="add-ingredient" type="button" class="btn btn-primary mt-1">Add Ingredient</button><br>
-
-      <div class="form-group">
-        <label for="recipeName" class="form-label">Instructions</label>
-        <input type="name" class="form-control form-control-lg" id="instruction" placeholder="Instruction"><br>
+      
+      <div class="form-group" id="instructions-input">
+        <label for="Instructions" class="form-label">Instructions</label>
+        <input type="name" class="form-control form-control-lg" id="instruction-field" placeholder="Instruction"><br>
+        <!-- Dynamically add to instruction list in recipe-form.js -->
+				<template id="instruction-template">
+          <div class="input-group">
+            <input class="form-control form-control-lg" readonly required />
+						<button type="button" class="btn btn-outline-warning">Edit</button>
+						<button type="button" class="btn btn-outline-danger">Delete</button>
+					</div>
+				</template>
       </div>
+      <button id="add-instruction" type="button" class="btn btn-primary mt-1">Add Instruction</button><br>
 
       <p>Customise your recipe avatar!</p>
 
