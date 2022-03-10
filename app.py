@@ -14,6 +14,7 @@ pymongo = PyMongo(app)
 
 
 GENERIC_ERROR_MESSAGE = "There has been an error, please try again later."
+ALREADY_AUTHED_MESSAGE = "You are logged in!"
 
 
 @app.errorhandler(404)
@@ -58,6 +59,7 @@ def home():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if bool("user" in session):
+        flash(ALREADY_AUTHED_MESSAGE)
         return redirect(url_for("home"))
     if request.method == "POST":
         try:
@@ -87,6 +89,7 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if bool("user" in session):
+        flash(ALREADY_AUTHED_MESSAGE)
         return redirect(url_for("home"))
     if request.method == "POST":
         # check if both provided
