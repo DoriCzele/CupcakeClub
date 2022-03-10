@@ -43,6 +43,7 @@ function addIngredientToList(newIngredientName){
 
 	// Add event listeners for the new edit/delete buttons
 	addDeleteEventListener(newInputGroupIncrement);
+	addEditEventListener(newInputGroupIncrement);
 }
 
 function addDeleteEventListener(incrementNumber){
@@ -53,4 +54,14 @@ function addDeleteEventListener(incrementNumber){
 function removeItemFromList(event){
 	// Remove parent element (input-group) from DOM
 	event.target.parentElement.remove()
+}
+
+function addEditEventListener(incrementNumber){
+	const editIngredientButton = document.getElementById(`edit-ingredient-button-${incrementNumber}`)
+	editIngredientButton.addEventListener("click", function(event){makeInputFieldWritable(event)})
+}
+
+function makeInputFieldWritable(event){
+	// Remove the readonly attribute from related input field
+	event.target.parentElement.querySelector("input").readOnly = false;
 }
