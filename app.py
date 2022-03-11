@@ -156,6 +156,11 @@ def new_recipe():
             flash(GENERIC_ERROR_MESSAGE)
     return render_template("pages/edit-recipe.html")
 
+@app.route("/recipes")
+def recipes():
+    recipes = pymongo.db.recipes.find()
+    return render_template("layout/recipes.html", recipes=recipes)
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("HOST"), port=os.environ.get("PORT"), debug=os.environ.get("DEBUG"))
