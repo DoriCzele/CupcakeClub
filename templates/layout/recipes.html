@@ -5,12 +5,12 @@
 <section class="page-section portfolio" id="recipes">
   <div class="container">
     <!-- Recipes Section Heading-->
+    <br>
     <h2 class="
    page-section-heading
    text-center text-uppercase text-secondary
    mb-0
- ">
-      Recipes
+ ">Recipes
     </h2>
     <!-- Icon Divider-->
     <div class="divider-custom">
@@ -19,11 +19,14 @@
       <div class="divider-custom-line"></div>
     </div>
     <!-- Recipes Grid Items-->
+    <div>
     <div class="row justify-content-center">
       {% for recipe in recipes %}
-      {% include "components/recipe.html" %}
+      {% include "components/recipe-preview.html" %}
       {% endfor %}
     </div>
+    </div>
+    
   </div>
 </section>
 {% endblock %}

@@ -82,3 +82,29 @@ h2{
         margin-right: 30%;
     } 
 } 
+
+/* Recipe preview card */
+.card {
+    margin: 10%;
+    text-align: center;
+    border-radius: 5%;
+    width: 18rem;
+    box-shadow: 5px 10px 8px 10px #888888;
+    background-color: #a6b2d4;
+}
+
+.card-body {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: white;
+    border-radius: 10%;
+    box-shadow: 2.5px 5px 4px 5px #888888;
+}
+
+.recipe-body{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: white;
+    border-radius: 10%;
+    box-shadow: 2.5px 5px 4px 5px #888888;
+}
