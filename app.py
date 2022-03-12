@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, request, url_for, flash, redirect, session
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
+from bson import ObjectId
 
 if os.path.exists("env.py"):
     import env
@@ -179,6 +180,52 @@ def new_recipe():
         except Exception as exception:
             flash(GENERIC_ERROR_MESSAGE)
     return render_template("pages/edit-recipe.html")
+
+@app.route("/edit-recipe/<recipe_id>", methods=["GET", "POST"])
+def edit_recipe(recipe_id):
+    if not bool("user" in session):
+        return redirect(url_for("login", next=request.endpoint))
+    try:
+        db_recipe = pymongo.db.recipes.find_one({"_id":ObjectId(recipe_id)})
+        ingredients = db_recipe["ingredients"]
+        if len(ingredients) > 0:
+            ingredients = ",".join(ingredients)
+        instructions = db_recipe["instructions"]
+        if len(instructions) > 0:
+            instructions = ",".join(instructions)
+        color = db_recipe["color"]
+
+        if not session["user"] == db_recipe["author"]:
+            flash("You can only edit your own recipes.")
+            return redirect(url_for("recipes"))
+    except Exception as exception:
+        flash(GENERIC_ERROR_MESSAGE)
+        return redirect(url_for("recipes"))
+    if request.method == "POST":
+        try:
+            recipe_name = request.form.get("name").lower()
+            ingredients = []
+            instructions = []
+            for key, value in request.form.items():
+                if key.startswith("ingredient"):
+                    ingredients.append(value.lower())
+                if key.startswith("instruction"):
+                    instructions.append(value.lower())
+            color = request.form.get("radio").replace("#","")
+            updated_recipe = {
+                "name": recipe_name,
+                "ingredients": ingredients,
+                "instructions": instructions,
+                "color": color,
+                "author": session["user"]
+            }
+            db_update = pymongo.db.recipes.update_one(db_recipe, {"$set": updated_recipe})
+            # Check if db_update was successful
+        except Exception as exception:
+            flash(GENERIC_ERROR_MESSAGE)
+            # Decide where to redirect if error
+    return render_template("pages/edit-recipe.html", recipe_name=db_recipe["name"], ingredients=ingredients, instructions=instructions, color=color)
+
 
 @app.route("/recipes")
 def recipes():

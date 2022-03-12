@@ -1,4 +1,16 @@
 window.addEventListener("DOMContentLoaded", event => {
+	// Populate existing ingredient/instruction fields
+	let existingIngredients = document.getElementById("ingredients-input").dataset["existingIngredients"];
+	existingIngredients = existingIngredients.split(",")
+	for (const ingredient of existingIngredients){
+		addIngredientToList(ingredient);
+	}
+	let existingInstructions = document.getElementById("instructions-input").dataset["existingInstructions"];
+	existingInstructions = existingInstructions.split(",")
+	for (const instruction of existingInstructions){
+		addInstructionToList(instruction);
+	}
+
 	// Allow ingredient to be added either with button or "Enter" key
 	const ingredientInputField = document.getElementById("ingredient-field")
 	ingredientInputField.addEventListener("keypress", event => {
