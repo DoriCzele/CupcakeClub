@@ -162,5 +162,10 @@ def recipes():
     return render_template("layout/recipes.html", recipes=recipes)
 
 
+@app.route("/recipe-details")
+def recipedetails():
+    return render_template("components/recipe-details.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("HOST"), port=os.environ.get("PORT"), debug=os.environ.get("DEBUG"))
