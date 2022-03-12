@@ -15,19 +15,24 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ms-auto">
-				</li>
-				<li class="nav-item mx-0 mx-lg-1">
-					<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{url_for('register')}}">Register/Log in</a>
 				<li class="nav-item mx-0 mx-lg-1">
 					<a class="nav-link py-3 px-0 px-lg-3 rounded" href="#recipes">Recipes</a>
+					<li class="nav-item mx-0 mx-lg-1">
+						<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{url_for('new_recipe')}}">Share a recipe</a>
+					</li>
+					<li class="nav-item mx-0 mx-lg-1">
+						<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{url_for('home')}}#about">About</a>
+					</li>
+					{% if session["user"] %}
+					<li class="nav-item mx-0 mx-lg-1">
+						<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{url_for('logout')}}">Log out</a>
+					</li>
+					{% else %}
+					<li class="nav-item mx-0 mx-lg-1">
+						<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{url_for('register')}}">Register/Log in</a>
+					</li>
+					{% endif %}
 
-				<li class="nav-item mx-0 mx-lg-1">
-					<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{url_for('new_recipe')}}">Share a recipe</a>
-				</li>
-				</li>
-				<li class="nav-item mx-0 mx-lg-1">
-					<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{url_for('home')}}#about">About</a>
-				</li>
 			</ul>
 		</div>
 	</div>
