@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", event => {
 			}
 		}
 	})
-	addIngredientButton.addEventListener("click", function(){
+	addInstructionButton.addEventListener("click", function(){
 		if (instructionInputField.value !== ""){
 			addInstructionToList(instructionInputField.value)
 		}
