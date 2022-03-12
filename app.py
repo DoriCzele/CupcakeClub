@@ -179,7 +179,7 @@ def new_recipe():
             # After successful create recipe, redirect to recipe detail
         except Exception as exception:
             flash(GENERIC_ERROR_MESSAGE)
-    return render_template("pages/edit-recipe.html")
+    return render_template("pages/edit-recipe.html", recipe_name="Name", recipe_color="e8c0d9")
 
 @app.route("/edit-recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
@@ -195,7 +195,8 @@ def edit_recipe(recipe_id):
             instructions = ",".join(instructions)
         color = db_recipe["color"]
 
-        if not session["user"] == db_recipe["author"]:
+        user = pymongo.db.users.find_one({"_id":ObjectId(session["user"])})
+        if not session["user"] == db_recipe["author"] and not user["is_admin"]:
             flash("You can only edit your own recipes.")
             return redirect(url_for("recipes"))
     except Exception as exception:
@@ -220,11 +221,15 @@ def edit_recipe(recipe_id):
                 "author": session["user"]
             }
             db_update = pymongo.db.recipes.update_one(db_recipe, {"$set": updated_recipe})
-            # Check if db_update was successful
+            if db_update.acknowledged:
+                flash("Recipe updated")
+                return redirect(url_for("recipe_details"))
+            # if update was not successful
+            return redirect(url_for("edit_recipe", recipe_id=recipe_id))
         except Exception as exception:
-            flash(GENERIC_ERROR_MESSAGE)
-            # Decide where to redirect if error
-    return render_template("pages/edit-recipe.html", recipe_name=db_recipe["name"], ingredients=ingredients, instructions=instructions, color=color)
+            flash("Recipe could not be updated")
+            return redirect(url_for("edit_recipe", recipe_id=recipe_id))
+    return render_template("pages/edit-recipe.html", recipe_name=db_recipe["name"], recipe_ingredients=ingredients, recipe_instructions=instructions, recipe_color=color)
 
 
 @app.route("/recipes")
@@ -234,7 +239,7 @@ def recipes():
 
 
 @app.route("/recipe-details")
-def recipedetails():
+def recipe_details():
     return render_template("components/recipe-details.html")
 
 
