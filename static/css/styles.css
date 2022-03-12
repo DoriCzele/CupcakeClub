@@ -111,3 +111,7 @@ h2{
     box-shadow: 2.5px 5px 4px 5px #888888;
 }
 
+#masthead-logo{
+    width:30%;
+    margin-bottom: 3%;
+}
