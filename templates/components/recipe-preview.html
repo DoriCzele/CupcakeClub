@@ -1,8 +1,8 @@
 <div class="preview-card">
   {% include "components/cupcake-logo.svg" %}
   <div class="card-body">
-    <h5 class="card-title">Recipe title</h5>
+    <h5 class="card-title">{{ recipe.name }}</h5>
     <br />
-    <a href="#" class="btn btn-primary">Let's bake it!</a>
+    <a href="{{url_for('recipe_details', recipe_id=recipe._id)}}" class="btn btn-primary">Let's bake it!</a>
   </div>
 </div>

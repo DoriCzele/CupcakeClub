@@ -237,10 +237,22 @@ def recipes():
     recipes = pymongo.db.recipes.find()
     return render_template("layout/recipes.html", recipes=recipes)
 
-
 @app.route("/recipe-details")
-def recipe_details():
-    return render_template("components/recipe-details.html")
+def test_recipe_details():
+    name="Blueberry"
+    ingredients=["ingredient one", "ingredient two", "ingredient three"]
+    instructions=["instruction one", "instruction two", "instruction three"]
+    return render_template("components/recipe-details.html", name=name, ingredients=ingredients, instructions=instructions)
+
+
+@app.route("/recipe-details/<recipe_id>")
+def recipe_details(recipe_id):
+    try:
+        db_recipe = pymongo.db.recipes.find_one({"_id":ObjectId(recipe_id)})
+    except Exception as exception:
+        flash(GENERIC_ERROR_MESSAGE)
+        return redirect(url_for("home"))
+    return render_template("components/recipe-details.html", name=db_recipe["name"], ingredients=db_recipe["ingredients"], instructions=db_recipe["instructions"], color=db_recipe)
 
 
 if __name__ == "__main__":
