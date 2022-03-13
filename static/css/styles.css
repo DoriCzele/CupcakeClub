@@ -115,6 +115,19 @@ h2{
     width:30%;
     margin-bottom: 3%;
 }
+
+.btn-delete {
+	color: var(--bs-white);
+	background-color: red;
+	border-color: rgb(192, 6, 6);
+}
+
+.btn-delete:hover {
+    color: var(--bs-white);
+	background-color: rgb(150, 7, 7);
+	border-color:rgb(94, 4, 4);
+}
+
 .btn-edit {
     margin-top: 2%;
     color: var(--bs-white);
