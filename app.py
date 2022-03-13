@@ -177,8 +177,10 @@ def new_recipe():
                 "color": color,
                 "author": session["user"]
             }
-            pymongo.db.recipes.insert_one(recipe)
-            # After successful create recipe, redirect to recipe detail
+            db_insert = pymongo.db.recipes.insert_one(recipe)
+            if db_insert.acknowledged:
+                return(redirect(url_for('recipe_details', recipe_id=str(db_insert.inserted_id))))
+            flash("Recipe could not be created")
         except Exception as exception:
             flash(GENERIC_ERROR_MESSAGE)
     return render_template("pages/edit-recipe.html", recipe_color="e8c0d9")
