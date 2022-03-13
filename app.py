@@ -57,6 +57,7 @@ def home():
     return render_template("pages/home.html")
 
 def get_auth_url_params(request, current_auth_link, alternative_auth_link):
+    next_endpoint = None
     if request.args.get("next"):
         next_endpoint = request.args.get("next")
         current_auth_link = f"{current_auth_link}?next={next_endpoint}"
@@ -68,7 +69,7 @@ def login():
     current_auth_link = url_for("login")
     alternative_auth_link = url_for("register")
     next_endpoint = None
-    [next_endpoint, current_auth_link, alternative_auth_link] = get_auth_url_params(request, current_auth_link, alternative_auth_link)
+    next_endpoint, current_auth_link, alternative_auth_link = get_auth_url_params(request, current_auth_link, alternative_auth_link)
     if bool("user" in session):
         flash(ALREADY_AUTHED_MESSAGE)
         return redirect(url_for("home"))
@@ -105,7 +106,7 @@ def register():
     current_auth_link = url_for("register")
     alternative_auth_link = url_for("login")
     next_endpoint = None
-    [next_endpoint, current_auth_link, alternative_auth_link] = get_auth_url_params(request, current_auth_link, alternative_auth_link)
+    next_endpoint, current_auth_link, alternative_auth_link = get_auth_url_params(request, current_auth_link, alternative_auth_link)
     if bool("user" in session):
         flash(ALREADY_AUTHED_MESSAGE)
         return redirect(url_for("home"))
