@@ -144,3 +144,7 @@ h2{
 #instructions-input-prompt {
     display: none
 }
+
+.prompt-text:hover {
+ color: #8673c2 !important;
+}
