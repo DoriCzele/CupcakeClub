@@ -257,14 +257,18 @@ def user_recipes(user_id):
 
 @app.route("/recipe-details/<recipe_id>")
 def recipe_details(recipe_id):
+    admin_access = False
     try:
+        if bool("user" in session):
+            user = pymongo.db.users.find_one({"_id":ObjectId(session["user"])})
+            admin_access = user["is_admin"]
         db_recipe = pymongo.db.recipes.find_one({"_id":ObjectId(recipe_id)})
         author = pymongo.db.users.find_one({"_id":ObjectId(db_recipe["author"])})
-        user = pymongo.db.users.find_one({"_id":ObjectId(session["user"])})
     except Exception as exception:
+        print(exception)
         flash(GENERIC_ERROR_MESSAGE)
         return redirect(url_for("home"))
-    return render_template("components/recipe-details.html", id=db_recipe["_id"], name=db_recipe["name"], ingredients=db_recipe["ingredients"], instructions=db_recipe["instructions"], author_name=author["username"], author_id=db_recipe["author"], admin_access=user["is_admin"])
+    return render_template("components/recipe-details.html", id=db_recipe["_id"], name=db_recipe["name"], ingredients=db_recipe["ingredients"], instructions=db_recipe["instructions"], author_name=author["username"], author_id=db_recipe["author"], admin_access=admin_access)
 
 
 @app.route("/delete-recipe/<recipe_id>")
