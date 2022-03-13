@@ -1,15 +1,18 @@
 {% extends "layout/base.html" %}
 {% block content %}
 <section>
-    <div class="containerp-5 my-5 error-card">
+    <div class="container p-5 my-5 error-card">
         <div class="row">
             <div>
                 <h2>Something's gone wrong!</h2><br>
                 <img src="{{url_for('static', filename='img/sad-cupcake.png')}}" alt="sad cupcake" id="sad-cupcake"><br>
                 <h2>Error {{ status_code }}</h2>
                 <p>{{ custom_prompt }}</p>
-                <p>Use either of the navigation bar links above, or the button provided to make your way back to your cupcakes.</p>
-                <button type="submit" class="btn btn-primary">Go back</button>
+                <p>Use either of the navigation bar links above, or the button provided to make your way back to your
+                    cupcakes.</p>
+                <a href="{{url_for('home')}}">
+                    <button class="btn btn-primary">Go to homepage</button>
+                </a>
             </div>
         </div>
     </div>

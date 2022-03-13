@@ -11,19 +11,15 @@
 			<div class="divider-custom-line"></div>
 		</div>
 		<!-- Register/Log in Section Content-->
-		<div class="row">
-			<div class="col-lg-4 ms-auto">
-				<p class="lead">
-					REGISTER / LOGIN TO SHARE YOUR RECIPE
-					BIG TEXT TO REGISTER/LOGIN (REDIRECTS TO REGISTER/LOGIN PAGE) a href=""
-				</p>
-			</div>
-			<div class="col-lg-4 me-auto">
-				<p class="lead">
-					Register/Log in form here
-				</p>
+		<div class="container">
+			<div class="row">
+				<div class="col d-flex justify-content-center">
+					<p class="lead">
+						<a href="{{url_for('register')}}" class="text-reset">Register</a> or <a href="{{url_for('login')}}"
+							class="text-reset">Log in</a>
+						to write, share and edit your cupcake recipes!
+					</p>
+				</div>
 			</div>
 		</div>
-		</div>
-	</div>
-</section>
+	</section>
