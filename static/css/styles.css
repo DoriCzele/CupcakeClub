@@ -115,3 +115,15 @@ h2{
     width:30%;
     margin-bottom: 3%;
 }
+.btn-edit {
+    margin-top: 2%;
+    color: var(--bs-white);
+	background-color: orange;
+	border-color: rgb(233, 155, 10);
+}
+
+.btn-edit:hover {
+    color: var(--bs-white);
+	background-color: rgb(161, 106, 2);
+	border-color: rgb(128, 84, 2);
+}
