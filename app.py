@@ -77,12 +77,13 @@ def login():
             username = request.form.get("username").lower()
             password = request.form.get("password")
             db_user = pymongo.db.users.find_one({"username": username})
+            username_title = username.title()
             if db_user is None:
                 flash("This user does not exist. Please check your details and try again.")
                 return redirect(current_auth_link)
             if check_password_hash(db_user["password"], password):
                 session["user"] = str(db_user["_id"])
-                flash(f"Welcome back {username}!")
+                flash(f"Welcome back {username_title}!")
                 if next_endpoint:
                     return redirect(url_for(next_endpoint))
                 return redirect(url_for("home"))
