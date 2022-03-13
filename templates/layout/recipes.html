@@ -6,12 +6,15 @@
   <div class="container">
     <!-- Recipes Section Heading-->
     <br>
-    <h2 class="
-   page-section-heading
-   text-center text-uppercase text-secondary
-   mb-0
- ">Recipes
+    {% if username %}
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+      {{ username }}'s Recipes
     </h2>
+    {% else %}
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+      Recipes
+    </h2>
+    {% endif %}
     <!-- Icon Divider-->
     <div class="divider-custom">
       <div class="divider-custom-line"></div>
@@ -20,11 +23,15 @@
     </div>
     <!-- Recipes Grid Items-->
     <div>
-    <div class="row justify-content-center">
-      {% for recipe in recipes %}
-      {% include "components/recipe-preview.html" %}
-      {% endfor %}
-    </div>
+      <div class="row justify-content-center">
+        {% if num_recipes > 0 %}
+        {% for recipe in recipes %}
+        {% include "components/recipe-preview.html" %}
+        {% endfor %}
+        {% else %}
+        <h2>There are no recipes here yet!</h2>
+        {% endif %}
+      </div>
     </div>
     
   </div>

@@ -239,7 +239,21 @@ def edit_recipe(recipe_id):
 @app.route("/recipes")
 def recipes():
     recipes = pymongo.db.recipes.find()
-    return render_template("layout/recipes.html", recipes=recipes)
+    num_recipes = len(list(recipes.clone()))
+    return render_template("layout/recipes.html", recipes=recipes, num_recipes=num_recipes)
+
+
+@app.route("/recipes/<user_id>")
+def user_recipes(user_id):
+    try:
+        user = pymongo.db.users.find_one({"_id":ObjectId(user_id)})
+        recipes = pymongo.db.recipes.find({"author":user_id})
+        # check length of recipes list
+        num_recipes = len(list(recipes.clone()))
+    except Exception as exception:
+        flash(GENERIC_ERROR_MESSAGE)
+        return redirect(url_for("recipes"))
+    return render_template("layout/recipes.html", recipes=recipes, num_recipes=num_recipes, username=user["username"])
 
 
 @app.route("/recipe-details/<recipe_id>")
