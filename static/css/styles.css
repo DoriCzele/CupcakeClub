@@ -134,3 +134,13 @@ h2{
 	background-color: #a16a02;
 	border-color: #805402;
 }
+
+/* hide prompts by default */
+
+#ingredients-input-prompt {
+    display: none
+}
+
+#instructions-input-prompt {
+    display: none
+}

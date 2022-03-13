@@ -135,7 +135,6 @@ def register():
                 else:
                     flash("That username is taken, please try another.")
         except Exception as exception:
-            print(exception)
             flash(GENERIC_ERROR_MESSAGE)
     return render_template(
         "pages/authentication.html",

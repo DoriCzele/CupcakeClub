@@ -15,34 +15,51 @@ window.addEventListener("DOMContentLoaded", event => {
 		}
 	}
 
+	// Test if string contains special character
+	const validRegex = /^[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*$/;
+
 	// Allow ingredient to be added either with button or "Enter" key
 	const ingredientInputField = document.getElementById("ingredient-field")
+	const ingredientInputPrompt = document.getElementById("ingredients-input-prompt")
 	ingredientInputField.addEventListener("keypress", event => {
 		if (event.key == "Enter"){
 			event.preventDefault()
-			if (ingredientInputField.value !== ""){
+			if (validRegex.test(ingredientInputField.value)){
+				ingredientInputPrompt.style.display = "none";
 				addIngredientToList(ingredientInputField.value);
+			} else {
+				ingredientInputPrompt.style.display = "block"
 			}
 		}
 	})
 	const addIngredientButton = document.getElementById("add-ingredient")
 	addIngredientButton.addEventListener("click", function(){
-		if (ingredientInputField.value !== ""){
-			addIngredientToList(ingredientInputField.value)}
-		})
+		if (validRegex.test(ingredientInputField.value)){
+			ingredientInputPrompt.style.display = "none";
+			addIngredientToList(ingredientInputField.value);
+		} else {
+			ingredientInputPrompt.style.display = "block"
+		}
+	})
+	
 	const instructionInputField = document.getElementById("instruction-field")
 	const addInstructionButton = document.getElementById("add-instruction")
 	instructionInputField.addEventListener("keypress", event => {
 		if (event.key == "Enter"){
 			event.preventDefault()
-			if (instructionInputField.value !== ""){
-			addInstructionToList(instructionInputField.value);
+			if (validRegex.test(instructionInputField.value)){
+				addInstructionToList(instructionInputField.value);
+			} else {
+				instructionInputPrompt.style.display = "block"
 			}
 		}
 	})
 	addInstructionButton.addEventListener("click", function(){
-		if (instructionInputField.value !== ""){
-			addInstructionToList(instructionInputField.value)
+		if (validRegex.test(instructionInputField.value)){
+			addInstructionToList(instructionInputField.value);
+			instructionInputPrompt.style.display = "none"
+		} else {
+			instructionInputPrompt.style.display = "block"
 		}
 	})
 })
