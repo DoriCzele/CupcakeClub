@@ -2,12 +2,21 @@
   <form method="POST">
     <div class="container card p-3 bg-light">
       <br>
-      <h2>{{ recipe_name or "Add your cupcake recipe here!"}}</h2><br>
+      {% if recipe_name %}
+      <h2>{{ recipe_name }}</h2><br>
       <div class="form-group">
         <label for="recipeName" class="form-label">Recipe name</label>
         <input name="name" type="name" class="form-control form-control-lg" id="recipeName"
           aria-describedby="recipeName" value={{ recipe_name|tojson|safe }} required><br>
       </div>
+      {% else %}
+      <h2>Add your cupcake recipe here!</h2><br>
+      <div class="form-group">
+        <label for="recipeName" class="form-label">Recipe name</label>
+        <input name="name" type="name" class="form-control form-control-lg" id="recipeName"
+          aria-describedby="recipeName" placeholder="Name" required><br>
+      </div>
+      {% endif %}
       {% if recipe_ingredients %}
       <div class="form-group" id="ingredients-input" data-existing-ingredients={{ recipe_ingredients|tojson|safe }}>
         {% else %}
@@ -82,7 +91,7 @@
             </label>
           </div>
           <button type="submit" class="btn btn-primary">Save Recipe</button><br>
-          <button class="btn btn-delete">Delete Recipe</a>
+          <button class="btn btn-delete">Delete Recipe</button>
       </div>
   </form>
 </section>

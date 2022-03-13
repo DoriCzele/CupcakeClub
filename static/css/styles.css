@@ -38,7 +38,7 @@ h2{
 .error-card{
     display: block;
     float: none;
-    position: center;        
+    position: center;
     width: 60%;
     padding-top: 10%;
     margin-left: 20%;
@@ -66,9 +66,8 @@ h2{
     display: block;
     float: none;
     position: center;
-    width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-left: 5%;
+    margin-right: 5%;
 }}
 
 @media only screen and (min-width: 1024px) {
@@ -77,9 +76,8 @@ h2{
         display: block;
         float: none;
         position: center;
-        width: 40%;
-        margin-left: 30%;
-        margin-right: 30%;
+        margin-left: 15%;
+        margin-right: 15%;
     } 
 } 
 
@@ -87,9 +85,8 @@ h2{
 .preview-card {
     margin: 2%;
     text-align: center;
-    border-radius: 5%;
     width: 25%;
-    box-shadow: 5px 10px 8px 10px #888888;
+    box-shadow: 3px 6px 8px 2px #888888;
     background-color: #a6b2d4;
 }
 
@@ -97,18 +94,16 @@ h2{
     align-content: center;
     margin-top: 5%;
     margin-bottom: 5%;
-    background-color: white;
-    border-radius: 10%;
-    box-shadow: 2.5px 5px 4px 5px #888888;
+    background-color: var(--bs-white);
+    box-shadow: 3px 6px 8px 2px #888888;
+}
+
+#recipe-detail-header {
+    padding: 8rem 0 2rem 0;
 }
 
 .details-body {
-    position:relative;
     margin-bottom: 10%;
-    width: 80%;
-    background-color: white;
-    border-radius: 10%;
-    box-shadow: 2.5px 5px 4px 5px #888888;
 }
 
 #masthead-logo{
@@ -118,25 +113,24 @@ h2{
 
 .btn-delete {
 	color: var(--bs-white);
-	background-color: red;
-	border-color: rgb(192, 6, 6);
+	background-color: #ff0000;
+	border-color: #c00606;
 }
 
 .btn-delete:hover {
     color: var(--bs-white);
-	background-color: rgb(150, 7, 7);
-	border-color:rgb(94, 4, 4);
+	background-color: #960707;
+	border-color:#5e0404;
 }
 
 .btn-edit {
-    margin-top: 2%;
     color: var(--bs-white);
-	background-color: orange;
-	border-color: rgb(233, 155, 10);
+	background-color: #ffa500;
+	border-color: #e99b0a;
 }
 
 .btn-edit:hover {
     color: var(--bs-white);
-	background-color: rgb(161, 106, 2);
-	border-color: rgb(128, 84, 2);
+	background-color: #a16a02;
+	border-color: #805402;
 }

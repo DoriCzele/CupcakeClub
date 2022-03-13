@@ -165,9 +165,9 @@ def new_recipe():
             instructions = []
             for key, value in request.form.items():
                 if key.startswith("ingredient"):
-                    ingredients.append(value.lower())
+                    ingredients.append(value)
                 if key.startswith("instruction"):
-                    instructions.append(value.lower())
+                    instructions.append(value)
             color = request.form.get("radio").replace("#","")
 
             recipe = {
@@ -181,7 +181,7 @@ def new_recipe():
             # After successful create recipe, redirect to recipe detail
         except Exception as exception:
             flash(GENERIC_ERROR_MESSAGE)
-    return render_template("pages/edit-recipe.html", recipe_name="Name", recipe_color="e8c0d9")
+    return render_template("pages/edit-recipe.html", recipe_color="e8c0d9")
 
 @app.route("/edit-recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
@@ -211,9 +211,9 @@ def edit_recipe(recipe_id):
             instructions = []
             for key, value in request.form.items():
                 if key.startswith("ingredient"):
-                    ingredients.append(value.lower())
+                    ingredients.append(value)
                 if key.startswith("instruction"):
-                    instructions.append(value.lower())
+                    instructions.append(value)
             color = request.form.get("radio").replace("#","")
             updated_recipe = {
                 "name": recipe_name,
@@ -225,7 +225,7 @@ def edit_recipe(recipe_id):
             db_update = pymongo.db.recipes.update_one(db_recipe, {"$set": updated_recipe})
             if db_update.acknowledged:
                 flash("Recipe updated")
-                return redirect(url_for("recipe_details"))
+                return redirect(url_for("recipe_details", recipe_id=recipe_id))
             # if update was not successful
             return redirect(url_for("edit_recipe", recipe_id=recipe_id))
         except Exception as exception:
@@ -239,22 +239,17 @@ def recipes():
     recipes = pymongo.db.recipes.find()
     return render_template("layout/recipes.html", recipes=recipes)
 
-@app.route("/recipe-details")
-def test_recipe_details():
-    name="Blueberry"
-    ingredients=["ingredient one", "ingredient two", "ingredient three"]
-    instructions=["instruction one", "instruction two", "instruction three"]
-    return render_template("components/recipe-details.html", name=name, ingredients=ingredients, instructions=instructions)
-
 
 @app.route("/recipe-details/<recipe_id>")
 def recipe_details(recipe_id):
     try:
         db_recipe = pymongo.db.recipes.find_one({"_id":ObjectId(recipe_id)})
+        author = pymongo.db.users.find_one({"_id":ObjectId(db_recipe["author"])})
+        user = pymongo.db.users.find_one({"_id":ObjectId(session["user"])})
     except Exception as exception:
         flash(GENERIC_ERROR_MESSAGE)
         return redirect(url_for("home"))
-    return render_template("components/recipe-details.html", name=db_recipe["name"], ingredients=db_recipe["ingredients"], instructions=db_recipe["instructions"], color=db_recipe)
+    return render_template("components/recipe-details.html", id=db_recipe["_id"], name=db_recipe["name"], ingredients=db_recipe["ingredients"], instructions=db_recipe["instructions"], author_name=author["username"], author_id=db_recipe["author"], admin_access=user["is_admin"])
 
 
 if __name__ == "__main__":
