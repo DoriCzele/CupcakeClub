@@ -254,5 +254,15 @@ def recipe_details(recipe_id):
     return render_template("components/recipe-details.html", id=db_recipe["_id"], name=db_recipe["name"], ingredients=db_recipe["ingredients"], instructions=db_recipe["instructions"], author_name=author["username"], author_id=db_recipe["author"], admin_access=user["is_admin"])
 
 
+@app.route("/delete-recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+    try:
+        db_delete = pymongo.db.recipes.delete_one({"_id":ObjectId(recipe_id)})
+        if db_delete.acknowledged:
+            flash("Recipe has been deleted")
+    except Exception as exception:
+        flash(GENERIC_ERROR_MESSAGE)
+    return(redirect(url_for("recipes")))
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("HOST"), port=os.environ.get("PORT"), debug=os.environ.get("DEBUG"))
