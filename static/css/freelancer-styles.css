@@ -254,6 +254,7 @@ html {
 }
 
 .btn-social {
+	color: white;
 	border-radius: 100%;
 	display: inline-flex;
 	width: 3.25rem;
@@ -372,10 +373,10 @@ html {
 
 .btn-social {
 	border-radius: 100%;
+	margin-left: 1%;
+	margin-right: 1%;
 	display: inline-flex;
-	width: 3.25rem;
-	height: 3.25rem;
-	font-size: 1.25rem;
+	font-size: 1.8rem;
 	justify-content: center;
 	align-items: center;
 	color: var(--bs-gray-500);
