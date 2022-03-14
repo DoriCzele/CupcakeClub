@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from flask import Flask, render_template, request, url_for, flash, redirect, session
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -174,7 +175,8 @@ def new_recipe():
                 "ingredients": ingredients,
                 "instructions": instructions,
                 "color": color,
-                "author": session["user"]
+                "author": session["user"],
+                "created_at": datetime.now()
             }
             db_insert = pymongo.db.recipes.insert_one(recipe)
             if db_insert.acknowledged:
@@ -236,7 +238,7 @@ def edit_recipe(recipe_id):
 
 @app.route("/recipes")
 def recipes():
-    recipes = pymongo.db.recipes.find()
+    recipes = pymongo.db.recipes.find().sort("created_at", -1)
     num_recipes = len(list(recipes.clone()))
     return render_template("layout/recipes.html", recipes=recipes, num_recipes=num_recipes)
 
@@ -245,7 +247,7 @@ def recipes():
 def user_recipes(user_id):
     try:
         user = pymongo.db.users.find_one({"_id":ObjectId(user_id)})
-        recipes = pymongo.db.recipes.find({"author":user_id})
+        recipes = pymongo.db.recipes.find({"author":user_id}).sort("created_at", -1)
         # check length of recipes list
         num_recipes = len(list(recipes.clone()))
     except Exception as exception:
