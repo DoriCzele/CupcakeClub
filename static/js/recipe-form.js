@@ -1,155 +1,93 @@
-window.addEventListener("DOMContentLoaded", event => {
+function populateExistingRecipeAttributes(existingValues, attributeType){
+	if(existingValues){
+		// Split string into array of strings
+		existingValues = existingValues.split(",");
+		for (const existingValue of existingValues){
+			addEntryToList(existingValue, attributeType);
+		}
+	}
+}
+
+function compareEntryToRegex(inputElement, inputPrompt, attributeType){
+	const validInputRegex = /^[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*$/;
+	if (validInputRegex.test(inputElement.value)){
+		// Ensure input prompt is not displayed on valid entry
+		inputPrompt.style.display = "none";
+		addEntryToList(inputElement.value, attributeType)
+			// Reset the original input field
+		inputElement.value = ""
+	} else {
+		inputPrompt.style.display = "block";
+	}
+}
+
+function addInputEventListeners(attributeType){
+	const inputField = document.getElementById(`${attributeType}-field`);
+	const inputPrompt = document.getElementById(`${attributeType}-input-prompt`);
+	const addAttributeButton = document.getElementById(`add-${attributeType}`)
+	// On individual entry submit, check if it matches the allowed regex characters
+	inputField.addEventListener("keypress", function(event){
+		if (event.key == "Enter"){
+			event.preventDefault()
+			compareEntryToRegex(inputField, inputPrompt, attributeType);
+		}
+	})
+	addAttributeButton.addEventListener("click", function(){
+		compareEntryToRegex(inputField, inputPrompt, attributeType);
+	})
+}
+
+// Wait for DOM content to load before applying event listeners
+window.addEventListener("DOMContentLoaded", function(){
 	// Populate existing ingredient/instruction fields
-	let existingIngredients = document.getElementById("ingredients-input").dataset["existingIngredients"];
-	if (existingIngredients){
-	existingIngredients = existingIngredients.split(",")
-	for (const ingredient of existingIngredients){
-		addIngredientToList(ingredient);
-		}
-	}
-	let existingInstructions = document.getElementById("instructions-input").dataset["existingInstructions"];
-	if (existingInstructions){
-		existingInstructions = existingInstructions.split(",")
-		for (const instruction of existingInstructions){
-			addInstructionToList(instruction);
-		}
-	}
+	let existingIngredients = document.getElementById("ingredient-input-section").dataset["existingIngredients"];
+	populateExistingRecipeAttributes(existingIngredients, "ingredient");
+	let existingInstructions = document.getElementById("instruction-input-section").dataset["existingInstructions"];
+	populateExistingRecipeAttributes(existingInstructions, "instruction");
 
-	// Test if string contains special character
-	const validRegex = /^[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*$/;
+	// Allow ingredient to be added either with button or "Enter" key, validated with regex
+	addInputEventListeners("ingredient");
+	addInputEventListeners("instruction");
+});
 
-	// Allow ingredient to be added either with button or "Enter" key
-	const ingredientInputField = document.getElementById("ingredient-field")
-	const ingredientInputPrompt = document.getElementById("ingredients-input-prompt")
-	ingredientInputField.addEventListener("keypress", event => {
-		if (event.key == "Enter"){
-			event.preventDefault()
-			if (validRegex.test(ingredientInputField.value)){
-				ingredientInputPrompt.style.display = "none";
-				addIngredientToList(ingredientInputField.value);
-			} else {
-				ingredientInputPrompt.style.display = "block"
-			}
-		}
-	})
-	const addIngredientButton = document.getElementById("add-ingredient")
-	addIngredientButton.addEventListener("click", function(){
-		if (validRegex.test(ingredientInputField.value)){
-			ingredientInputPrompt.style.display = "none";
-			addIngredientToList(ingredientInputField.value);
-		} else {
-			ingredientInputPrompt.style.display = "block"
-		}
-	})
+function addEntryToList(newValue, attributeType){
+	const inputSection = document.getElementById(`${attributeType}-input-section`)
+	const inputGroups = inputSection.querySelectorAll(".input-group");
 	
-	const instructionInputField = document.getElementById("instruction-field")
-	const addInstructionButton = document.getElementById("add-instruction")
-	instructionInputField.addEventListener("keypress", event => {
-		if (event.key == "Enter"){
-			event.preventDefault()
-			if (validRegex.test(instructionInputField.value)){
-				addInstructionToList(instructionInputField.value);
-			} else {
-				instructionInputPrompt.style.display = "block"
-			}
-		}
-	})
-	addInstructionButton.addEventListener("click", function(){
-		if (validRegex.test(instructionInputField.value)){
-			addInstructionToList(instructionInputField.value);
-			instructionInputPrompt.style.display = "none"
-		} else {
-			instructionInputPrompt.style.display = "block"
-		}
-	})
-})
-
-function addIngredientToList(newIngredientName){
-	// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
-	const ingredientsInputSection = document.getElementById("ingredients-input");
-	const inputGroups = ingredientsInputSection.querySelectorAll(".input-group");
-	const lastInputGroup = inputGroups[inputGroups.length-1];
-	// Increment the last ingredient ID value if it exists
+	// Increment the last input ID value if it exists
+	const lastInputGroup = inputGroups[inputGroups.length-1]
 	let newInputGroupIncrement = 0;
 	if (lastInputGroup){
 		newInputGroupIncrement = parseInt(lastInputGroup.querySelector("input").dataset.increment) + 1;
 	}
 
-	// Get input-group template and clone it
-	const ingredientTemplate = document.getElementById("ingredient-template");
-	const ingredientTemplateClone = ingredientTemplate.content.cloneNode(true);
-	const ingredientTemplateCloneInput = ingredientTemplateClone.querySelector("input");
-	ingredientTemplateCloneInput.name = `ingredient${newInputGroupIncrement}`;
-	ingredientTemplateCloneInput.dataset.increment = newInputGroupIncrement;
-	ingredientTemplateCloneInput.value = newIngredientName;
-	const ingredientTemplateCloneButtons = ingredientTemplateClone.querySelectorAll("button");
-	ingredientTemplateCloneButtons[0].id = `edit-ingredient-button-${newInputGroupIncrement}`
-	ingredientTemplateCloneButtons[1].id = `delete-ingredient-button-${newInputGroupIncrement}`
+	// Get input group template and clone it
+	const htmlTemplate = document.getElementById(`${attributeType}-template`);
+	const htmlTemplateClone = htmlTemplate.content.cloneNode(true);
+	const htmlTemplateCloneInput = htmlTemplateClone.querySelector("input");
+	htmlTemplateCloneInput.name = `${attributeType}${newInputGroupIncrement}`;
+	htmlTemplateCloneInput.dataset.increment = newInputGroupIncrement;
+	htmlTemplateCloneInput.value = newValue;
+	const htmlTemplateCloneButtons = htmlTemplateClone.querySelectorAll("button");
+	htmlTemplateCloneButtons[0].id = `edit-${attributeType}-button-${newInputGroupIncrement}`
+	htmlTemplateCloneButtons[1].id = `delete-${attributeType}-button-${newInputGroupIncrement}`
 
-	// Add input-group to ingredients section in DOM
-	ingredientsInputSection.appendChild(ingredientTemplateClone);
+	// Add input-group to inputs section in DOM
+	inputSection.appendChild(htmlTemplateClone);
 
 	// Add event listeners for the new edit/delete buttons
-	addDeleteIngredientEventListener(newInputGroupIncrement);
-	addEditIngredientEventListener(newInputGroupIncrement);
-}
-
-function addDeleteIngredientEventListener(incrementNumber){
-	const deleteIngredientButton = document.getElementById(`delete-ingredient-button-${incrementNumber}`)
-	deleteIngredientButton.addEventListener("click", function(event){removeItemFromList(event)})
+	const editAttributeButton = document.getElementById(`edit-${attributeType}-button-${newInputGroupIncrement}`)
+	editAttributeButton.addEventListener("click", function(event){makeInputFieldWritable(event)})
+	const deleteAttributeButton = document.getElementById(`delete-${attributeType}-button-${newInputGroupIncrement}`)
+	deleteAttributeButton.addEventListener("click", function(event){removeItemFromList(event)})
 }
 
 function removeItemFromList(event){
-	// Remove parent element (input-group) from DOM
+	// Remove direct parent input group from DOM
 	event.target.parentElement.remove()
-}
-
-function addEditIngredientEventListener(incrementNumber){
-	const editIngredientButton = document.getElementById(`edit-ingredient-button-${incrementNumber}`)
-	editIngredientButton.addEventListener("click", function(event){makeInputFieldWritable(event)})
 }
 
 function makeInputFieldWritable(event){
 	// Remove the readonly attribute from related input field
 	event.target.parentElement.querySelector("input").readOnly = false;
-}
-
-function addInstructionToList(newInstructionName){
-	// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
-	const instructionsInputSection = document.getElementById("instructions-input");
-	const inputGroups = instructionsInputSection.querySelectorAll(".input-group");
-	const lastInputGroup = inputGroups[inputGroups.length-1];
-	// Increment the last instruction ID value if it exists
-	let newInputGroupIncrement = 0;
-	if (lastInputGroup){
-		newInputGroupIncrement = parseInt(lastInputGroup.querySelector("input").dataset.increment) + 1;
-	}
-
-	// Get input-group template and clone it
-	const instructionTemplate = document.getElementById("instruction-template");
-	const instructionTemplateClone = instructionTemplate.content.cloneNode(true);
-	const instructionTemplateCloneInput = instructionTemplateClone.querySelector("input");
-	instructionTemplateCloneInput.name = `instruction${newInputGroupIncrement}`;
-	instructionTemplateCloneInput.dataset.increment = newInputGroupIncrement;
-	instructionTemplateCloneInput.value = newInstructionName;
-	const instructionTemplateCloneButtons = instructionTemplateClone.querySelectorAll("button");
-	instructionTemplateCloneButtons[0].id = `edit-instruction-button-${newInputGroupIncrement}`
-	instructionTemplateCloneButtons[1].id = `delete-instruction-button-${newInputGroupIncrement}`
-
-	// Add input-group to instructions section in DOM
-	instructionsInputSection.appendChild(instructionTemplateClone);
-
-	// Add event listeners for the new edit/delete buttons
-	addDeleteInstructionEventListener(newInputGroupIncrement);
-	addEditInstructionEventListener(newInputGroupIncrement);
-}
-
-function addDeleteInstructionEventListener(incrementNumber){
-	const deleteInstructionButton = document.getElementById(`delete-instruction-button-${incrementNumber}`)
-	deleteInstructionButton.addEventListener("click", function(event){removeItemFromList(event)})
-}
-
-function addEditInstructionEventListener(incrementNumber){
-	const editInstructionButton = document.getElementById(`edit-instruction-button-${incrementNumber}`)
-	editInstructionButton.addEventListener("click", function(event){makeInputFieldWritable(event)})
 }

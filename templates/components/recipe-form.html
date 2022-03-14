@@ -1,31 +1,31 @@
 <section class="recipe-form">
   <form method="POST">
-    <div class="container card p-3 bg-light recipe-form-label">
+    <div class="container card p-3 bg-light">
       {% if recipe_name %}
-      <h2>{{ recipe_name }}</h2>
+      <h1>{{ recipe_name }}</h1>
       <div class="form-group">
         <label for="recipeName" class="form-label">Recipe name</label>
         <input name="name" type="name" class="form-control form-control-lg" id="recipeName"
-          aria-describedby="recipeName" value={{ recipe_name|tojson|safe }} pattern="[A-Za-z0-9]+" minlength="5" maxlength="50" required>
-        <small id="name-input-prompt">You can use characters A-Z 0-9, 5 characters minimum and 50 characters maximum</small>
+          aria-describedby="recipeName" value={{ recipe_name|tojson|safe }} pattern="[A-Za-z0-9 ]+" minlength="5" maxlength="50" required>
+        <small id="name-input-prompt">You can use characters A-Z, 0-9, with 5 characters minimum and 50 characters maximum</small>
       </div>
       {% else %}
-      <h2>Add your cupcake recipe here!</h2><br>
+      <h1>Add your cupcake recipe here!</h1><br>
       <div class="form-group">
         <label for="recipeName" class="form-label">Recipe name</label>
         <input name="name" type="name" class="form-control form-control-lg validate" id="recipeName"
         aria-describedby="recipeName" placeholder="Name" pattern="[A-Za-z0-9 ]+" minlength="5" maxlength="50" required>
-        <small class="mb-2" id="name-input-prompt">You can use characters A-Z 0-9, 5 characters minimum and 50 characters maximum</small>
+        <small class="mb-2" id="name-input-prompt">You can use characters A-Z, 0-9, with 5 characters minimum and 50 characters maximum</small>
       </div>
       {% endif %}
       {% if recipe_ingredients %}
-      <div class="form-group" id="ingredients-input" data-existing-ingredients={{ recipe_ingredients|tojson|safe }}>
+      <div class="form-group" id="ingredient-input-section" data-existing-ingredients={{ recipe_ingredients|tojson|safe }}>
         {% else %}
-        <div class="form-group" id="ingredients-input">
+        <div class="form-group" id="ingredient-input-section">
           {% endif %}
           <label for="Ingredients" class="form-label">Ingredients</label>
           <input type="name" class="form-control form-control-lg mb-2" id="ingredient-field" placeholder="Ingredient">
-          <small class="mb-2" id="ingredients-input-prompt">You can only use characters A-Z 0-9 and spaces</small>
+          <small class="mb-2" id="ingredient-input-prompt">You can only use characters A-Z, 0-9, and spaces</small>
           <!-- Dynamically add to ingredients list in recipe-form.js -->
           <template id="ingredient-template">
             <div class="input-group">
@@ -38,15 +38,15 @@
         <button id="add-ingredient" type="button" class="btn btn-primary mt-1 mb-2">Add Ingredient</button>
         
         {% if recipe_instructions %}
-        <div class="form-group" id="instructions-input"
+        <div class="form-group" id="instruction-input-section"
         data-existing-instructions={{ recipe_instructions|tojson|safe }}>
         {% else %}
-        <div class="form-group" id="instructions-input">
+        <div class="form-group" id="instruction-input-section">
           {% endif %}
           <label for="Instructions" class="form-label">Instructions</label>
-          <input type="name" class="form-control form-control-lg" id="instruction-field"
+          <input type="name" class="form-control form-control-lg mb-2" id="instruction-field"
           placeholder="Instruction">
-          <small class="mb-2" id="instructions-input-prompt">You can only use characters A-Z 0-9 and spaces</small>
+          <small class="mb-2" id="instruction-input-prompt">You can only use characters A-Z, 0-9, and spaces</small>
             <!-- Dynamically add to instruction list in recipe-form.js -->
             <template id="instruction-template">
               <div class="input-group">
@@ -60,7 +60,7 @@
         
         <!--Cupcake avatar -->
   <div class="cupcake-avatar-container">
-          <h6>Customise your recipe avatar!</h6>
+          <h2>Customise your recipe avatar!</h2>
           <div class="cupcake-avatar container-fluid">
           {% include "components/cupcake-logo.svg" %}
         </div>
