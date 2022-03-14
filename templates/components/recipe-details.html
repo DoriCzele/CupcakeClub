@@ -28,7 +28,7 @@
         </br>
             <h2>{{ name }}</h2>
             <br />
-            <p>Created by {{ author_name|title }}</p>
+            <p>Created by <a href="{{url_for('user_recipes', user_id=author_id)}}">{{ author_name|title }}</a></p>
             <h3>Ingredients</h3>
             <ul>
             {% for ingredient in ingredients %}
