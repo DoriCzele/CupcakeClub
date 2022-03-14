@@ -125,14 +125,14 @@ h2{
 
 .btn-edit {
     color: var(--bs-white);
-	background-color: #ffa500;
-	border-color: #e99b0a;
+	background-color: #e2800f;
+	border-color: #c7700c;
 }
 
 .btn-edit:hover {
     color: var(--bs-white);
-	background-color: #a16a02;
-	border-color: #805402;
+	background-color: #c06c0c;
+	border-color: #b46305;
 }
 
 /* hide prompts by default */
@@ -160,4 +160,29 @@ h2{
 }
 .btn-facebook:focus {
 	color: #fff;
+}
+
+.cupcake-avatar-container{
+    margin-top: 5%;
+    text-align: center;
+}
+
+.cupcake-avatar{
+    margin-top: 5%;
+    margin-bottom: 10%;
+    box-shadow: 3px 6px 8px 2px #888888;
+    background-color: #a6b2d4;
+}
+
+@media (min-width: 768px){
+.cupcake-avatar{
+    max-width: 40%;
+}}
+
+.recipe-form-label{
+    margin-top: 3%;
+    margin-bottom: 3%;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
 }

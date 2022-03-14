@@ -1,9 +1,8 @@
 <section class="recipe-form">
   <form method="POST">
-    <div class="container card p-3 bg-light">
-      <br>
+    <div class="container card p-3 bg-light recipe-form-label">
       {% if recipe_name %}
-      <h2>{{ recipe_name }}</h2><br>
+      <h2>{{ recipe_name }}</h2>
       <div class="form-group">
         <label for="recipeName" class="form-label">Recipe name</label>
         <input name="name" type="name" class="form-control form-control-lg" id="recipeName"
@@ -58,12 +57,15 @@
             </template>
           </div>
           <button id="add-instruction" type="button" class="btn btn-primary mt-1 mb-2">Add Instruction</button>
-
-          <p>Customise your recipe avatar!</p>
+        
+        <!--Cupcake avatar -->
+  <div class="cupcake-avatar-container">
+          <h6>Customise your recipe avatar!</h6>
+          <div class="cupcake-avatar container-fluid">
           {% include "components/cupcake-logo.svg" %}
-
+        </div>
           <!-- The original colour picker is made by Sjoerd de Boer and available at https://codepen.io/sjoerddeboer/pen/xxZqBQW -->
-          <label for="colourPicker" class="form-label">Colour picker</label>
+          <h6 for="colourPicker" class="form-label">Pick a colour for your cupcake!</h6>
           <div id="color-picker" class="color-picker" data-existing-color={{ recipe_color|tojson|safe }}>
             <label class="color-picker-option">
               <input class="color-radio" type="radio" name="radio" value="#e8c0d9">
@@ -94,8 +96,12 @@
               <span class="checkmark"></span>
             </label>
           </div>
+        <br>
+
           <button type="submit" class="btn btn-primary mb-2">Save Recipe</button>
-          <button class="btn btn-delete">Delete Recipe</button>
+          <button class="btn btn-delete mb-2">Delete Recipe</button>
+  
       </div>
+
   </form>
 </section>
