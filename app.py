@@ -159,7 +159,7 @@ def new_recipe():
         return redirect(url_for("login", next=request.endpoint))
     if request.method == "POST":
         try:
-            recipe_name = request.form.get("name").lower()
+            recipe_name = request.form.get("name")
             ingredients = []
             instructions = []
             for key, value in request.form.items():
@@ -207,7 +207,7 @@ def edit_recipe(recipe_id):
         return redirect(url_for("recipes"))
     if request.method == "POST":
         try:
-            recipe_name = request.form.get("name").lower()
+            recipe_name = request.form.get("name")
             ingredients = []
             instructions = []
             for key, value in request.form.items():
