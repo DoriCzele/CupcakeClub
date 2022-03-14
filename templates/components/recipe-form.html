@@ -68,6 +68,10 @@
           <h6 for="colourPicker" class="form-label">Pick a colour for your cupcake!</h6>
           <div id="color-picker" class="color-picker" data-existing-color={{ recipe_color|tojson|safe }}>
             <label class="color-picker-option">
+              <input class="color-radio" type="radio" name="radio" value="#E8C0D9">
+              <span class="checkmark"></span>
+            </label>
+            <label class="color-picker-option">
               <input class="color-radio" type="radio" name="radio" value="#90C2E7">
               <span class="checkmark"></span>
             </label>
