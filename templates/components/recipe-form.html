@@ -99,7 +99,10 @@
         <br>
 
           <button type="submit" class="btn btn-primary mb-2">Save Recipe</button>
+          <!-- A recipe_name would not exist if using the create route -->
+          {% if recipe_name %}
           <button class="btn btn-delete mb-2">Delete Recipe</button>
+          {% endif %}
   
       </div>
 
