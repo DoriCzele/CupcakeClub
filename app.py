@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+import re
 from flask import Flask, render_template, request, url_for, flash, redirect, session
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -16,7 +17,10 @@ pymongo = PyMongo(app)
 
 
 GENERIC_ERROR_MESSAGE = "There has been an error, please try again later."
+ALPHANUMERICAL_AND_SPACES_REGEX_STRING = "[A-Za-z0-9 ]+"
+INPUT_FORMAT_ERROR_MESSAGE = "The provided values did not fulfil the format requirements."
 ALREADY_AUTHED_MESSAGE = "You are logged in!"
+DEFAULT_RECIPE_COLOR = "E8C0D9"
 
 
 @app.errorhandler(404)
@@ -52,6 +56,10 @@ def page_server_error(error):
         500,
     )
 
+def regex_pattern_check(regex_pattern, string_to_evaluate):
+    if regex_pattern.fullmatch(string_to_evaluate):
+        return True
+    raise ValueError(INPUT_FORMAT_ERROR_MESSAGE)
 
 @app.route("/")
 def home():
@@ -76,7 +84,11 @@ def login():
         return redirect(url_for("home"))
     if request.method == "POST":
         try:
+            regex_pattern = re.compile(ALPHANUMERICAL_AND_SPACES_REGEX_STRING)
             username = request.form.get("username").lower()
+            if regex_pattern_check(regex_pattern, username):
+                if len(username) < 5 or len(username) > 50:
+                    raise ValueError
             password = request.form.get("password")
             db_user = pymongo.db.users.find_one({"username": username})
             username_title = username.title()
@@ -90,7 +102,7 @@ def login():
                     return redirect(url_for(next_endpoint))
                 return redirect(url_for("home"))
             flash("Incorrect credentials. Please check your details and try again.")
-        except Exception as exception:
+        except Exception:
             flash(GENERIC_ERROR_MESSAGE)
     return render_template(
         "pages/authentication.html",
@@ -114,7 +126,11 @@ def register():
     if request.method == "POST":
         # check if both provided
         try:
+            regex_pattern = re.compile(ALPHANUMERICAL_AND_SPACES_REGEX_STRING)
             username = request.form.get("username").lower()
+            if regex_pattern_check(regex_pattern, username):
+                if len(username) < 5 or len(username) > 50:
+                    raise ValueError
             password = request.form.get("password")
             if username != "" and password != "":
                 hashed_password = generate_password_hash(password)
@@ -135,7 +151,7 @@ def register():
                         flash(GENERIC_ERROR_MESSAGE)
                 else:
                     flash("That username is taken, please try another.")
-        except Exception as exception:
+        except Exception:
             flash(GENERIC_ERROR_MESSAGE)
     return render_template(
         "pages/authentication.html",
@@ -159,17 +175,35 @@ def new_recipe():
     if not bool("user" in session):
         return redirect(url_for("login", next=request.endpoint))
     if request.method == "POST":
+        # validate the user input
         try:
-            recipe_name = request.form.get("name")
+            regex_pattern = re.compile(ALPHANUMERICAL_AND_SPACES_REGEX_STRING)
             ingredients = []
             instructions = []
             for key, value in request.form.items():
+                if key == "name":
+                    if regex_pattern_check(regex_pattern, value):
+                        recipe_name = value
+                        if len(recipe_name) < 5 or len(recipe_name) > 50:
+                            raise ValueError
                 if key.startswith("ingredient"):
-                    ingredients.append(value)
+                    if regex_pattern_check(regex_pattern, value):
+                        ingredients.append(value)
                 if key.startswith("instruction"):
-                    instructions.append(value)
-            color = request.form.get("radio").replace("#","")
+                    if regex_pattern_check(regex_pattern, value):
+                        instructions.append(value)
+                if key == "radio":
+                    color = value.replace("#", "")
 
+            # check all input values have been provided for valid recipe
+            if len(ingredients) == 0 or len(instructions) == 0 or recipe_name is None or color is None:
+                raise ValueError
+        except ValueError:
+            flash(INPUT_FORMAT_ERROR_MESSAGE)
+            # return a blank form if invalid
+            return render_template("pages/edit-recipe.html", recipe_color=DEFAULT_RECIPE_COLOR)
+
+        try:
             recipe = {
                 "name": recipe_name,
                 "ingredients": ingredients,
@@ -182,9 +216,11 @@ def new_recipe():
             if db_insert.acknowledged:
                 return(redirect(url_for('recipe_details', recipe_id=str(db_insert.inserted_id))))
             flash("Recipe could not be created")
-        except Exception as exception:
+        except Exception:
             flash(GENERIC_ERROR_MESSAGE)
-    return render_template("pages/edit-recipe.html", recipe_color="e8c0d9")
+            # Return the user with a blank form for safety (if frontend/backend validation checks failed)
+            return render_template("pages/edit-recipe.html", recipe_color=DEFAULT_RECIPE_COLOR)
+    return render_template("pages/edit-recipe.html", recipe_color=DEFAULT_RECIPE_COLOR)
 
 @app.route("/edit-recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
@@ -192,32 +228,56 @@ def edit_recipe(recipe_id):
         return redirect(url_for("login", next=request.endpoint))
     try:
         db_recipe = pymongo.db.recipes.find_one({"_id":ObjectId(recipe_id)})
-        ingredients = db_recipe["ingredients"]
-        if len(ingredients) > 0:
-            ingredients = ",".join(ingredients)
-        instructions = db_recipe["instructions"]
-        if len(instructions) > 0:
-            instructions = ",".join(instructions)
-        color = db_recipe["color"]
+        db_recipe_name = db_recipe["name"]
+        db_ingredients = db_recipe["ingredients"]
+        if len(db_ingredients) > 0:
+            db_ingredients = ",".join(db_ingredients)
+        db_instructions = db_recipe["instructions"]
+        if len(db_instructions) > 0:
+            db_instructions = ",".join(db_instructions)
+        db_color = db_recipe["color"]
+    except Exception:
+        flash(GENERIC_ERROR_MESSAGE)
+        return render_template("pages/edit-recipe.html", recipe_color=DEFAULT_RECIPE_COLOR)
 
+    try:
         user = pymongo.db.users.find_one({"_id":ObjectId(session["user"])})
         if not session["user"] == db_recipe["author"] and not user["is_admin"]:
             flash("You can only edit your own recipes.")
             return redirect(url_for("recipes"))
-    except Exception as exception:
+    except Exception:
         flash(GENERIC_ERROR_MESSAGE)
         return redirect(url_for("recipes"))
     if request.method == "POST":
+        # validate the user input
         try:
-            recipe_name = request.form.get("name")
+            regex_pattern = re.compile(ALPHANUMERICAL_AND_SPACES_REGEX_STRING)
             ingredients = []
             instructions = []
             for key, value in request.form.items():
+                if key == "name":
+                    if regex_pattern_check(regex_pattern, value):
+                        recipe_name = value
+                        if len(recipe_name) < 5 or len(recipe_name) > 50:
+                            raise ValueError
                 if key.startswith("ingredient"):
-                    ingredients.append(value)
+                    if regex_pattern_check(regex_pattern, value):
+                        ingredients.append(value)
                 if key.startswith("instruction"):
-                    instructions.append(value)
-            color = request.form.get("radio").replace("#","")
+                    if regex_pattern_check(regex_pattern, value):
+                        instructions.append(value)
+                if key == "radio":
+                    color = value.replace("#", "")
+
+            # check all input values have been provided for valid recipe
+            if len(ingredients) == 0 or len(instructions) == 0 or recipe_name is None or color is None:
+                raise ValueError
+        except ValueError:
+            flash(INPUT_FORMAT_ERROR_MESSAGE)
+            # Return the user to form with the recipe values from the database for safety (if frontend/backend validation checks failed)
+            return render_template("pages/edit-recipe.html", recipe_name=db_recipe_name, recipe_ingredients=db_ingredients, recipe_instructions=db_instructions, recipe_color=db_color)
+
+        try:
             updated_recipe = {
                 "name": recipe_name,
                 "ingredients": ingredients,
@@ -229,11 +289,12 @@ def edit_recipe(recipe_id):
                 flash("Recipe updated")
                 return redirect(url_for("recipe_details", recipe_id=recipe_id))
             # if update was not successful
-            return redirect(url_for("edit_recipe", recipe_id=recipe_id))
-        except Exception as exception:
             flash("Recipe could not be updated")
             return redirect(url_for("edit_recipe", recipe_id=recipe_id))
-    return render_template("pages/edit-recipe.html", recipe_name=db_recipe["name"], recipe_ingredients=ingredients, recipe_instructions=instructions, recipe_color=color)
+        except Exception:
+            flash("Recipe could not be updated")
+            return redirect(url_for("edit_recipe", recipe_id=recipe_id))
+    return render_template("pages/edit-recipe.html", recipe_name=db_recipe_name, recipe_ingredients=db_ingredients, recipe_instructions=db_instructions, recipe_color=db_color)
 
 
 @app.route("/recipes")
@@ -250,7 +311,7 @@ def user_recipes(user_id):
         recipes = pymongo.db.recipes.find({"author":user_id}).sort("created_at", -1)
         # check length of recipes list
         num_recipes = len(list(recipes.clone()))
-    except Exception as exception:
+    except Exception:
         flash(GENERIC_ERROR_MESSAGE)
         return redirect(url_for("recipes"))
     return render_template("layout/recipes.html", recipes=recipes, num_recipes=num_recipes, username=user["username"])
@@ -265,8 +326,7 @@ def recipe_details(recipe_id):
             admin_access = user["is_admin"]
         db_recipe = pymongo.db.recipes.find_one({"_id":ObjectId(recipe_id)})
         author = pymongo.db.users.find_one({"_id":ObjectId(db_recipe["author"])})
-    except Exception as exception:
-        print(exception)
+    except Exception:
         flash(GENERIC_ERROR_MESSAGE)
         return redirect(url_for("home"))
     return render_template("components/recipe-details.html", id=db_recipe["_id"], name=db_recipe["name"], ingredients=db_recipe["ingredients"], instructions=db_recipe["instructions"], author_name=author["username"], author_id=db_recipe["author"], admin_access=admin_access)
@@ -278,7 +338,7 @@ def delete_recipe(recipe_id):
         db_delete = pymongo.db.recipes.delete_one({"_id":ObjectId(recipe_id)})
         if db_delete.acknowledged:
             flash("Recipe has been deleted")
-    except Exception as exception:
+    except Exception:
         flash(GENERIC_ERROR_MESSAGE)
     return(redirect(url_for("recipes")))
 
