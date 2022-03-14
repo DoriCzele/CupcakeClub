@@ -221,7 +221,6 @@ def edit_recipe(recipe_id):
                 "ingredients": ingredients,
                 "instructions": instructions,
                 "color": color,
-                "author": session["user"]
             }
             db_update = pymongo.db.recipes.update_one(db_recipe, {"$set": updated_recipe})
             if db_update.acknowledged:
