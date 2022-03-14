@@ -43,7 +43,9 @@
               {% endfor %}
             </ol>
             </br>
-            <div>
+            <div>            
+            <!--The original Facebook share button by Justin Cron, available at: https://codepen.io/justincron/pen/ZEKbev -->
+            <a href="https://www.facebook.com/sharer/sharer.php?s=100&p[url]=http://www.example.com&p[images][0]=&p[title]=Title%20Goes%20Here&p[summary]=Description%20goes%20here!" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false"><button type="button" class="btn btn-facebook"><i class="fab fa-facebook-f"></i> Share </button></a>
             <a href="{{url_for('recipes')}}" class="btn btn-primary">Go to recipes!</a>
             {% if session["user"] == author_id or admin_access %}
             <a href="{{url_for('edit_recipe', recipe_id=id)}}"class="btn btn-edit">Edit Recipe</a>

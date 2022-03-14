@@ -96,7 +96,7 @@ def login():
         auth_mode="Login",
         current_auth_link=current_auth_link,
         alternative_auth_mode="Register",
-        alternative_auth_prompt="Create an account",
+        alternative_auth_prompt="Create an account! ",
         alternative_auth_link=alternative_auth_link,
     )
 
@@ -141,7 +141,7 @@ def register():
         auth_mode="Register",
         current_auth_link=current_auth_link,
         alternative_auth_mode="Login",
-        alternative_auth_prompt="Already a member?",
+        alternative_auth_prompt="Already a member? ",
         alternative_auth_link=alternative_auth_link,
     )
 
