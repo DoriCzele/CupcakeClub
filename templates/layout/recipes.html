@@ -22,8 +22,8 @@
       <div class="divider-custom-line"></div>
     </div>
     <!-- Recipes Grid Items-->
-    <div>
-      <div class="row justify-content-center">
+    <div class="container-fluid">
+      <div class="row justify-content-evenly">
         {% if num_recipes > 0 %}
         {% for recipe in recipes %}
         {% include "components/recipe-preview.html" %}
