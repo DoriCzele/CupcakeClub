@@ -38,8 +38,11 @@ Should you have any questions regarding my project feel free to reach out to me 
     - [**Libraries and Frameworks**](#libraries-and-frameworks)
     - [**Tools**](#tools)
     - [**Database Structure**](#database-structure)
-  
-    
+    - [User Table Schema](#user-table-schema)
+    - [Recipe Table Schema](#recipe-table-schema)
+  - [**Deployment**](#deployment)
+    - [Local Deployment](#local-deployment)
+    - [Heroku Deployment](#heroku-deployment)
 
 
 ## **UX**
@@ -93,7 +96,7 @@ The website's structure was created with the use of [Bootstrap 5](https://getboo
 
 ### Logo
 
-The cupcake logo was created by ***Tamas Barta*** Graphic Designer.
+The cupcake logo was created by [Tamas Barta](https://linkedin.com/in/tamas-barta-50850013a) Graphic Designer.
 
 ### Background
 
@@ -205,4 +208,94 @@ Creation Time | created_at | Date
 
 [Back to Top](#table-of-contents)
 
+## **Deployment**
+
+### Local Deployment
+
+I have created The Cupcake Club using Github and VS Code. 
+With every change in the codebase I've made a commit with a detailed description attached, followed by a "git push" to update my GitHub repository.
+I've deployed this project to Heroku and used the "git push heroku main" command to make sure my pushes to GitHub were also made to Heroku. 
+
+For local deployment see the following steps:
+
+1. From the application's repository, click the "code" button and download the zip of the repository. Alternatively, you can clone the repository using the following line in your terminal:
+
+    ``` 
+    git clone https://github.com/DoriCzele/CupcakeClub.git
+    ``` 
+
+2. Access the folder in your terminal window and install the application's [required modules](https://github.com/DoriCzele/CupcakeClub/blob/main/requirements.txt) using the following command:
+
+    ```
+    pip3 install -r requirements.txt
+    ```
+
+3. Sign-in to [MongoDB](https://www.mongodb.com/) and create a new cluster:
+    * Click on Collections button then click on Create Database (Add My Own Data) called cupcakeClub (ensure same as DB_NAME environment variable)
+    * Set up the following collections: users and recipes according to the database structure
+    * Under the Security Menu on the left, select Database Access.
+    * Add a new database user and keep the credentials secure
+    * Within the Network Access option add IP Address 0.0.0.0
+
+4. In your IDE, create a file containing your environmental variables called env.py at the root level of the application. 
+    It should contain the following lines and variables:
+
+    ```
+    import os
+
+    os.environ["HOST"] = "0.0.0.0"
+    os.environ["PORT"] = "8000"
+    os.environ["DEBUG"] = "True"
+    os.environ["SECRET_KEY"] = "<YOUR_SECRET_KEY>"
+    os.environ["MONGO_URI"] = "<YOUR_MONGODB_URI>"
+    os.environ["MONGO_DB"]= "<DATABASE_NAME>"
+    ```
+
+    Update the **SECRET_KEY** with your own secret key, as well as the **MONGO_URI** and **MONGO_DB** variables with those provided by MongoDB.
+    To find your MONGO_URI, go to your clusters and click on connect. 
+    Choose connect your application and copy the link provided. 
+    Update the necessary fields like password and database name. 
+
+    In case you're pushing this application to a public repository, ensure that env.py is added to your .gitignore file.
+
+5. To run the application locally type the following command to the terminal: 
+    ```
+    python3 app.py. 
+    ```
+    
+### Heroku Deployment 
+
+1. Log in to Heroku account and create a new app (make sure you chose the correct region). 
+
+2. Ensure the Procfile and requirements.txt files are present and up-to-date in the local repository.  
+
+    Requirements:
+    ```
+    pip3 freeze --local > requirements.txt
+    ```
+    Procfile:
+    ```
+    echo web: python app.py > Procfile
+    ```
+3. The Procfile should contain the following line:
+    ```
+    web: python app.py
+    ```
+
+4. Scroll down to "deployment method"-section and pick "Github" for automatic deployment.
+5. Select your github user, enter the name for your repository and click on connect.
+6. Click on "settings" then click on "Reveal config vars". Set up the same variables as in your env.py (HOST, PORT, DEBUG, SECRET_KEY, MONGO_URI and MONGO_DB):
+    MAke sure you don't set the DEBUG variable in under config vars, to avoid DEBUG being active on the live website. 
+
+    ```
+    IP = 0.0.0.0
+    PORT = 8000
+    SECRET_KEY = <YOUR_SECRET_KEY>
+    MONGO_URI = <YOUR_MONGODB_URI>
+    MONGO_DBNAME = <DATABASE_NAME>
+    ```
+
+7. Click "Deploy" then click "Enable automatic deployment".
+8. Click "Deploy branch" and Heroku starts building the app. Once the build is complete to open it click "view app".
+    
 [Back to Top](#table-of-contents)
