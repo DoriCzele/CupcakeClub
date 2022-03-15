@@ -236,7 +236,7 @@ Users can upload their recipes via the recipe form (see below) on the "Add a rec
 
 ![Recipe form](/static/img/recipe_form.png)
 
-Users can read recipes on the "Recipes" page (see below) starting with the most recent recipe, fulfilling the "read" aspect of CRUD.
+Users can read recipes on the "Recipes" page (see below) starting with the most recent recipe, fulfilling the "read" aspect of CRUD. Pagination was added to the "Recipes" and "My recipes" pages to enable improved data efficiency and enhance user experience by reducing loading time.
 
 ![Recipes](/static/img/recipes.png)
 
