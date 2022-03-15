@@ -40,6 +40,7 @@ Should you have any questions regarding my project feel free to reach out to me 
     - [**Database Structure**](#database-structure)
     - [User Table Schema](#user-table-schema)
     - [Recipe Table Schema](#recipe-table-schema)
+  - [**Security**](#security)
   - [**Deployment**](#deployment)
     - [Local Deployment](#local-deployment)
     - [Heroku Deployment](#heroku-deployment)
@@ -206,6 +207,16 @@ Instructions | instructions | Array
 Avatar Color | color | String
 Author | author | string
 Creation Time | created_at | Date
+
+[Back to Top](#table-of-contents)
+
+## **Security**
+
+This project involves secret keys for the successful melding of GitHub, Heroku and MongoDB with the development environment. This was achieved via a local env.py that is listed in the .gitignore file and can be found in the repository as well as the password and database name.
+
+All users are required to provide a password when they register which are hashed by using "generate_password_hash" from the werkzeug.security library. Hashed passwords are then checked against each other upon log in.
+
+Admins have the ability to access, edit or remove any recipes. The Cupcake Club admins reserve the right to modify any recipes that are deemed inappropriate, irrelevant or offensive.
 
 [Back to Top](#table-of-contents)
 
