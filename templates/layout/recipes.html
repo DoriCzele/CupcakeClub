@@ -3,12 +3,12 @@
 
 <!-- Recipes Section-->
 <section class="page-section" id="recipes">
-  <div class="container">
-    <!-- Recipes Section Heading-->
+	<div class="container">
+		<!-- Recipes Section Heading-->
     <br>
     {% if username %}
     <h1 class="page-section-heading text-center text-uppercase text-secondary mb-0">
-      {{ username }}'s Recipes
+			{{ username }}'s Recipes
     </h1>
     {% else %}
     <h1 class="page-section-heading text-center text-uppercase text-secondary mb-0">
@@ -17,11 +17,14 @@
     {% endif %}
     <!-- Icon Divider-->
     <div class="divider-custom">
-      <div class="divider-custom-line"></div>
+			<div class="divider-custom-line"></div>
       <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
       <div class="divider-custom-line"></div>
     </div>
     <!-- Recipes Grid Items-->
+		{% if pagination_info %}
+		<p>Displaying recipes {{pagination_info["min_record"]}} - {{pagination_info["max_record"]}} of {{pagination_info["total_records"]}}</p>
+		{% endif %}
     <div class="container-fluid">
       <div class="row justify-content-evenly">
         {% if num_recipes > 0 %}
@@ -33,7 +36,12 @@
         {% endif %}
       </div>
     </div>
-    
-  </div>
+	
+		<!-- Pagination navigation links -->
+		<div class="container mt-5">
+			<div id="pagination-button-row" class="row justify-content-center">
+			{{ pagination.links }}
+			</div>
+    </div>
 </section>
 {% endblock %}

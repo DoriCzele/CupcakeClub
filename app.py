@@ -3,6 +3,7 @@ from datetime import datetime
 import re
 from flask import Flask, render_template, request, url_for, flash, redirect, session
 from flask_pymongo import PyMongo
+from flask_paginate import Pagination, get_page_args
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson import ObjectId
 
@@ -21,6 +22,7 @@ ALPHANUMERICAL_AND_SPACES_REGEX_STRING = "[A-Za-z0-9 ]+"
 INPUT_FORMAT_ERROR_MESSAGE = "The provided values did not fulfil the format requirements."
 ALREADY_AUTHED_MESSAGE = "You are logged in!"
 DEFAULT_RECIPE_COLOR = "E8C0D9"
+RECIPES_PER_PAGE = 9
 
 
 @app.errorhandler(404)
@@ -296,12 +298,20 @@ def edit_recipe(recipe_id):
             return redirect(url_for("edit_recipe", recipe_id=recipe_id))
     return render_template("pages/edit-recipe.html", recipe_name=db_recipe_name, recipe_ingredients=db_ingredients, recipe_instructions=db_instructions, recipe_color=db_color)
 
-
 @app.route("/recipes")
 def recipes():
     recipes = pymongo.db.recipes.find().sort("created_at", -1)
-    num_recipes = len(list(recipes.clone()))
-    return render_template("layout/recipes.html", recipes=recipes, num_recipes=num_recipes)
+    recipes_list = list(recipes)
+    total_recipes = len(recipes_list)
+    page = int(request.args.get("page", 1, type=int))
+    pagination = Pagination(page=page, per_page=RECIPES_PER_PAGE, total=total_recipes, bs_version=5)
+    paginated_recipes = recipes_list[pagination.skip: pagination.skip + RECIPES_PER_PAGE]
+    if pagination.skip + RECIPES_PER_PAGE > total_recipes:
+        max_record = total_recipes
+    else:
+        max_record = pagination.skip + RECIPES_PER_PAGE
+    pagination_info = {"min_record":pagination.skip+1, "max_record":max_record, "total_records":total_recipes}
+    return render_template("layout/recipes.html", recipes=paginated_recipes, num_recipes=1, pagination=pagination, pagination_info=pagination_info)
 
 
 @app.route("/recipes/<user_id>")
@@ -309,12 +319,20 @@ def user_recipes(user_id):
     try:
         user = pymongo.db.users.find_one({"_id":ObjectId(user_id)})
         recipes = pymongo.db.recipes.find({"author":user_id}).sort("created_at", -1)
-        # check length of recipes list
-        num_recipes = len(list(recipes.clone()))
+        recipes_list = list(recipes)
+        total_recipes = len(recipes_list)
+        page = int(request.args.get("page", 1, type=int))
+        pagination = Pagination(page=page, per_page=RECIPES_PER_PAGE, total=total_recipes, bs_version=5)
+        paginated_recipes = recipes_list[pagination.skip: pagination.skip + RECIPES_PER_PAGE]
+        if pagination.skip + RECIPES_PER_PAGE > total_recipes:
+            max_record = total_recipes
+        else:
+            max_record = pagination.skip + RECIPES_PER_PAGE
+        pagination_info = {"min_record":pagination.skip+1, "max_record":max_record, "total_records":total_recipes}
     except Exception:
         flash(GENERIC_ERROR_MESSAGE)
         return redirect(url_for("recipes"))
-    return render_template("layout/recipes.html", recipes=recipes, num_recipes=num_recipes, username=user["username"])
+    return render_template("layout/recipes.html", recipes=paginated_recipes, num_recipes=total_recipes, pagination=pagination, pagination_info=pagination_info, username=user["username"])
 
 
 @app.route("/recipe-details/<recipe_id>")

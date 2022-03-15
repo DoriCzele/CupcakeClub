@@ -185,3 +185,19 @@ h1, h2 {
     font-size: 1.2rem;
     font-weight: 500;
 }
+
+#pagination-button-row > nav {
+	display: flex;
+	justify-content: center;
+}
+
+#pagination-button-row a {
+	/* change this to change number colour */
+	color: #6c757d;
+}
+
+#pagination-button-row .page-item.active .page-link {
+	/* change this to change button background on hover */
+	background-color: #9aa8d3;
+	border-color: #7386c2;
+}
