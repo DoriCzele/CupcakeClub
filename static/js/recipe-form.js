@@ -13,9 +13,9 @@ function compareEntryToRegex(inputElement, inputPrompt, attributeType){
 	if (validInputRegex.test(inputElement.value)){
 		// Ensure input prompt is not displayed on valid entry
 		inputPrompt.style.display = "none";
-		addEntryToList(inputElement.value, attributeType)
+		addEntryToList(inputElement.value, attributeType);
 		// Reset the original input field
-		inputElement.value = ""
+		inputElement.value = "";
 	} else {
 		inputPrompt.style.display = "block";
 	}
@@ -24,17 +24,17 @@ function compareEntryToRegex(inputElement, inputPrompt, attributeType){
 function addInputEventListeners(attributeType){
 	const inputField = document.getElementById(`${attributeType}-field`);
 	const inputPrompt = document.getElementById(`${attributeType}-input-prompt`);
-	const addAttributeButton = document.getElementById(`add-${attributeType}`)
+	const addAttributeButton = document.getElementById(`add-${attributeType}`);
 	// On individual entry submit, check if it matches the allowed regex characters
 	inputField.addEventListener("keypress", function(event){
 		if (event.key == "Enter"){
-			event.preventDefault()
+			event.preventDefault();
 			compareEntryToRegex(inputField, inputPrompt, attributeType);
 		}
-	})
+	});
 	addAttributeButton.addEventListener("click", function(){
 		compareEntryToRegex(inputField, inputPrompt, attributeType);
-	})
+	});
 }
 
 // Wait for DOM content to load before applying event listeners
@@ -51,11 +51,11 @@ window.addEventListener("DOMContentLoaded", function(){
 });
 
 function addEntryToList(newValue, attributeType){
-	const inputSection = document.getElementById(`${attributeType}-input-section`)
+	const inputSection = document.getElementById(`${attributeType}-input-section`);
 	const inputGroups = inputSection.querySelectorAll(".input-group");
 	
 	// Increment the last input ID value if it exists
-	const lastInputGroup = inputGroups[inputGroups.length-1]
+	const lastInputGroup = inputGroups[inputGroups.length-1];
 	let newInputGroupIncrement = 0;
 	if (lastInputGroup){
 		newInputGroupIncrement = parseInt(lastInputGroup.querySelector("input").dataset.increment) + 1;
@@ -69,22 +69,22 @@ function addEntryToList(newValue, attributeType){
 	htmlTemplateCloneInput.dataset.increment = newInputGroupIncrement;
 	htmlTemplateCloneInput.value = newValue;
 	const htmlTemplateCloneButtons = htmlTemplateClone.querySelectorAll("button");
-	htmlTemplateCloneButtons[0].id = `edit-${attributeType}-button-${newInputGroupIncrement}`
-	htmlTemplateCloneButtons[1].id = `delete-${attributeType}-button-${newInputGroupIncrement}`
+	htmlTemplateCloneButtons[0].id = `edit-${attributeType}-button-${newInputGroupIncrement}`;
+	htmlTemplateCloneButtons[1].id = `delete-${attributeType}-button-${newInputGroupIncrement}`;
 
 	// Add input-group to inputs section in DOM
 	inputSection.appendChild(htmlTemplateClone);
 
 	// Add event listeners for the new edit/delete buttons
-	const editAttributeButton = document.getElementById(`edit-${attributeType}-button-${newInputGroupIncrement}`)
-	editAttributeButton.addEventListener("click", function(event){makeInputFieldWritable(event)})
-	const deleteAttributeButton = document.getElementById(`delete-${attributeType}-button-${newInputGroupIncrement}`)
-	deleteAttributeButton.addEventListener("click", function(event){removeItemFromList(event)})
+	const editAttributeButton = document.getElementById(`edit-${attributeType}-button-${newInputGroupIncrement}`);
+	editAttributeButton.addEventListener("click", function(event){makeInputFieldWritable(event);});
+	const deleteAttributeButton = document.getElementById(`delete-${attributeType}-button-${newInputGroupIncrement}`);
+	deleteAttributeButton.addEventListener("click", function(event){removeItemFromList(event);});
 }
 
 function removeItemFromList(event){
 	// Remove direct parent input group from DOM
-	event.target.parentElement.remove()
+	event.target.parentElement.remove();
 }
 
 function makeInputFieldWritable(event){
