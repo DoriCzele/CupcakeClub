@@ -311,7 +311,7 @@ def recipes():
     else:
         max_record = pagination.skip + RECIPES_PER_PAGE
     pagination_info = {"min_record":pagination.skip+1, "max_record":max_record, "total_records":total_recipes}
-    return render_template("layout/recipes.html", recipes=paginated_recipes, num_recipes=1, pagination=pagination, pagination_info=pagination_info)
+    return render_template("layout/recipes.html", recipes=paginated_recipes, num_recipes=total_recipes, pagination=pagination, pagination_info=pagination_info)
 
 
 @app.route("/recipes/<user_id>")

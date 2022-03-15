@@ -22,7 +22,7 @@
       <div class="divider-custom-line"></div>
     </div>
     <!-- Recipes Grid Items-->
-		{% if pagination_info %}
+		{% if pagination_info and num_recipes > 0 %}
 		<p>Displaying recipes {{pagination_info["min_record"]}} - {{pagination_info["max_record"]}} of {{pagination_info["total_records"]}}</p>
 		{% endif %}
     <div class="container-fluid">
