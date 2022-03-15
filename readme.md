@@ -28,6 +28,11 @@ Should you have any questions regarding my project feel free to reach out to me 
     - [Background](#background)
     - [Fonts](#fonts)
     - [Icons](#icons)
+    - [Wireframes](#wireframes)
+      - [Desktop Wireframes](#desktop-wireframes)
+      - [Tablet Wireframes](#tablet-wireframes)
+      - [Mobile Wireframes](#mobile-wireframes)
+      - [Additional wireframes](#additional-wireframes)
     
 
 
@@ -60,7 +65,7 @@ Should you have any questions regarding my project feel free to reach out to me 
 * Providing a fully responsive and enjoyable interface with great functionality for users to write, share and find recipes.
 * To make the website as personal as possible by giving the user the possibility to customise their recipe avatar and add and access their own recipes on a separated page.
 
-[Back to Top](#site-owners-goals)
+[Back to Top](#table-of-contents)
 
 ### Design Choices
 The website's main functionalities to add, share and find cupcake recipes. The design choices reflect a fun and modern design with bold colours while keeping the flow clear and simple for users. 
@@ -73,7 +78,7 @@ The colour palette was created via [Coolors](https://coolors.co/ "Coolors.co")
 
 * #FFFFFF: The background of the overall website is white in order achieve a clean nad modern look. 
 * #7386C2: This colour is used as background colour in different sections. 
-* #D63384: This color is used in the navbar and certain texts to drive user's attention to it.
+* #D63384: This color is used in the navbar and certain texts to draw user's attention to it.
 * #2C3E50: This colour is used as a feature colour in dividers across the website as well as in the footer.
 
 ### Structure
@@ -96,4 +101,46 @@ Fonts are customised via [Google Fonts](https://fonts.google.com)
 
 Fav icons are created via [Favicon.io](https://favicon.io/favicon-generator/) 
 
-[Back to Top](#design-choices)
+[Back to Top](#table-of-contents)
+
+### Wireframes
+
+The website's wireframes were created via [Balsamiq](https://balsamiq.com/wireframes/).
+
+Wireframes are available on the links below:
+
+#### Desktop Wireframes
+* [Home](assets/wireframes/home_desktop.png)
+* [Login](/assets/wireframes/login_desktop.png)
+* [Register](/assets/wireframes/register_desktop.png)
+* [Recipe form](/assets/wireframes/recipe_form_desktop.png)
+* [Edit recipe form](/assets/wireframes/edit_recipe_desktop.png)
+* [My recipes](assets/wireframes/my_recipes_desktop.png)
+* [Recipes](/assets/wireframes/recipes_desktop.png)
+* [Recipe details](/assets/wireframes/recipe_details_desktop.png)
+
+#### Tablet Wireframes
+* [Home](assets/wireframes/home_tablet.png)
+* [Login](/assets/wireframes/login_tablet.png)
+* [Register](/assets/wireframes/register_tablet.png)
+* [Recipe form](/assets/wireframes/recipe_form_tablet.png)
+* [Edit recipe form](/assets/wireframes/edit_recipe_tablet.png)
+* [My recipes](assets/wireframes/my_recipes_tablet.png)
+* [Recipes](/assets/wireframes/recipes_tablet.png)
+* [Recipe details](/assets/wireframes/recipe_details_tablet.png)
+
+#### Mobile Wireframes
+* [Home](assets/wireframes/home_mobile.png)
+* [Login](/assets/wireframes/login_mobile.png)
+* [Register](/assets/wireframes/register_mobile.png)
+* [Recipe form](/assets/wireframes/recipe_form_mobile.png)
+* [Edit recipe form](/assets/wireframes/edit_recipe_mobile.png)
+* [My recipes](assets/wireframes/my_recipes_mobile.png)
+* [Recipes](/assets/wireframes/recipes_mobile.png)
+* [Recipe details](/assets/wireframes/recipe_details_mobile.png)
+
+#### Additional wireframes
+* [Error page](/assets/wireframes/error_wireframe.png)
+* [Toast message](/assets/wireframes/toast_message.png)
+
+[Back to Top](#table-of-contents)
