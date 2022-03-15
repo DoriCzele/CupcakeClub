@@ -68,41 +68,41 @@
           <h6 for="colourPicker" class="form-label">Pick a colour for your cupcake!</h6>
           <div id="color-picker" class="color-picker" data-existing-color={{ recipe_color|tojson|safe }}>
             <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#E8C0D9">
+              <input class="color-radio" type="radio" name="radio" value="#E8C0D9" aria-label="Pink colour">
               <span class="checkmark"></span>
             </label>
             <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#90C2E7">
+              <input class="color-radio" type="radio" name="radio" value="#90C2E7" aria-label="Blue colour">
               <span class="checkmark"></span>
             </label>
             <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#F8F1C0">
+              <input class="color-radio" type="radio" name="radio" value="#F8F1C0" aria-label="Yellow colour">
               <span class="checkmark"></span>
             </label>
             <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#B2D8D7">
+              <input class="color-radio" type="radio" name="radio" value="#B2D8D7" aria-label="Green colour">
               <span class="checkmark"></span>
             </label>
             <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#E95D6B">
+              <input class="color-radio" type="radio" name="radio" value="#E95D6B" aria-label="Red colour">
               <span class="checkmark"></span>
             </label>
             <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#E9A586">
+              <input class="color-radio" type="radio" name="radio" value="#E9A586" aria-label="Orange colour">
               <span class="checkmark"></span>
             </label>
             <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#A4A4A2">
+              <input class="color-radio" type="radio" name="radio" value="#A4A4A2" aria-label="Grey colour">
               <span class="checkmark"></span>
             </label>
             <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#FFFFFF">
+              <input class="color-radio" type="radio" name="radio" value="#FFFFFF" aria-label="White colour">
               <span class="checkmark"></span>
             </label>
           </div>
         <br>
 
-          <button type="submit" class="btn btn-primary mb-2">Save Recipe</button>
+          <button type="submit" aria-label="Save" class="btn btn-primary mb-2">Save Recipe</button>
           <!-- A recipe_name would not exist if using the create route -->
           {% if recipe_name %}
           {% endif %}
