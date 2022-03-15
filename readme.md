@@ -20,6 +20,7 @@ Should you have any questions regarding my project feel free to reach out to me 
   - [Table of contents](#table-of-contents)
     - [User Goals](#user-goals)
     - [User Stories](#user-stories)
+    - [Site Owner's Goals](#site-owners-goals)
     
     ## **UX**
 
@@ -46,3 +47,11 @@ Should you have any questions regarding my project feel free to reach out to me 
 * As a user, I want the website to be available on mobile, tablet and desktop devices.
 
 [Back to Top](#table-of-contents)
+
+### Site Owner's Goals
+
+* Providing information about how to make cupcakes. 
+* Providing a fully responsive and enjoyable interface with great functionality for users to write, share and find recipes.
+* To make the website as personal as possible by giving the user the possibility to customise their recipe avatar and add and access their own recipes on a separated page.
+
+[Back to Top](#site-owners-goals)
