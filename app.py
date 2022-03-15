@@ -311,7 +311,7 @@ def recipes():
     else:
         max_record = pagination.skip + RECIPES_PER_PAGE
     pagination_info = {"min_record":pagination.skip+1, "max_record":max_record, "total_records":total_recipes}
-    return render_template("layout/recipes.html", recipes=paginated_recipes, num_recipes=total_recipes, pagination=pagination, pagination_info=pagination_info)
+    return render_template("pages/recipes.html", recipes=paginated_recipes, num_recipes=total_recipes, pagination=pagination, pagination_info=pagination_info)
 
 
 @app.route("/recipes/<user_id>")
@@ -332,7 +332,7 @@ def user_recipes(user_id):
     except Exception:
         flash(GENERIC_ERROR_MESSAGE)
         return redirect(url_for("recipes"))
-    return render_template("layout/recipes.html", recipes=paginated_recipes, num_recipes=total_recipes, pagination=pagination, pagination_info=pagination_info, username=user["username"])
+    return render_template("pages/recipes.html", recipes=paginated_recipes, num_recipes=total_recipes, pagination=pagination, pagination_info=pagination_info, username=user["username"])
 
 
 @app.route("/recipe-details/<recipe_id>")
