@@ -178,6 +178,31 @@ Wireframes are available on the links below:
 
 ### **Database Structure**
 
-Database structure comes here
+"User" and "Recipe" collections were used in this project.
+
+### User Table Schema
+
+The structure of a document within this collection is as follows:  
+| Title | Database Key | Data type |
+--- | --- | ---
+User ID | _id | ObjectId
+Username | username | String
+Hashed Password | password | String
+Is Administrator | is_admin | Boolean
+
+### Recipe Table Schema
+
+The structure of a document within this collection is as follows:
+| Title | Database Key | Data type |
+--- | --- | ---
+Recipe ID | _id | ObjectId
+Recipe Name | name | String
+Ingredients | ingredients | Array
+Instructions | instructions | Array
+Avatar Color | color | String
+Author | author | string
+Creation Time | created_at | Date
+
+[Back to Top](#table-of-contents)
 
 [Back to Top](#table-of-contents)
