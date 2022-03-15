@@ -3,7 +3,7 @@ from datetime import datetime
 import re
 from flask import Flask, render_template, request, url_for, flash, redirect, session
 from flask_pymongo import PyMongo
-from flask_paginate import Pagination, get_page_args
+from flask_paginate import Pagination
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson import ObjectId
 
@@ -19,7 +19,9 @@ pymongo = PyMongo(app)
 
 GENERIC_ERROR_MESSAGE = "There has been an error, please try again later."
 ALPHANUMERICAL_AND_SPACES_REGEX_STRING = "[A-Za-z0-9 ]+"
-INPUT_FORMAT_ERROR_MESSAGE = "The provided values did not fulfil the format requirements."
+INPUT_FORMAT_ERROR_MESSAGE = (
+    "The provided values did not fulfil the format requirements."
+)
 ALREADY_AUTHED_MESSAGE = "You are logged in!"
 DEFAULT_RECIPE_COLOR = "E8C0D9"
 RECIPES_PER_PAGE = 9
@@ -61,16 +63,19 @@ def page_server_error(error):
         500,
     )
 
+
 def regex_pattern_check(regex_pattern, string_to_evaluate):
     """Perform regex validation on given string, return True if match, raise Error otherwise."""
     if regex_pattern.fullmatch(string_to_evaluate):
         return True
     raise ValueError(INPUT_FORMAT_ERROR_MESSAGE)
 
+
 @app.route("/")
 def home():
     """Render the homepage view"""
     return render_template("pages/home.html")
+
 
 def get_auth_url_params(request, current_auth_link, alternative_auth_link):
     """Given user request, generate auth links for URL (including next URL parameter)."""
@@ -81,13 +86,16 @@ def get_auth_url_params(request, current_auth_link, alternative_auth_link):
         alternative_auth_link = f"{alternative_auth_link}?next={next_endpoint}"
     return [next_endpoint, current_auth_link, alternative_auth_link]
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Render the login view"""
     current_auth_link = url_for("login")
     alternative_auth_link = url_for("register")
     next_endpoint = None
-    next_endpoint, current_auth_link, alternative_auth_link = get_auth_url_params(request, current_auth_link, alternative_auth_link)
+    next_endpoint, current_auth_link, alternative_auth_link = get_auth_url_params(
+        request, current_auth_link, alternative_auth_link
+    )
     # Check if user is already logged in, redirect to home if so
     if bool("user" in session):
         flash(ALREADY_AUTHED_MESSAGE)
@@ -106,7 +114,9 @@ def login():
             username_title = username.title()
             if db_user is None:
                 # User is not found, refresh the page
-                flash("This user does not exist. Please check your details and try again.")
+                flash(
+                    "This user does not exist. Please check your details and try again."
+                )
                 return redirect(current_auth_link)
             # User is found, check hashed password against form password input
             if check_password_hash(db_user["password"], password):
@@ -136,7 +146,9 @@ def register():
     current_auth_link = url_for("register")
     alternative_auth_link = url_for("login")
     next_endpoint = None
-    next_endpoint, current_auth_link, alternative_auth_link = get_auth_url_params(request, current_auth_link, alternative_auth_link)
+    next_endpoint, current_auth_link, alternative_auth_link = get_auth_url_params(
+        request, current_auth_link, alternative_auth_link
+    )
     # Check if user is already logged in, redirect to home if so
     if bool("user" in session):
         flash(ALREADY_AUTHED_MESSAGE)
@@ -155,7 +167,11 @@ def register():
             if username != "" and password != "":
                 hashed_password = generate_password_hash(password)
                 # User object with hashed password, default of non-admin
-                user = {"username": username, "password": hashed_password, "is_admin":False}
+                user = {
+                    "username": username,
+                    "password": hashed_password,
+                    "is_admin": False,
+                }
                 username_already_exists = pymongo.db.users.find_one(
                     {"username": username}
                 )
@@ -190,7 +206,7 @@ def logout():
     """Remove user from session and redirect to Home"""
     if bool("user" in session):
         del session["user"]
-    return redirect(url_for('home'))
+    return redirect(url_for("home"))
 
 
 @app.route("/create-recipe", methods=["GET", "POST"])
@@ -222,12 +238,19 @@ def new_recipe():
                     color = value.replace("#", "")
 
             # Check all input values have been provided for valid recipe
-            if len(ingredients) == 0 or len(instructions) == 0 or recipe_name is None or color is None:
+            if (
+                len(ingredients) == 0
+                or len(instructions) == 0
+                or recipe_name is None
+                or color is None
+            ):
                 raise ValueError
         except ValueError:
             flash(INPUT_FORMAT_ERROR_MESSAGE)
             # Return a blank form if invalid
-            return render_template("pages/edit-recipe.html", recipe_color=DEFAULT_RECIPE_COLOR)
+            return render_template(
+                "pages/edit-recipe.html", recipe_color=DEFAULT_RECIPE_COLOR
+            )
 
         try:
             recipe = {
@@ -236,18 +259,23 @@ def new_recipe():
                 "instructions": instructions,
                 "color": color,
                 "author": session["user"],
-                "created_at": datetime.now()
+                "created_at": datetime.now(),
             }
             db_insert = pymongo.db.recipes.insert_one(recipe)
             # Check if recipe insert was successful
             if db_insert.acknowledged:
-                return(redirect(url_for('recipe_details', recipe_id=str(db_insert.inserted_id))))
+                return redirect(
+                    url_for("recipe_details", recipe_id=str(db_insert.inserted_id))
+                )
             flash("Recipe could not be created")
         except Exception:
             flash(GENERIC_ERROR_MESSAGE)
             # Return the user with a blank form for safety (if frontend/backend validation checks failed)
-            return render_template("pages/edit-recipe.html", recipe_color=DEFAULT_RECIPE_COLOR)
+            return render_template(
+                "pages/edit-recipe.html", recipe_color=DEFAULT_RECIPE_COLOR
+            )
     return render_template("pages/edit-recipe.html", recipe_color=DEFAULT_RECIPE_COLOR)
+
 
 @app.route("/edit-recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
@@ -256,7 +284,7 @@ def edit_recipe(recipe_id):
         return redirect(url_for("login", next=request.endpoint))
     try:
         # Find the recipe with the matching ID, build up existing form field values for render
-        db_recipe = pymongo.db.recipes.find_one({"_id":ObjectId(recipe_id)})
+        db_recipe = pymongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
         db_recipe_name = db_recipe["name"]
         db_ingredients = db_recipe["ingredients"]
         if len(db_ingredients) > 0:
@@ -267,11 +295,13 @@ def edit_recipe(recipe_id):
         db_color = db_recipe["color"]
     except Exception:
         flash(GENERIC_ERROR_MESSAGE)
-        return render_template("pages/edit-recipe.html", recipe_color=DEFAULT_RECIPE_COLOR)
+        return render_template(
+            "pages/edit-recipe.html", recipe_color=DEFAULT_RECIPE_COLOR
+        )
 
     try:
         # Check if user accessing route is the recipe author (or an admin), redirect if not
-        user = pymongo.db.users.find_one({"_id":ObjectId(session["user"])})
+        user = pymongo.db.users.find_one({"_id": ObjectId(session["user"])})
         if not session["user"] == db_recipe["author"] and not user["is_admin"]:
             flash("You can only edit your own recipes.")
             return redirect(url_for("recipes"))
@@ -300,12 +330,23 @@ def edit_recipe(recipe_id):
                     color = value.replace("#", "")
 
             # Check all input values have been provided for valid recipe
-            if len(ingredients) == 0 or len(instructions) == 0 or recipe_name is None or color is None:
+            if (
+                len(ingredients) == 0
+                or len(instructions) == 0
+                or recipe_name is None
+                or color is None
+            ):
                 raise ValueError
         except ValueError:
             flash(INPUT_FORMAT_ERROR_MESSAGE)
             # Return the user to form with the recipe values from the database for safety (if frontend/backend validation checks failed)
-            return render_template("pages/edit-recipe.html", recipe_name=db_recipe_name, recipe_ingredients=db_ingredients, recipe_instructions=db_instructions, recipe_color=db_color)
+            return render_template(
+                "pages/edit-recipe.html",
+                recipe_name=db_recipe_name,
+                recipe_ingredients=db_ingredients,
+                recipe_instructions=db_instructions,
+                recipe_color=db_color,
+            )
 
         try:
             updated_recipe = {
@@ -314,8 +355,10 @@ def edit_recipe(recipe_id):
                 "instructions": instructions,
                 "color": color,
             }
-            # Update database record with form field values 
-            db_update = pymongo.db.recipes.update_one(db_recipe, {"$set": updated_recipe})
+            # Update database record with form field values
+            db_update = pymongo.db.recipes.update_one(
+                db_recipe, {"$set": updated_recipe}
+            )
             if db_update.acknowledged:
                 flash("Recipe updated")
                 return redirect(url_for("recipe_details", recipe_id=recipe_id))
@@ -326,7 +369,14 @@ def edit_recipe(recipe_id):
             # If generic error occurs refresh with values from database and alert user
             flash("Recipe could not be updated")
             return redirect(url_for("edit_recipe", recipe_id=recipe_id))
-    return render_template("pages/edit-recipe.html", recipe_name=db_recipe_name, recipe_ingredients=db_ingredients, recipe_instructions=db_instructions, recipe_color=db_color)
+    return render_template(
+        "pages/edit-recipe.html",
+        recipe_name=db_recipe_name,
+        recipe_ingredients=db_ingredients,
+        recipe_instructions=db_instructions,
+        recipe_color=db_color,
+    )
+
 
 @app.route("/recipes")
 def recipes():
@@ -337,42 +387,71 @@ def recipes():
     total_recipes = len(recipes_list)
     # Default page number to 1 by default if not provided
     page = int(request.args.get("page", 1, type=int))
-    pagination = Pagination(page=page, per_page=RECIPES_PER_PAGE, total=total_recipes, bs_version=5)
-    paginated_recipes = recipes_list[pagination.skip: pagination.skip + RECIPES_PER_PAGE]
+    pagination = Pagination(
+        page=page, per_page=RECIPES_PER_PAGE, total=total_recipes, bs_version=5
+    )
+    paginated_recipes = recipes_list[
+        pagination.skip : pagination.skip + RECIPES_PER_PAGE
+    ]
     # Get last record increment for this page
     max_record = pagination.skip + RECIPES_PER_PAGE
     # If assumed last record increment is greater than maximum, correct it
     if pagination.skip + RECIPES_PER_PAGE > total_recipes:
         max_record = total_recipes
     # Information for record range display
-    pagination_info = {"min_record":pagination.skip+1, "max_record":max_record, "total_records":total_recipes}
-    return render_template("pages/recipes.html", recipes=paginated_recipes, num_recipes=total_recipes, pagination=pagination, pagination_info=pagination_info)
+    pagination_info = {
+        "min_record": pagination.skip + 1,
+        "max_record": max_record,
+        "total_records": total_recipes,
+    }
+    return render_template(
+        "pages/recipes.html",
+        recipes=paginated_recipes,
+        num_recipes=total_recipes,
+        pagination=pagination,
+        pagination_info=pagination_info,
+    )
 
 
 @app.route("/recipes/<user_id>")
 def user_recipes(user_id):
     """Render paginated recipes response for a specific user."""
     try:
-        user = pymongo.db.users.find_one({"_id":ObjectId(user_id)})
+        user = pymongo.db.users.find_one({"_id": ObjectId(user_id)})
         # Get the recipes belonging to specific author (based on URL param), sort by newest
-        recipes = pymongo.db.recipes.find({"author":user_id}).sort("created_at", -1)
+        recipes = pymongo.db.recipes.find({"author": user_id}).sort("created_at", -1)
         recipes_list = list(recipes)
         total_recipes = len(recipes_list)
         # Default page number to 1 by default if not provided
         page = int(request.args.get("page", 1, type=int))
-        pagination = Pagination(page=page, per_page=RECIPES_PER_PAGE, total=total_recipes, bs_version=5)
-        paginated_recipes = recipes_list[pagination.skip: pagination.skip + RECIPES_PER_PAGE]
+        pagination = Pagination(
+            page=page, per_page=RECIPES_PER_PAGE, total=total_recipes, bs_version=5
+        )
+        paginated_recipes = recipes_list[
+            pagination.skip : pagination.skip + RECIPES_PER_PAGE
+        ]
         # Get last record increment for this page
         max_record = pagination.skip + RECIPES_PER_PAGE
         # If assumed last record increment is greater than maximum, correct it
         if pagination.skip + RECIPES_PER_PAGE > total_recipes:
             max_record = total_recipes
         # Information for record range display
-        pagination_info = {"min_record":pagination.skip+1, "max_record":max_record, "total_records":total_recipes}
+        pagination_info = {
+            "min_record": pagination.skip + 1,
+            "max_record": max_record,
+            "total_records": total_recipes,
+        }
     except Exception:
         flash(GENERIC_ERROR_MESSAGE)
         return redirect(url_for("recipes"))
-    return render_template("pages/recipes.html", recipes=paginated_recipes, num_recipes=total_recipes, pagination=pagination, pagination_info=pagination_info, username=user["username"])
+    return render_template(
+        "pages/recipes.html",
+        recipes=paginated_recipes,
+        num_recipes=total_recipes,
+        pagination=pagination,
+        pagination_info=pagination_info,
+        username=user["username"],
+    )
 
 
 @app.route("/recipe-details/<recipe_id>")
@@ -381,27 +460,41 @@ def recipe_details(recipe_id):
     admin_access = False
     try:
         if bool("user" in session):
-            user = pymongo.db.users.find_one({"_id":ObjectId(session["user"])})
+            user = pymongo.db.users.find_one({"_id": ObjectId(session["user"])})
             admin_access = user["is_admin"]
-        db_recipe = pymongo.db.recipes.find_one({"_id":ObjectId(recipe_id)})
-        author = pymongo.db.users.find_one({"_id":ObjectId(db_recipe["author"])})
+        db_recipe = pymongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+        author = pymongo.db.users.find_one({"_id": ObjectId(db_recipe["author"])})
     except Exception:
         # If generic error, flash message and send to homepage
         flash(GENERIC_ERROR_MESSAGE)
         return redirect(url_for("home"))
-    return render_template("components/recipe-details.html", id=db_recipe["_id"], name=db_recipe["name"], ingredients=db_recipe["ingredients"], instructions=db_recipe["instructions"], author_name=author["username"], author_id=db_recipe["author"], admin_access=admin_access)
+    return render_template(
+        "components/recipe-details.html",
+        id=db_recipe["_id"],
+        name=db_recipe["name"],
+        ingredients=db_recipe["ingredients"],
+        instructions=db_recipe["instructions"],
+        author_name=author["username"],
+        author_id=db_recipe["author"],
+        admin_access=admin_access,
+    )
 
 
 @app.route("/delete-recipe/<recipe_id>")
 def delete_recipe(recipe_id):
     """Delete a recipe from the database"""
     try:
-        db_delete = pymongo.db.recipes.delete_one({"_id":ObjectId(recipe_id)})
+        db_delete = pymongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
         if db_delete.acknowledged:
             flash("Recipe has been deleted")
     except Exception:
         flash(GENERIC_ERROR_MESSAGE)
-    return(redirect(url_for("recipes")))
+    return redirect(url_for("recipes"))
+
 
 if __name__ == "__main__":
-    app.run(host=os.environ.get("HOST"), port=os.environ.get("PORT"), debug=os.environ.get("DEBUG"))
+    app.run(
+        host=os.environ.get("HOST"),
+        port=os.environ.get("PORT"),
+        debug=os.environ.get("DEBUG"),
+    )
