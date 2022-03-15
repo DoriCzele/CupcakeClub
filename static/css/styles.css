@@ -148,8 +148,19 @@ h1, h2 {
 .prompt-text:hover {
     color: #8673c2 !important;
 }
-/*Facebook share button by Justin Cron, available at: https://codepen.io/justincron/pen/ZEKbev */
 
+
+@media (min-width: 1023px) {
+    .social-link {
+        width: 23%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+} 
+
+
+/*Facebook share button by Justin Cron, available at: https://codepen.io/justincron/pen/ZEKbev */
 .btn-facebook {
 	color: #fff;
 	background-color: #4C67A1;
