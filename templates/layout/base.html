@@ -9,10 +9,9 @@
 	<title>The Cupcake Club</title>
 	<!-- Favicon-->
 	<link rel="icon" type="image/x-icon" href="{{url_for('static', filename='img/favicon.ico')}}" />
-	<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
 	<!-- Google fonts-->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Lato:400,700,400italic,700italic"
-		rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css" />
 	<!-- Core theme CSS (includes Bootstrap)-->
 	<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" />
 	<link href="{{url_for('static', filename='css/freelancer-styles.css')}}" rel="stylesheet" />
@@ -24,7 +23,6 @@
 
 <body class="d-flex flex-column min-vh-100">
 	{% include "layout/navbar.html" %}
-
 	<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 11">
 		{% with messages = get_flashed_messages() %}
 		{% if messages %}
@@ -34,15 +32,15 @@
 		{% endif %}
 		{% endwith %}
 	</div>
-
+	
 	{% block content %}
 	{% endblock %}
 	{% include "layout/footer.html" %}
-</body>
-
-
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Fontawesome JS-->
+	<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
 <!-- Freelancer theme JS-->
 <script src="{{url_for('static', filename='js/freelancer-scripts.js')}}"></script>
 	<!-- Conditionally required JS for a specific page -->

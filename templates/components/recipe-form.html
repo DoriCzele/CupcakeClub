@@ -5,7 +5,7 @@
       <h1>{{ recipe_name }}</h1>
       <div class="form-group">
         <label for="recipeName" class="form-label">Recipe name</label>
-        <input name="name" type="name" class="form-control form-control-lg" id="recipeName"
+        <input name="name" type="text" class="form-control form-control-lg" id="recipeName"
           aria-describedby="recipeName" value={{ recipe_name|tojson|safe }} pattern="[A-Za-z0-9 ]+" minlength="5" maxlength="50" required>
         <small id="name-input-prompt">You can use characters A-Z, 0-9, with 5 characters minimum and 50 characters maximum</small>
       </div>
@@ -13,7 +13,7 @@
       <h1>Add your cupcake recipe here!</h1><br>
       <div class="form-group">
         <label for="recipeName" class="form-label">Recipe name</label>
-        <input name="name" type="name" class="form-control form-control-lg validate" id="recipeName"
+        <input name="name" type="text" class="form-control form-control-lg validate" id="recipeName"
         aria-describedby="recipeName" placeholder="Name" pattern="[A-Za-z0-9 ]+" minlength="5" maxlength="50" required>
         <small class="mb-2" id="name-input-prompt">You can use characters A-Z, 0-9, with 5 characters minimum and 50 characters maximum</small>
       </div>
@@ -23,8 +23,8 @@
         {% else %}
         <div class="form-group" id="ingredient-input-section">
           {% endif %}
-          <label for="Ingredients" class="form-label">Ingredients</label>
-          <input type="name" class="form-control form-control-lg mb-2" id="ingredient-field" placeholder="Ingredient">
+          <p class="form-label">Ingredients</p>
+          <input type="text" class="form-control form-control-lg mb-2" id="ingredient-field" placeholder="Ingredient">
           <small class="mb-2" id="ingredient-input-prompt">You can only use characters A-Z, 0-9, and spaces</small>
           <!-- Dynamically add to ingredients list in recipe-form.js -->
           <template id="ingredient-template">
@@ -36,15 +36,14 @@
           </template>
         </div>
         <button id="add-ingredient" type="button" class="btn btn-primary mt-1 mb-2">Add Ingredient</button>
-        
         {% if recipe_instructions %}
         <div class="form-group" id="instruction-input-section"
         data-existing-instructions={{ recipe_instructions|tojson|safe }}>
         {% else %}
         <div class="form-group" id="instruction-input-section">
           {% endif %}
-          <label for="Instructions" class="form-label">Instructions</label>
-          <input type="name" class="form-control form-control-lg mb-2" id="instruction-field"
+          <p class="form-label">Instructions</p>
+          <input type="text" class="form-control form-control-lg mb-2" id="instruction-field"
           placeholder="Instruction">
           <small class="mb-2" id="instruction-input-prompt">You can only use characters A-Z, 0-9, and spaces</small>
             <!-- Dynamically add to instruction list in recipe-form.js -->
@@ -65,7 +64,7 @@
           {% include "components/cupcake-logo.svg" %}
         </div>
           <!-- The original colour picker is made by Sjoerd de Boer and available at https://codepen.io/sjoerddeboer/pen/xxZqBQW -->
-          <h6 for="colourPicker" class="form-label">Pick a colour for your cupcake!</h6>
+          <p class="form-label">Pick a colour for your cupcake!</p>
           <div id="color-picker" class="color-picker" data-existing-color={{ recipe_color|tojson|safe }}>
             <label class="color-picker-option">
               <input class="color-radio" type="radio" name="radio" value="#E8C0D9" aria-label="Pink colour">
@@ -101,13 +100,8 @@
             </label>
           </div>
         <br>
-
           <button type="submit" aria-label="Save" class="btn btn-primary mb-2">Save Recipe</button>
-          <!-- A recipe_name would not exist if using the create route -->
-          {% if recipe_name %}
-          {% endif %}
-  
       </div>
-
+    </div>
   </form>
 </section>

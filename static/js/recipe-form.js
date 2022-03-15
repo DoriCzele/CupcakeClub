@@ -14,7 +14,7 @@ function compareEntryToRegex(inputElement, inputPrompt, attributeType){
 		// Ensure input prompt is not displayed on valid entry
 		inputPrompt.style.display = "none";
 		addEntryToList(inputElement.value, attributeType)
-			// Reset the original input field
+		// Reset the original input field
 		inputElement.value = ""
 	} else {
 		inputPrompt.style.display = "block";
