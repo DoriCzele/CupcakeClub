@@ -215,16 +215,35 @@ Creation Time | created_at | Date
 
 ## **Testing**
 
-The W3C Markup Validator and the W3C CSS Validator were used to validate the html and css files in the project and to ensure there were no syntax errors and JS Hint was used to check the javascript file.
+The W3C Markup Validator and the W3C CSS Validator were used to validate the html and css files in the project and to ensure there were no syntax errors.  
+ESLint was used to check the javascript files.  
+Flake8 and Black were used to validate python files.
 
-* **W3C Markup Validator**
-index.html -  
+* **W3C Markup Validator for HTML5**
+
+On the Recipes page there was an unclosed div, closing tag was added.
+There were no other errors reported.
+Comment: The SVG file was pre-generated from an adobe product therefore validation was deemed unnecessary.
 
 * **W3C CSS Validator**
-style.css - 
 
-* **JS Hint** 
-quiz.js - 
+On the styles.css file there was an invalid value which has been removed.
+There were no other errors reported.
+
+* **ESLint** 
+
+ESLint resolved quotation style inconsistency, missing semi-colons and unused variable definitions across all javascript files.
+There were no other errors reported.
+
+* **Flake8**
+
+An unused import was detected and subsequently removed.
+There were no other errors reported.
+
+* **Black**
+
+Black has detected and resolved line length and white space errors.
+There were no other errors reported.
 
 ## **Testing User Stories**
 
