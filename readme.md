@@ -1,6 +1,6 @@
 # **The Cupcake Club**
 
-![Mock up](static/img/mockup.png)
+![Mock up](/docs/mockup.png)
 
 ## **Goal for this project**
 Welcome to [The Cupcake Club](https://cupcake-club.herokuapp.com)!
@@ -86,7 +86,7 @@ The website's main functionalities to add, share and find cupcake recipes. The d
 
 ### Colours
 
-![Colour Scheme](/static/img/colour-palette.png)
+![Colour Scheme](/docs/colour-palette.png)
 
 The colour palette was created via [Coolors](https://coolors.co/ "Coolors.co")
 
@@ -124,38 +124,38 @@ The website's wireframes were created via [Balsamiq](https://balsamiq.com/wirefr
 Wireframes are available on the links below:
 
 #### Desktop Wireframes
-* [Home](assets/wireframes/home_desktop.png)
-* [Login](/assets/wireframes/login_desktop.png)
-* [Register](/assets/wireframes/register_desktop.png)
-* [Recipe form](/assets/wireframes/recipe_form_desktop.png)
-* [Edit recipe form](/assets/wireframes/edit_recipe_desktop.png)
-* [My recipes](assets/wireframes/my_recipes_desktop.png)
-* [Recipes](/assets/wireframes/recipes_desktop.png)
-* [Recipe details](/assets/wireframes/recipe_details_desktop.png)
+* [Home](/docs/wireframes/home_desktop.png)
+* [Login](/docs/wireframes/login_desktop.png)
+* [Register](/docs/wireframes/register_desktop.png)
+* [Recipe form](/docs/wireframes/recipe_form_desktop.png)
+* [Edit recipe form](/docs/wireframes/edit_recipe_desktop.png)
+* [My recipes](/docs/wireframes/my_recipes_desktop.png)
+* [Recipes](/docs/wireframes/recipes_desktop.png)
+* [Recipe details](/docs/wireframes/recipe_details_desktop.png)
 
 #### Tablet Wireframes
-* [Home](assets/wireframes/home_tablet.png)
-* [Login](/assets/wireframes/login_tablet.png)
-* [Register](/assets/wireframes/register_tablet.png)
-* [Recipe form](/assets/wireframes/recipe_form_tablet.png)
-* [Edit recipe form](/assets/wireframes/edit_recipe_tablet.png)
-* [My recipes](assets/wireframes/my_recipes_tablet.png)
-* [Recipes](/assets/wireframes/recipes_tablet.png)
-* [Recipe details](/assets/wireframes/recipe_details_tablet.png)
+* [Home](/docs/wireframes/home_tablet.png)
+* [Login](/docs/wireframes/login_tablet.png)
+* [Register](/docs/wireframes/register_tablet.png)
+* [Recipe form](/docs/wireframes/recipe_form_tablet.png)
+* [Edit recipe form](/docs/wireframes/edit_recipe_tablet.png)
+* [My recipes](/docs/wireframes/my_recipes_tablet.png)
+* [Recipes](/docs/wireframes/recipes_tablet.png)
+* [Recipe details](/docs/wireframes/recipe_details_tablet.png)
 
 #### Mobile Wireframes
-* [Home](assets/wireframes/home_mobile.png)
-* [Login](/assets/wireframes/login_mobile.png)
-* [Register](/assets/wireframes/register_mobile.png)
-* [Recipe form](/assets/wireframes/recipe_form_mobile.png)
-* [Edit recipe form](/assets/wireframes/edit_recipe_mobile.png)
-* [My recipes](assets/wireframes/my_recipes_mobile.png)
-* [Recipes](/assets/wireframes/recipes_mobile.png)
-* [Recipe details](/assets/wireframes/recipe_details_mobile.png)
+* [Home](/docs/wireframes/home_mobile.png)
+* [Login](/docs/wireframes/login_mobile.png)
+* [Register](/docs/wireframes/register_mobile.png)
+* [Recipe form](/docs/wireframes/recipe_form_mobile.png)
+* [Edit recipe form](/docs/wireframes/edit_recipe_mobile.png)
+* [My recipes](/docs/wireframes/my_recipes_mobile.png)
+* [Recipes](/docs/wireframes/recipes_mobile.png)
+* [Recipe details](/docs/wireframes/recipe_details_mobile.png)
 
 #### Additional wireframes
-* [Error page](/assets/wireframes/error_wireframe.png)
-* [Toast message](/assets/wireframes/toast_message.png)
+* [Error page](/docs/wireframes/error_wireframe.png)
+* [Toast message](/docs/wireframes/toast_message.png)
 
 [Back to Top](#table-of-contents)
 
@@ -234,29 +234,29 @@ The manual testing was carried out based on the User Stories to demonstrate key 
 
 Users can upload their recipes via the recipe form (see below) on the "Add a recipe" for other users and visitors to view, fulfilling the "create" aspect of CRUD. 
 
-![Recipe form](/static/img/recipe_form.png)
+![Recipe form](/docs/testing/recipe_form.png)
 
 Users can read recipes on the "Recipes" page (see below) starting with the most recent recipe, fulfilling the "read" aspect of CRUD. Pagination was added to the "Recipes" and "My recipes" pages to enable improved data efficiency and enhance user experience by reducing loading time.
 
-![Recipes](/static/img/recipes.png)
+![Recipes](/docs/testing/recipes.png)
 
 Users can update or delete their own recipes on the "My recipes" page by clicking on the edit or delete buttons in the detailed recipe view, fulfilling the "read" and "delete" aspects of CRUD. 
 
-![Recipe details](/static/img/edit_delete_buttons.png)
+![Recipe details](/docs/testing/edit_delete_buttons.png)
 
 After clicking the edit button the user is navigated back to the recipe form view (see below) where ingredients and instructions can be amended or removed. 
 
-![Edit recipe](/static/img/edit_recipe.png)
+![Edit recipe](/docs/testing/edit_recipe.png)
 
 The user's own recipes can be deleted in the  detailed recipe view by clicking the delete button then confirming by clicking it again. 
 
-![Confirm delete](/static/img/delete_confirmation.png)
+![Confirm delete](/docs/testing/delete_confirmation.png)
 
 **Registration and Log in**
 
 Users expect to be able to register to the website in order to share their own recipes, and access these at any time by logging in. Under the "Login/Register" button in the navbar a registration and log in form was implemented to fulfill this function (see below).
 
-![Register/Login](/static/img/reg_login.png)
+![Register/Login](/docs/testing/reg_login.png)
 
 **Share functionality**
 
