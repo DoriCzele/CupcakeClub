@@ -43,6 +43,7 @@ Should you have any questions regarding my project feel free to reach out to me 
   - [**Deployment**](#deployment)
     - [Local Deployment](#local-deployment)
     - [Heroku Deployment](#heroku-deployment)
+  - [**Credits**](#credits)
 
 
 ## **UX**
@@ -298,4 +299,12 @@ For local deployment see the following steps:
 7. Click "Deploy" then click "Enable automatic deployment".
 8. Click "Deploy branch" and Heroku starts building the app. Once the build is complete to open it click "view app".
     
+[Back to Top](#table-of-contents)
+
+## **Credits**
+
+* I would like to thank my mentor Simen [Eventyret_mentor](https://github.com/Eventyret) for his support and encouragement.
+
+* I would like to thank [Tamas Barta](https://linkedin.com/in/tamas-barta-50850013a) for the graphic design of the cupcake logo which has significantly improved my website's overall look as well as the user experience.
+
 [Back to Top](#table-of-contents)
