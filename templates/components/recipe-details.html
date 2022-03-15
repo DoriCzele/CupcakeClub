@@ -50,6 +50,7 @@
             <a href="{{url_for('recipes')}}" class="btn btn-primary">Go to recipes!</a>
             {% if session["user"] == author_id or admin_access %}
             <a href="{{url_for('edit_recipe', recipe_id=id)}}"class="btn btn-edit">Edit Recipe</a>
+            <a id="delete-recipe-button" class="btn btn-delete" data-delete-link="{{url_for('delete_recipe', recipe_id=id)}}">Delete Recipe</a>
             {% endif %}
         </div>
         </div>
