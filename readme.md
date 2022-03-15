@@ -33,6 +33,12 @@ Should you have any questions regarding my project feel free to reach out to me 
       - [Tablet Wireframes](#tablet-wireframes)
       - [Mobile Wireframes](#mobile-wireframes)
       - [Additional wireframes](#additional-wireframes)
+  - [**Technologies used**](#technologies-used)
+    - [**Languages**](#languages)
+    - [**Libraries and Frameworks**](#libraries-and-frameworks)
+    - [**Tools**](#tools)
+    - [**Database Structure**](#database-structure)
+  
     
 
 
@@ -142,5 +148,36 @@ Wireframes are available on the links below:
 #### Additional wireframes
 * [Error page](/assets/wireframes/error_wireframe.png)
 * [Toast message](/assets/wireframes/toast_message.png)
+
+[Back to Top](#table-of-contents)
+
+## **Technologies used**
+### **Languages**
+
+* [HTML](https://en.wikipedia.org/wiki/HTML)
+* [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
+* [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
+* [Python](https://www.python.org/)
+
+### **Libraries and Frameworks**
+
+* [Font Awesome](https://fontawesome.com/)
+* [Google Fonts](https://fonts.google.com/)
+
+### **Tools**
+* [GitHub](https://github.com)
+* [VS Code](https://vscode.dev)
+* [Heroku](https://www.heroku.com/)
+* [Balsamic](https://balsamiq.com/wireframes/)
+* [W3C HTML Validation Service](https://validator.w3.org/)
+* [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/)
+* [MongoDB Atlas](https://www.mongodb.com/)
+* [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+* [PyMongo](https://api.mongodb.com/python/current/tutorial.html)
+* [Jinja](https://jinja.palletsprojects.com/en/2.11.x/)
+
+### **Database Structure**
+
+Database structure comes here
 
 [Back to Top](#table-of-contents)
