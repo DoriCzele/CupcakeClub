@@ -155,15 +155,15 @@ h1, h2 {
 
 /*Facebook share button by Justin Cron, available at: https://codepen.io/justincron/pen/ZEKbev */
 .btn-facebook {
-	color: #fff;
+	color: var(--bs-white);
 	background-color: #4C67A1;
 }
 .btn-facebook:hover {
-	color: #fff;
+	color: var(--bs-white);
 	background-color: #405D9B;
 }
 .btn-facebook:focus {
-	color: #fff;
+	color: var(--bs-white);
 }
 
 .cupcake-avatar-container{
@@ -204,4 +204,8 @@ h1, h2 {
 	/* change this to change button background on hover */
 	background-color: #9aa8d3;
 	border-color: #7386c2;
+}
+
+.toast-container {
+	z-index: 2;
 }

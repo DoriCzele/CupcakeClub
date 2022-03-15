@@ -23,7 +23,7 @@
 
 <body class="d-flex flex-column min-vh-100">
 	{% include "layout/navbar.html" %}
-	<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+	<div class="toast-container position-fixed bottom-0 end-0 p-3">
 		{% with messages = get_flashed_messages() %}
 		{% if messages %}
 		{% for message in messages %}
