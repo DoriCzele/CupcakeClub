@@ -40,6 +40,8 @@ Should you have any questions regarding my project feel free to reach out to me 
     - [**Database Structure**](#database-structure)
     - [User Table Schema](#user-table-schema)
     - [Recipe Table Schema](#recipe-table-schema)
+  - [**Testing**](#testing)
+  - [**Testing User Stories**](#testing-user-stories)
   - [**Security**](#security)
   - [**Deployment**](#deployment)
     - [Local Deployment](#local-deployment)
@@ -64,6 +66,7 @@ Should you have any questions regarding my project feel free to reach out to me 
 * As a user, I want to be able to log in with my account and access my previous recipes.
 * As a user, I want a simple way to edit or delete my previous recipes.
 * As a user, I want to be able to share recipes from the website on social media.
+* As a user, I want to be able to access relevant social media links from the website, and expect these to open on separate tabs.
 * As a user, I want to be able to see the most recent recipes first.
 * As a user, I want text and images to appear clear and visible.
 * As a user, I want the website to be easy to navigate.
@@ -209,6 +212,67 @@ Author | author | string
 Creation Time | created_at | Date
 
 [Back to Top](#table-of-contents)
+
+## **Testing**
+
+The W3C Markup Validator and the W3C CSS Validator were used to validate the html and css files in the project and to ensure there were no syntax errors and JS Hint was used to check the javascript file.
+
+* **W3C Markup Validator**
+index.html -  
+
+* **W3C CSS Validator**
+style.css - 
+
+* **JS Hint** 
+quiz.js - 
+
+## **Testing User Stories**
+
+The manual testing was carried out based on the User Stories to demonstrate key functions and features are fulfilled.
+
+**CRUD functionality**
+
+Users can upload their recipes via the recipe form (see below) on the "Add a recipe" for other users and visitors to view, fulfilling the "create" aspect of CRUD. 
+
+![Recipe form](/static/img/recipe_form.png)
+
+Users can read recipes on the "Recipes" page (see below) starting with the most recent recipe, fulfilling the "read" aspect of CRUD.
+
+![Recipes](/static/img/recipes.png)
+
+Users can update or delete their own recipes on the "My recipes" page by clicking on the edit or delete buttons in the detailed recipe view, fulfilling the "read" and "delete" aspects of CRUD. 
+
+![Recipe details](/static/img/edit_delete_buttons.png)
+
+After clicking the edit button the user is navigated back to the recipe form view (see below) where ingredients and instructions can be amended or removed. 
+
+![Edit recipe](/static/img/edit_recipe.png)
+
+The user's own recipes can be deleted in the  detailed recipe view by clicking the delete button then confirming by clicking it again. 
+
+![Confirm delete](/static/img/delete_confirmation.png)
+
+**Registration and Log in**
+
+Users expect to be able to register to the website in order to share their own recipes, and access these at any time by logging in. Under the "Login/Register" button in the navbar a registration and log in form was implemented to fulfill this function (see below).
+
+![Register/Login](/static/img/reg_login.png)
+
+**Share functionality**
+
+Users expect to be able to share recipes through social media, therefore a Facebook share button was implemented navigating the user to the correct share link in a new window.
+
+**Social media links**
+
+Relevant social media links are available in the footer, these are opening in separate windows.
+  
+**Design elements**
+
+Users expect to be able to access information easily therefore a clear and easy to read design was implemented with added aria-labels for accessibility. The website design is fully responsive across all devices, this feature was tested on desktop, tablet and mobile. 
+
+**Manual testing of functions**
+
+Manual testing was used to make sure all buttons and functions are fully functional. Cross-browser testing was carried out to ensure the website's functions work as desired across all applications. Browsers used for testing: Safari, Google Chrome, Firefox. Devices used for testing: mobile, tablet and desktop.
 
 ## **Security**
 
