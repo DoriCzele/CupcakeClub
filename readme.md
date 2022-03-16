@@ -42,6 +42,13 @@ Should you have any questions regarding my project feel free to reach out to me 
     - [Recipe Table Schema](#recipe-table-schema)
   - [**Testing**](#testing)
   - [**Testing User Stories**](#testing-user-stories)
+    - [Applicable to all users](#applicable-to-all-users)
+      - [Common to all devices](#common-to-all-devices)
+      - [Mobile/Tablet only](#mobiletablet-only)
+      - [Desktop only](#desktop-only)
+    - [User that is not logged in](#user-that-is-not-logged-in)
+    - [Common to logged in Member and Admin Users](#common-to-logged-in-member-and-admin-users)
+    - [Logged in Admin User](#logged-in-admin-user)
   - [**Security**](#security)
   - [**Deployment**](#deployment)
     - [Local Deployment](#local-deployment)
@@ -289,9 +296,83 @@ Relevant social media links are available in the footer, these are opening in se
 
 Users expect to be able to access information easily therefore a clear and easy to read design was implemented with added aria-labels for accessibility. The website design is fully responsive across all devices, this feature was tested on desktop, tablet and mobile. 
 
-**Manual testing of functions**
+**Manual testing**
 
-Manual testing was used to make sure all buttons and functions are fully functional. Cross-browser testing was carried out to ensure the website's functions work as desired across all applications. Browsers used for testing: Safari, Google Chrome, Firefox. Devices used for testing: mobile, tablet and desktop.
+Manual testing was used to make sure all buttons and functions are fully functional. Cross-browser testing was carried out to ensure the website's functions work as desired across all applications. Browsers used for testing: Safari, Google Chrome, Firefox. Devices used for testing: mobile, tablet and desktop.  
+All database interactions on the backend were tested with raised errors to ensure graceful handling and suitable feedback to the end user.  
+
+### Applicable to all users
+#### Common to all devices
+
+✅ Given the user is using any device when accessing any page: then render the navigation bar with "Recipes", "Add A Recipe" and "About" links.  
+✅ Given the user is using any device when accessing any page and activating the "Recipes" navigation item: then the user is redirected to view all preview recipe tiles in a paginated view.  
+✅ Given the user is using any device when accessing the "Recipes" page when activating the pagination navigation buttons then redirect to the corresponding pagination page.  
+✅ Given the user is using any device when accessing any page and activating the "Home" navigation item: then the user is redirected to the homepage.  
+✅ Given the user is using any device when accessing any page and activating the "About" navigation item: then the user is redirected to the about section on the homepage.  
+✅ Given the user is using any device when accessing any page: then render the footer with links to GitHub and LinkedIn of the product developer.  
+✅ Given the user is using any device when accessing any page and activating the GitHub link in the footer: then open the developer's GitHub profile in a new tab.  
+✅ Given the user is using any device when accessing any page and activating the LinkedIn link in the footer: then open the developer's LinkedIn profile in a new tab.  
+✅ Given the user is on the recipes list page, when rendering a recipe preview: then the corresponding recipe avatar color and name is displayed.  
+✅ Given the user is on the recipes list page, when activating a "Let's bake it" button: then redirect the user to the corresponding recipe detail page.  
+✅ Given the user is on the detailed recipe view, when activating Share button: then share recipe on Facebook in a new tab.  
+✅ Given the user is on the detailed recipe view, when activating Go to Recipes button: then redirect user to "Recipes" page.  
+✅ Given the user is on any page, when an error occurs, then display "Error" page with the corresponding error code.  
+✅ Given the user is on the "Error" page, when activating Go to homepage button, then redirect user to the homepage.  
+✅ Given the user is on detailed recipe view, when clicking on author's name, then navigate to the author's recipes.  
+
+#### Mobile/Tablet only
+
+✅ Given the user is using a mobile/tablet when accessing any page: then the navigation bar is not expanded then display a burger icon in its place.  
+✅ Given the user is using a mobile/tablet when accessing any page: then the navigation burger icon is activated the expand the navigation bar vertically to display all nav links.  
+
+#### Desktop only
+
+✅ Given the user is using a desktop when accessing any page: then render the navigation bar as a horizontal bar, without a burger icon.  
+
+
+There are no other functional changes between devices when accessing the site as a specific user.  
+
+
+### User that is not logged in
+
+✅ Given the user is not logged in when accessing any page: then render the navigation bar with additional "Log in/Register" link and not "Logout".  
+✅ Given the user is not logged in when accessing any page and activating the "Log in/Register" navigation link: then redirect the user to a login page.  
+✅ Given the user is not logged in and accessing the "Login" page when submitting a form with incorrect credentials: then reload the page with an error toast message.  
+✅ Given the user is not logged in and accessing the "Login" page when submitting a form with empty input fields: then reload the page with an error toast message.  
+✅ Given the user is not logged in and accessing the "Login" page when submitting a valid form and the user is found in the database: then redirect to the home page and display a welcome toast message.  
+✅ Given the user is not logged in and does not have an existing account when accessing the login page and activating the "Register" link: then redirect to a register page.  
+✅ Given the user is not logged in and accessing the "Register" page when submitting a form with empty input fields: then reload the page with an error toast message.   
+✅ Given the user is not logged in and accessing the "Register" page when submitting a form with invalid input (e.g. username is "ejhpw^!%3"): then reload the page with an error toast message.  
+✅ Given the user is not logged in and accessing the "Register" page when submitting a form with a username that already exists in the database: then reload the page with an error toast message.  
+✅ Given the user is not logged in and accessing the "Register" page when submitting a form with valid input: then create user in database, redirect to the homepage and display a welcome toast message.  
+
+
+### Common to logged in Member and Admin Users
+
+✅ Given the user is logged in when accessing any page: then render the navigation bar with additional "Log out" link and not "Login/Register".  
+✅ Given the user is logged in when activating the "Log out" link: then remove the user from session, redirect to Homepage and display a confirmation toast message.  
+✅ Given the user is logged in when accessing any page: then render the navigation bar with additional "My Recipes" link.  
+✅ Given the user is logged in and does not have recipes when accessing "My Recipes" link: then display "There are no recipes here yet!" heading.  
+✅ Given the user is logged in and has recipes when accessing "My Recipes" link: then display the user's own recipes in paginated preview.  
+✅ Given the user is logged in when accessing any of their own recipes in detailed view render Edit and Delete buttons.  
+✅ Given the user is logged in when activating the Delete button on their own recipes display confirmation button requiring confirmation click before deleting recipe from the database.  
+✅ Given the user is deleting a recipe, when activating the confirm delete button: then remove the target recipe from the database and redirect to the recipes page.  
+✅ Given the user is logged in when deleting their own recipe: then redirect to "Recipes" page with a confirmation toast message.  
+✅ Given the user is logged in when activating the Edit button on any of their own recipes in detailed view: then redirect the user to an edit recipe form pre-populated with the chosen recipe's details.  
+✅ Given the user is logged in when activating the Delete button on any of their own recipes in detailed view: then remove the recipe from the database and redirect the user to "Recipes" page.  
+✅ Given the user is logged in when activating the "Add recipe" link: then redirect the user to the recipe form.  
+✅ Given the user is logged in when inputting invalid values to the recipe form: then prevent form submission and display error toast message.  
+✅ Given the user is logged in on the create recipe page with populated ingredients/instructions fields, when activating the Edit button: then make the corresponding field writable.  
+✅ Given the user is logged in on the create recipe page with populated ingredients/instructions fields, when activating the Delete button: then remove the corresponding field.  
+✅ Given the user is logged in when inputting valid values to the recipe form: then allow submission and display confirmation toast message.  
+
+
+### Logged in Admin User
+
+✅ Given the admin user is logged in, when on the detailed recipe view: then display edit and delete recipe buttons.  
+✅ Given the admin user is on the edit recipe view, when submitting a valid recipe input: then update the target recipe record with the recipe input (retaining the original author's name) and redirect to that recipe's detail page with a confirmation toast message.  
+✅ Given the admin user is on the detailed recipe view, when activating the delete recipe button: then display confirmation button requiring confirmation click before deleting recipe from the database.  
+
 
 ## **Security**
 
