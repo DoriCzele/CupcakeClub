@@ -53,6 +53,7 @@ Should you have any questions regarding my project feel free to reach out to me 
   - [**Deployment**](#deployment)
     - [Local Deployment](#local-deployment)
     - [Heroku Deployment](#heroku-deployment)
+  - [**Credentials for Code Institute Assessors**](#credentials-for-code-institute-assessors)
   - [**Credits**](#credits)
 
 
@@ -476,6 +477,14 @@ For local deployment see the following steps:
     
 [Back to Top](#table-of-contents)
 
+## **Credentials for Code Institute Assessors**
+
+Credentials are provided to the Code Institute assessors for the purpose of evaluating the deployed product.  
+User credentials should not be publicly shared but is appropriate here for project assessment and consequence of sharing these admin details is limited due to the hobby nature of this project.  
+```
+user:ciadmin
+pass:cupcakeclub2022
+```
 ## **Credits**
 
 * I would like to thank my mentor Simen [Eventyret_mentor](https://github.com/Eventyret) for his support and encouragement.
