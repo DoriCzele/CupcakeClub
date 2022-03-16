@@ -104,6 +104,24 @@ h1, h2 {
     margin-bottom: 3%;
 }
 
+/* Recipes pagination */
+#pagination-button-row > nav {
+	display: flex;
+	justify-content: center;
+}
+
+#pagination-button-row a {
+	/* change this to change number colour */
+	color: #6c757d;
+}
+
+#pagination-button-row .page-item.active .page-link {
+	/* change this to change button background on hover */
+	background-color: #9aa8d3;
+	border-color: #7386c2;
+}
+
+/* Global buttons */
 .btn-delete {
 	color: var(--bs-white);
 	background-color: #ff0000;
@@ -143,6 +161,7 @@ h1, h2 {
 }
 
 
+/*Facebook share button by Justin Cron, available at: https://codepen.io/justincron/pen/ZEKbev */
 @media (min-width: 1023px) {
     .social-link {
         width: 23%;
@@ -152,8 +171,6 @@ h1, h2 {
     }
 } 
 
-
-/*Facebook share button by Justin Cron, available at: https://codepen.io/justincron/pen/ZEKbev */
 .btn-facebook {
 	color: var(--bs-white);
 	background-color: #4C67A1;
@@ -183,6 +200,7 @@ h1, h2 {
     max-width: 40%;
 }}
 
+/* Form specific */
 .form-label{
     margin-top: 3%;
     margin-bottom: 1%;
@@ -190,22 +208,8 @@ h1, h2 {
     font-weight: 500;
 }
 
-#pagination-button-row > nav {
-	display: flex;
-	justify-content: center;
-}
 
-#pagination-button-row a {
-	/* change this to change number colour */
-	color: #6c757d;
-}
-
-#pagination-button-row .page-item.active .page-link {
-	/* change this to change button background on hover */
-	background-color: #9aa8d3;
-	border-color: #7386c2;
-}
-
+/* Global Toast */
 .toast-container {
 	z-index: 2;
 }

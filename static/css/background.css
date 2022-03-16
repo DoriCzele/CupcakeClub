@@ -1,3 +1,4 @@
+/* Add a background image to the body */
 body {
     background: url("/static/img/background.png");
     background-color: #7386c2;

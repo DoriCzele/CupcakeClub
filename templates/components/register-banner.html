@@ -1,40 +1,34 @@
-	<!-- Register/Log in Section Heading  ONLY SHOW THIS SECTION IF NOT LOGGED IN -->
-	<section class="page-section">
-		<br>
-		<h2 class="page-section-heading text-center text-uppercase text-secondary">
-			Register or Log in
-		</h2>
-		<!-- Icon Divider-->
-		<div class="divider-custom divider-dark">
-			<div class="divider-custom-line"></div>
-			<div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-			<div class="divider-custom-line"></div>
-		</div>
-		<!-- Register/Log in Section Content-->
-		<div class="container">
-			<div class="row">
-				<div class="col d-flex justify-content-center">
-					<p class="lead">
-						<a href="{{url_for('register')}}" class="text-reset prompt-text">Register</a> or <a href="{{url_for('login')}}"
-							class="text-reset prompt-text">Log in</a>
-						to write, share and edit your cupcake recipes!
-					</p>
-				</div>
-			</div>
-		</div>
+<section class="page-section">
+	<br>
+	<h2 class="page-section-heading text-center text-uppercase text-secondary">
+		Register or Log in
+	</h2>
+	<!-- Icon Divider-->
+	<div class="divider-custom divider-dark">
+		<div class="divider-custom-line"></div>
+		<div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+		<div class="divider-custom-line"></div>
+	</div>
+	<!-- Register/Log in Section Content-->
 	<div class="container">
 		<div class="row">
 			<div class="col d-flex justify-content-center">
-		<h2
-			class="
-				text-center text-uppercase text-secondary
-				mb-0
-			"
-		>
-		<br>
-			<a href="{{url_for('new_recipe')}}" class="prompt-text text-reset">Share your recipe here! </a>
-		</h2>
+				<p class="lead">
+					<a href="{{url_for('register')}}" class="text-reset prompt-text">Register</a> or <a
+						href="{{url_for('login')}}" class="text-reset prompt-text">Log in</a>
+					to write, share and edit your cupcake recipes!
+				</p>
+			</div>
+		</div>
 	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col d-flex justify-content-center">
+				<h2 class="text-center text-uppercase text-secondary mb-0">
+					<br>
+					<a href="{{url_for('new_recipe')}}" class="prompt-text text-reset">Share your recipe here! </a>
+				</h2>
+			</div>
+		</div>
 	</div>
-	</div>
-	</section>
+</section>

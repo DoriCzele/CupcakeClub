@@ -1,21 +1,23 @@
-	<!-- Masthead-->
-	<header class="masthead bg-primary text-white text-center">
-		<div class="container d-flex align-items-center flex-column">
-			<!-- Masthead Avatar Image-->
-			<div id="masthead-logo">
+<!-- Masthead-->
+<header class="masthead bg-primary text-white text-center">
+	<div class="container d-flex align-items-center flex-column">
+		<!-- Masthead Avatar Image-->
+		<div id="masthead-logo">
 			{% include "components/cupcake-logo.svg" %}
 		</div>
-			<!-- Masthead Heading-->
-			<h1 class="masthead-heading text-uppercase mb-0">The Cupcake Club</h1>
-			<!-- Icon Divider-->
-			<div class="divider-custom divider-light">
-				<div class="divider-custom-line"></div>
-				<div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-				<div class="divider-custom-line"></div>
-			</div>
-			<!-- Masthead Subheading-->
-			<p class="masthead-subheading font-weight-light mb-0">
-				<a href="{{url_for('new_recipe')}}" class="text-reset prompt-text">Write</a> - <a href="{{url_for('new_recipe')}}" class="text-reset prompt-text">Share</a> - <a href="{{url_for('recipes')}}" class="text-reset prompt-text">Find Recipes</a>
-			</p>
+		<!-- Masthead Heading-->
+		<h1 class="masthead-heading text-uppercase mb-0">The Cupcake Club</h1>
+		<!-- Icon Divider-->
+		<div class="divider-custom divider-light">
+			<div class="divider-custom-line"></div>
+			<div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+			<div class="divider-custom-line"></div>
 		</div>
-	</header>
+		<!-- Masthead Subheading-->
+		<p class="masthead-subheading font-weight-light mb-0">
+			<a href="{{url_for('new_recipe')}}" class="text-reset prompt-text">Write</a> - <a href="{{url_for('new_recipe')}}"
+				class="text-reset prompt-text">Share</a> - <a href="{{url_for('recipes')}}" class="text-reset prompt-text">Find
+				Recipes</a>
+		</p>
+	</div>
+</header>

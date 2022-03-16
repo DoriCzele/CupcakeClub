@@ -1,107 +1,114 @@
 <section class="recipe-form">
-  <form method="POST">
-    <div class="container card p-3 bg-light">
-      {% if recipe_name %}
-      <h1>{{ recipe_name }}</h1>
-      <div class="form-group">
-        <label for="recipeName" class="form-label">Recipe name</label>
-        <input name="name" type="text" class="form-control form-control-lg" id="recipeName"
-          aria-describedby="recipeName" value={{ recipe_name|tojson|safe }} pattern="[A-Za-z0-9 ]+" minlength="5" maxlength="50" required>
-        <small id="name-input-prompt">You can use characters A-Z, 0-9, with 5 characters minimum and 50 characters maximum</small>
-      </div>
-      {% else %}
-      <h1>Add your cupcake recipe here!</h1><br>
-      <div class="form-group">
-        <label for="recipeName" class="form-label">Recipe name</label>
-        <input name="name" type="text" class="form-control form-control-lg validate" id="recipeName"
-        aria-describedby="recipeName" placeholder="Name" pattern="[A-Za-z0-9 ]+" minlength="5" maxlength="50" required>
-        <small class="mb-2" id="name-input-prompt">You can use characters A-Z, 0-9, with 5 characters minimum and 50 characters maximum</small>
-      </div>
-      {% endif %}
-      {% if recipe_ingredients %}
-      <div class="form-group" id="ingredient-input-section" data-existing-ingredients={{ recipe_ingredients|tojson|safe }}>
-        {% else %}
-        <div class="form-group" id="ingredient-input-section">
-          {% endif %}
-          <p class="form-label">Ingredients</p>
-          <input type="text" class="form-control form-control-lg mb-2" id="ingredient-field" placeholder="Ingredient">
-          <small class="mb-2" id="ingredient-input-prompt">You can only use characters A-Z, 0-9, and spaces</small>
-          <!-- Dynamically add to ingredients list in recipe-form.js -->
-          <template id="ingredient-template">
-            <div class="input-group">
-              <input class="form-control form-control-lg" readonly required />
-              <button type="button" class="btn btn-outline-warning">Edit</button>
-              <button type="button" class="btn btn-outline-danger">Delete</button>
-            </div>
-          </template>
-        </div>
-        <button id="add-ingredient" type="button" class="btn btn-primary mt-1 mb-2">Add Ingredient</button>
-        {% if recipe_instructions %}
-        <div class="form-group" id="instruction-input-section"
-        data-existing-instructions={{ recipe_instructions|tojson|safe }}>
-        {% else %}
-        <div class="form-group" id="instruction-input-section">
-          {% endif %}
-          <p class="form-label">Instructions</p>
-          <input type="text" class="form-control form-control-lg mb-2" id="instruction-field"
-          placeholder="Instruction">
-          <small class="mb-2" id="instruction-input-prompt">You can only use characters A-Z, 0-9, and spaces</small>
-            <!-- Dynamically add to instruction list in recipe-form.js -->
-            <template id="instruction-template">
-              <div class="input-group">
-                <input class="form-control form-control-lg" readonly required />
-                <button type="button" class="btn btn-outline-warning">Edit</button>
-                <button type="button" class="btn btn-outline-danger">Delete</button>
-              </div>
-            </template>
-          </div>
-          <button id="add-instruction" type="button" class="btn btn-primary mt-1 mb-2">Add Instruction</button>
-        
-        <!--Cupcake avatar -->
-  <div class="cupcake-avatar-container">
-          <h2>Customise your recipe avatar!</h2>
-          <div class="cupcake-avatar container-fluid">
-          {% include "components/cupcake-logo.svg" %}
-        </div>
-          <!-- The original colour picker is made by Sjoerd de Boer and available at https://codepen.io/sjoerddeboer/pen/xxZqBQW -->
-          <p class="form-label">Pick a colour for your cupcake!</p>
-          <div id="color-picker" class="color-picker" data-existing-color={{ recipe_color|tojson|safe }}>
-            <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#E8C0D9" aria-label="Pink colour">
-              <span class="checkmark"></span>
-            </label>
-            <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#90C2E7" aria-label="Blue colour">
-              <span class="checkmark"></span>
-            </label>
-            <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#F8F1C0" aria-label="Yellow colour">
-              <span class="checkmark"></span>
-            </label>
-            <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#B2D8D7" aria-label="Green colour">
-              <span class="checkmark"></span>
-            </label>
-            <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#E95D6B" aria-label="Red colour">
-              <span class="checkmark"></span>
-            </label>
-            <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#E9A586" aria-label="Orange colour">
-              <span class="checkmark"></span>
-            </label>
-            <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#A4A4A2" aria-label="Grey colour">
-              <span class="checkmark"></span>
-            </label>
-            <label class="color-picker-option">
-              <input class="color-radio" type="radio" name="radio" value="#FFFFFF" aria-label="White colour">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-        <br>
-          <button type="submit" aria-label="Save" class="btn btn-primary mb-2">Save Recipe</button>
-      </div>
-    </div>
-  </form>
+	<form method="POST">
+		<div class="container card p-3 bg-light">
+			{% if recipe_name %}
+			<h1>{{ recipe_name }}</h1>
+			<div class="form-group">
+				<label for="recipeName" class="form-label">Recipe name</label>
+				<input name="name" type="text" class="form-control form-control-lg" id="recipeName"
+					aria-describedby="recipeName" value={{ recipe_name|tojson|safe }} pattern="[A-Za-z0-9 ]+" minlength="5"
+					maxlength="50" required>
+				<small id="name-input-prompt">
+					You can use characters A-Z, 0-9, with 5 characters minimum and 50 characters maximum
+				</small>
+			</div>
+			{% else %}
+			<h1>Add your cupcake recipe here!</h1><br>
+			<div class="form-group">
+				<label for="recipeName" class="form-label">Recipe name</label>
+				<input name="name" type="text" class="form-control form-control-lg validate" id="recipeName"
+					aria-describedby="recipeName" placeholder="Name" pattern="[A-Za-z0-9 ]+" minlength="5" maxlength="50"
+					required>
+				<small class="mb-2" id="name-input-prompt">
+					You can use characters A-Z, 0-9, with 5 characters minimum and 50 characters maximum
+				</small>
+			</div>
+			{% endif %}
+			{% if recipe_ingredients %}
+			<div class="form-group" id="ingredient-input-section" data-existing-ingredients={{ recipe_ingredients|tojson|safe
+				}}>
+				{% else %}
+				<div class="form-group" id="ingredient-input-section">
+					{% endif %}
+					<p class="form-label">Ingredients</p>
+					<input type="text" class="form-control form-control-lg mb-2" id="ingredient-field" placeholder="Ingredient">
+					<small class="mb-2" id="ingredient-input-prompt">You can only use characters A-Z, 0-9, and spaces</small>
+					<!-- Dynamically add to ingredients list in recipe-form.js -->
+					<template id="ingredient-template">
+						<div class="input-group">
+							<input class="form-control form-control-lg" readonly required />
+							<button type="button" class="btn btn-outline-warning">Edit</button>
+							<button type="button" class="btn btn-outline-danger">Delete</button>
+						</div>
+					</template>
+				</div>
+				<button id="add-ingredient" type="button" class="btn btn-primary mt-1 mb-2">Add Ingredient</button>
+				{% if recipe_instructions %}
+				<div class="form-group" id="instruction-input-section" data-existing-instructions={{
+					recipe_instructions|tojson|safe }}>
+					{% else %}
+					<div class="form-group" id="instruction-input-section">
+						{% endif %}
+						<p class="form-label">Instructions</p>
+						<input type="text" class="form-control form-control-lg mb-2" id="instruction-field"
+							placeholder="Instruction">
+						<small class="mb-2" id="instruction-input-prompt">You can only use characters A-Z, 0-9, and spaces</small>
+						<!-- Dynamically add to instruction list in recipe-form.js -->
+						<template id="instruction-template">
+							<div class="input-group">
+								<input class="form-control form-control-lg" readonly required />
+								<button type="button" class="btn btn-outline-warning">Edit</button>
+								<button type="button" class="btn btn-outline-danger">Delete</button>
+							</div>
+						</template>
+					</div>
+					<button id="add-instruction" type="button" class="btn btn-primary mt-1 mb-2">Add Instruction</button>
+
+					<!--Cupcake avatar -->
+					<div class="cupcake-avatar-container">
+						<h2>Customise your recipe avatar!</h2>
+						<div class="cupcake-avatar container-fluid">
+							{% include "components/cupcake-logo.svg" %}
+						</div>
+						<!-- The original colour picker is made by Sjoerd de Boer and available at https://codepen.io/sjoerddeboer/pen/xxZqBQW -->
+						<p class="form-label">Pick a colour for your cupcake!</p>
+						<div id="color-picker" class="color-picker" data-existing-color={{ recipe_color|tojson|safe }}>
+							<label class="color-picker-option">
+								<input class="color-radio" type="radio" name="radio" value="#E8C0D9" aria-label="Pink colour">
+								<span class="checkmark"></span>
+							</label>
+							<label class="color-picker-option">
+								<input class="color-radio" type="radio" name="radio" value="#90C2E7" aria-label="Blue colour">
+								<span class="checkmark"></span>
+							</label>
+							<label class="color-picker-option">
+								<input class="color-radio" type="radio" name="radio" value="#F8F1C0" aria-label="Yellow colour">
+								<span class="checkmark"></span>
+							</label>
+							<label class="color-picker-option">
+								<input class="color-radio" type="radio" name="radio" value="#B2D8D7" aria-label="Green colour">
+								<span class="checkmark"></span>
+							</label>
+							<label class="color-picker-option">
+								<input class="color-radio" type="radio" name="radio" value="#E95D6B" aria-label="Red colour">
+								<span class="checkmark"></span>
+							</label>
+							<label class="color-picker-option">
+								<input class="color-radio" type="radio" name="radio" value="#E9A586" aria-label="Orange colour">
+								<span class="checkmark"></span>
+							</label>
+							<label class="color-picker-option">
+								<input class="color-radio" type="radio" name="radio" value="#A4A4A2" aria-label="Grey colour">
+								<span class="checkmark"></span>
+							</label>
+							<label class="color-picker-option">
+								<input class="color-radio" type="radio" name="radio" value="#FFFFFF" aria-label="White colour">
+								<span class="checkmark"></span>
+							</label>
+						</div>
+						<br>
+						<button type="submit" aria-label="Save" class="btn btn-primary mb-2">Save Recipe</button>
+					</div>
+				</div>
+	</form>
 </section>

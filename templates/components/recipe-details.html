@@ -3,62 +3,63 @@
 
 <!-- Recipe Details Section-->
 <section class="page-section" id="recipe-detail-header">
-    <div class="container">
-        <!-- Recipe Details Section Heading-->
-        <h2 class="
-   page-section-heading
-   text-center text-uppercase text-secondary
-   mb-0
- ">Let's bake this cupcake!
-        </h2>
-        <!-- Icon Divider-->
-        <div class="divider-custom">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-            <div class="divider-custom-line"></div>
-        </div>
-</div>
+	<div class="container">
+		<!-- Recipe Details Section Heading-->
+		<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+			Let's bake this cupcake!
+		</h2>
+		<!-- Icon Divider-->
+		<div class="divider-custom">
+			<div class="divider-custom-line"></div>
+			<div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+			<div class="divider-custom-line"></div>
+		</div>
+	</div>
 </section>
 <!--Recipe details card -->
 <section class="container-fluid details-body">
-    <div class="row">
-      <!-- Recipe text-->
-      <div class="col-12 col-sm-6 mx-auto">
-        <div class="d-flex flex-column h-100 justify-content-center">
-        </br>
-            <h2>{{ name }}</h2>
-            <br />
-            <p>Created by <a href="{{url_for('user_recipes', user_id=author_id)}}">{{ author_name|title }}</a></p>
-            <h3>Ingredients</h3>
-            <ul>
-            {% for ingredient in ingredients %}
-            <li>{{ ingredient }}</li>
-            {% endfor %}
-            </ul>
-            <br />
-            <h3>Instructions</h3>
-            <ol>
-              {% for instruction in instructions %}
-                <li>{{ instruction }}</li>
-              {% endfor %}
-            </ol>
-            </br>
-            <div class="container">
-              <div class="row d-flex justify-content-evenly">
-            <!--The original Facebook share button by Justin Cron, available at: https://codepen.io/justincron/pen/ZEKbev -->
-            <a class="social-link btn btn-facebook col-12 col-md-5 col-xl-3 my-1" href="https://www.facebook.com/sharer.php?u={{request.url}}" rel="noopener"
-            target="_blank" aria-label="Share to Facebook"><i class="fab fa-facebook-f"></i> Share</a>
-            <a class="social-link btn btn-primary col-12 col-md-5 col-xl-3 my-1" href="{{url_for('recipes')}}">Go to recipes!</a>
-            {% if session["user"] == author_id or admin_access %}
-            <a class="social-link btn btn-edit col-12 col-md-5 col-xl-3 my-1" href="{{url_for('edit_recipe', recipe_id=id)}}">Edit Recipe</a>
-            <a class="social-link btn btn-delete col-12 col-md-5 col-xl-3 my-1" id="delete-recipe-button" data-delete-link="{{url_for('delete_recipe', recipe_id=id)}}">Delete Recipe</a>
-            {% endif %}
-              </div>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
+	<div class="row">
+		<!-- Recipe text-->
+		<div class="col-12 col-sm-6 mx-auto">
+			<div class="d-flex flex-column h-100 justify-content-center">
+				</br>
+				<h2>{{ name }}</h2>
+				<br />
+				<p>Created by <a href="{{url_for('user_recipes', user_id=author_id)}}">{{ author_name|title }}</a></p>
+				<h3>Ingredients</h3>
+				<ul>
+					{% for ingredient in ingredients %}
+					<li>{{ ingredient }}</li>
+					{% endfor %}
+				</ul>
+				<br />
+				<h3>Instructions</h3>
+				<ol>
+					{% for instruction in instructions %}
+					<li>{{ instruction }}</li>
+					{% endfor %}
+				</ol>
+				</br>
+				<div class="container">
+					<div class="row d-flex justify-content-evenly">
+						<!--The original Facebook share button by Justin Cron, available at: https://codepen.io/justincron/pen/ZEKbev -->
+						<a class="social-link btn btn-facebook col-12 col-md-5 col-xl-3 my-1"
+							href="https://www.facebook.com/sharer.php?u={{request.url}}" rel="noopener" target="_blank"
+							aria-label="Share to Facebook"><i class="fab fa-facebook-f"></i> Share</a>
+						<a class="social-link btn btn-primary col-12 col-md-5 col-xl-3 my-1" href="{{url_for('recipes')}}">Go to
+							recipes!</a>
+						{% if session["user"] == author_id or admin_access %}
+						<a class="social-link btn btn-edit col-12 col-md-5 col-xl-3 my-1"
+							href="{{url_for('edit_recipe', recipe_id=id)}}">Edit Recipe</a>
+						<a class="social-link btn btn-delete col-12 col-md-5 col-xl-3 my-1" id="delete-recipe-button"
+							data-delete-link="{{url_for('delete_recipe', recipe_id=id)}}">Delete Recipe</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 {% endblock %}
 
