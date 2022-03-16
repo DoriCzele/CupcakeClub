@@ -11,8 +11,9 @@ The website has a user-friendly layout and provides easy access to all necessary
 
 Thank you for visiting!
 
-Should you have any questions regarding my project feel free to reach out to me via the provided GitHub contact details.
+Should you have any questions regarding my project feel free to reach out to me via the provided GitHub contact details.  
 
+At the time of submission of this project the deployed version is identical to the latest development version of the "main" branch.  
 ## Table of contents 
 - [**The Cupcake Club**](#the-cupcake-club)
   - [**Goal for this project**](#goal-for-this-project)
