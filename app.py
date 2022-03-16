@@ -206,6 +206,7 @@ def logout():
     """Remove user from session and redirect to Home"""
     if bool("user" in session):
         del session["user"]
+    flash("Thank you for visiting, we hope to see you back soon!")
     return redirect(url_for("home"))
 
 
